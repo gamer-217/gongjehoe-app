@@ -15,6 +15,18 @@ main{max-width:760px;margin:24px auto;padding:0 16px}
 .mut{color:var(--mut);font-size:13px}.tag{background:var(--g2);color:var(--g);border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700}
 .btn{display:block;width:100%;background:var(--g);color:#fff;border:0;border-radius:10px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px}
 .todo{opacity:.55;border:1px dashed #9ab}
+.sub{display:flex;gap:8px;margin-bottom:14px}
+.sub button{flex:1;border:1px solid #cdd;background:#fff;color:#1a1a1a;padding:9px;border-radius:10px;cursor:pointer;font-weight:700}
+.sub button.on{background:var(--g);color:#fff;border-color:var(--g)}
+.gh{font-size:13px;font-weight:800;color:var(--g);margin:16px 2px 6px}
+.cov{background:#fff;border-radius:14px;padding:4px 16px;box-shadow:0 1px 4px #0001}
+.cr{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #eee;align-items:baseline}
+.cr:last-child{border-bottom:0}
+.cr .nm{font-weight:700;min-width:0}
+.cr .nt{color:var(--mut);font-size:12px;margin-top:2px}
+.st{margin-left:auto;font-size:11px;font-weight:800;border-radius:6px;padding:2px 8px;white-space:nowrap}
+.st.on{background:var(--g2);color:var(--g)}.st.opt{background:#FFF3D6;color:#8a6100}
+.st.x{background:#eee;color:#777}.st.new{background:var(--g);color:#fff}
 </style></head><body>
 <header><h1>일하는 외국인 공제회 <span class="mut" style="color:#cfe">v0.1</span></h1>
 <nav>
@@ -36,10 +48,10 @@ const PARAMS = {
   avg_wage: 2610000,                          // 월 평균임금 (경기남부 '24 조사)
 };
 const WORKERS = [
-  { id:"W001", name:"Ramesh", country:"NP", lang:"ne", visa:"E-9", wage:2400000, months:36 },
-  { id:"W002", name:"Nguyen Van An", country:"VN", lang:"vi", visa:"E-9", wage:2610000, months:18 },
-  { id:"W003", name:"Siti Rahma", country:"ID", lang:"id", visa:"E-9", wage:2500000, months:52 },
-  { id:"W004", name:"김해란", country:"CN", lang:"ko", visa:"H-2", wage:2800000, months:70 },
+  { id:"W001", name:"Ramesh", country:"NP", lang:"ne", visa:"E-9", wage:2400000, months:36, nps:false },
+  { id:"W002", name:"Nguyen Van An", country:"VN", lang:"vi", visa:"E-9", wage:2610000, months:18, nps:false },
+  { id:"W003", name:"Siti Rahma", country:"ID", lang:"id", visa:"E-9", wage:2500000, months:52, nps:true },
+  { id:"W004", name:"김해란", country:"CN", lang:"ko", visa:"H-2", wage:2800000, months:70, nps:true },
 ];
 function account(w, p = PARAMS) {
   // 월복리 운용 가정의 단순 모형 (프로토 시연용)
@@ -55,20 +67,51 @@ function account(w, p = PARAMS) {
 }
 // ── i18n
 const STR = {
-  ko: { title:"일하는 외국인 공제회", myAccount:"내 계좌", total:"총 적립액", mine:"내 납부", boss:"사업주 기여", gain:"운용수익", simulate:"오늘 귀국하면", apply:"환급 신청", months:"개월 적립" },
-  en: { title:"Working Foreigner Mutual Fund", myAccount:"My Account", total:"Total Balance", mine:"My Contribution", boss:"Employer Contribution", gain:"Investment Return", simulate:"If I return home today", apply:"Claim Refund", months:"months saved" },
-  vi: { title:"Quỹ tương trợ lao động nước ngoài", myAccount:"Tài khoản của tôi", total:"Tổng số dư", mine:"Tôi đóng", boss:"Chủ sử dụng đóng", gain:"Lợi nhuận đầu tư", simulate:"Nếu về nước hôm nay", apply:"Yêu cầu hoàn trả", months:"tháng tích lũy" },
-  ne: { title:"विदेशी श्रमिक पारस्परिक कोष", myAccount:"मेरो खाता", total:"कुल रकम", mine:"मेरो योगदान", boss:"रोजगारदाताको योगदान", gain:"लगानी प्रतिफल", simulate:"आज घर फर्किए भने", apply:"फिर्ता दाबी", months:"महिना बचत" },
-  id: { title:"Dana Bersama Pekerja Asing", myAccount:"Akun Saya", total:"Total Saldo", mine:"Kontribusi Saya", boss:"Kontribusi Pemberi Kerja", gain:"Hasil Investasi", simulate:"Jika pulang hari ini", apply:"Klaim Pengembalian", months:"bulan menabung" },
+  ko: { tabAcct:"계좌", tabCover:"보장", now:"지금 나를 지키는 것", leave:"떠날 때 받는 것", gap:"비어 있는 자리", st_on:"적용", st_opt:"선택 가입", st_x:"제외", st_new:"제안", title:"일하는 외국인 공제회", myAccount:"내 계좌", total:"총 적립액", mine:"내 납부", boss:"사업주 기여", gain:"운용수익", simulate:"오늘 귀국하면", apply:"환급 신청", months:"개월 적립" },
+  en: { tabAcct:"Account", tabCover:"Coverage", now:"Protecting me now", leave:"When I leave", gap:"Gaps", st_on:"Covered", st_opt:"Optional", st_x:"Excluded", st_new:"Proposed", title:"Working Foreigner Mutual Fund", myAccount:"My Account", total:"Total Balance", mine:"My Contribution", boss:"Employer Contribution", gain:"Investment Return", simulate:"If I return home today", apply:"Claim Refund", months:"months saved" },
+  vi: { tabAcct:"Tài khoản", tabCover:"Bảo hiểm", now:"Đang bảo vệ tôi", leave:"Khi tôi về nước", gap:"Khoảng trống", st_on:"Áp dụng", st_opt:"Tự chọn", st_x:"Loại trừ", st_new:"Đề xuất", title:"Quỹ tương trợ lao động nước ngoài", myAccount:"Tài khoản của tôi", total:"Tổng số dư", mine:"Tôi đóng", boss:"Chủ sử dụng đóng", gain:"Lợi nhuận đầu tư", simulate:"Nếu về nước hôm nay", apply:"Yêu cầu hoàn trả", months:"tháng tích lũy" },
+  ne: { tabAcct:"खाता", tabCover:"सुरक्षा", now:"अहिले मलाई जोगाउने", leave:"फर्किंदा पाइने", gap:"खाली ठाउँ", st_on:"लागू", st_opt:"वैकल्पिक", st_x:"छुट", st_new:"प्रस्तावित", title:"विदेशी श्रमिक पारस्परिक कोष", myAccount:"मेरो खाता", total:"कुल रकम", mine:"मेरो योगदान", boss:"रोजगारदाताको योगदान", gain:"लगानी प्रतिफल", simulate:"आज घर फर्किए भने", apply:"फिर्ता दाबी", months:"महिना बचत" },
+  id: { tabAcct:"Akun", tabCover:"Perlindungan", now:"Melindungi saya sekarang", leave:"Saat saya pulang", gap:"Celah", st_on:"Berlaku", st_opt:"Opsional", st_x:"Dikecualikan", st_new:"Usulan", title:"Dana Bersama Pekerja Asing", myAccount:"Akun Saya", total:"Total Saldo", mine:"Kontribusi Saya", boss:"Kontribusi Pemberi Kerja", gain:"Hasil Investasi", simulate:"Jika pulang hari ini", apply:"Klaim Pengembalian", months:"bulan menabung" },
 };
+// ── 보장 지도 (출처: 근로복지공단 가입대상표 / easylaw 외국인근로자 전용보험 / 제안서·팩트체크원장)
+const COVERAGE = w => ({
+  now: [
+    ["산재보험","on","일하다 다치면 치료·보상 — 체류자격 무관 당연적용"],
+    ["건강보험","on","병원 진료 — 직장가입 당연적용"],
+    ["고용보험 · 직업훈련","on","고용안정·직업능력개발 — '21~'23 단계적 당연적용"],
+    ["고용보험 · 실업급여","opt","임의가입 — 신청해야 적용"],
+    ["상해보험 (전용)","on","업무 밖 상해·질병 — 근로자 가입 의무(외고법 §23)"],
+  ],
+  leave: [
+    ["일하는 외국인 공제회","new","개인계좌(본인 4%+사업주 2~4%+수익) — 출국 시 100% 환급 ★본 제안"],
+    ["출국만기보험","on","퇴직금 — 사업주 8.3% 적립(외고법 §13)"],
+    ["귀국비용보험","on","귀국 비용 — 근로자 적립(외고법 §15)"],
+  ],
+  gap: [
+    w.nps
+      ? ["국민연금","on","가입 중 — 10년 요건으로 수급 사실상 불가 → 반환일시금(원금+이자 2.2%)"]
+      : ["국민연금","x","가입 제외(상호주의) — 노후 보장 공백, 공제회가 이 자리를 채움"],
+    ["장기요양보험","x","수급 가능성 없는 부과 — 가입제외 신청 가능('26.5. 시행령)"],
+  ],
+});
+function coverView(w, t) {
+  const grp = (key, rows) => `<div class="gh">${t[key]}</div><div class="cov">` +
+    rows.map(([nm, st, nt]) => `<div class="cr"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="st ${st}">${t["st_" + st]}</span></div>`).join("") + `</div>`;
+  const c = COVERAGE(w);
+  return grp("now", c.now) + grp("leave", c.leave) + grp("gap", c.gap);
+}
 // ── app
 const won = n => "₩" + Math.round(n).toLocaleString("ko-KR");
 const $ = s => document.querySelector(s);
-let state = { role: "worker", workerId: "W001", lang: "ne" };
+let state = { role: "worker", workerId: "W001", lang: "ne", sub: "acct" };
 
 function workerView() {
   const w = WORKERS.find(x => x.id === state.workerId), t = STR[state.lang], a = account(w);
-  return `
+  const subnav = `<div class="sub"><button data-s="acct" class="${state.sub==="acct"?"on":""}">${t.tabAcct}</button><button data-s="cover" class="${state.sub==="cover"?"on":""}">${t.tabCover}</button></div>`;
+  if (state.sub === "cover") return subnav + `
+  <div class="card"><span class="tag">${w.visa} · ${w.country}</span>
+    <h2 style="margin:8px 0 2px">${w.name}</h2></div>` + coverView(w, t);
+  return subnav + `
   <div class="card"><span class="tag">${w.visa} · ${w.country}</span>
     <h2 style="margin:8px 0 2px">${w.name}</h2>
     <div class="mut">${w.months} ${t.months}</div></div>
@@ -88,7 +131,7 @@ function render() {
     : state.role === "employer" ? stub("사업주 포털 — 기여 현황·절감 계산") : stub("관리자 대시보드 — 기금·몬테카를로");
   document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.r === state.role));
 }
-document.addEventListener("click", e => { if (e.target.dataset.r) { state.role = e.target.dataset.r; render(); } });
+document.addEventListener("click", e => { if (e.target.dataset.r) { state.role = e.target.dataset.r; render(); } if (e.target.dataset.s) { state.sub = e.target.dataset.s; render(); } });
 $("#lang").addEventListener("change", e => { state.lang = e.target.value; render(); });
 $("#who").addEventListener("change", e => { state.workerId = e.target.value; state.lang = WORKERS.find(w=>w.id===e.target.value).lang; $("#lang").value = state.lang; render(); });
 $("#who").innerHTML = WORKERS.map(w => `<option value="${w.id}">${w.name}</option>`).join("");
