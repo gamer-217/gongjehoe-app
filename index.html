@@ -81,6 +81,20 @@ th.num{text-align:right}
 .divyear{background:var(--g2);border-radius:3px;padding:7px 8px;font-size:12px;font-weight:700;color:var(--g);margin:4px 0}
 svg.spark{display:block;margin:8px 0}
 .back{background:none;border:0;color:var(--mut);font-size:13px;cursor:pointer;padding:4px 0;margin-bottom:8px}
+.onb{display:flex;flex-direction:column;min-height:78vh;justify-content:center;padding:10px 4px}
+.logo{width:88px;height:88px;border:3px solid var(--g);border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;position:relative;background:#fff}
+.logo b{color:var(--g);font-size:30px;letter-spacing:-1px}
+.logo::after{content:"";position:absolute;inset:5px;border:1px solid var(--g);border-radius:50%;opacity:.4}
+.logo .mini{position:absolute;right:-9px;bottom:-6px;width:34px;height:34px;border:2px solid var(--red);border-radius:50%;color:var(--red);font-size:8.5px;font-weight:800;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg);background:#fff}
+.onb h1{text-align:center;font-size:21px;color:var(--ink)}
+.onb .promise{text-align:center;color:var(--mut);font-size:13.5px;margin:8px 0 26px}
+.langrow{display:flex;align-items:center;padding:13px 10px;border-bottom:1px solid var(--rule);cursor:pointer;font-size:14.5px;font-weight:600}
+.langrow:last-child{border-bottom:0}
+.langrow.sel{background:var(--g2);font-weight:800}
+.langrow .ck{margin-left:auto;color:var(--g);font-weight:800;opacity:0}
+.langrow.sel .ck{opacity:1}
+.onb .demo{text-align:center;font-size:12px;color:var(--mut);margin-top:18px}
+.onb .demo a{color:var(--g);font-weight:700;cursor:pointer;margin:0 6px;text-decoration:underline}
 @media(max-width:480px){.kpis{flex-direction:column}.kpis>div{border-right:0;border-bottom:1px solid var(--rule)}}
 </style></head><body>
 <header><h1>일하는 외국인 공제회 <span style="opacity:.6;font-weight:400;font-size:12px">prototype v0.3</span></h1>
@@ -111,11 +125,11 @@ function refundNow(w,months){if(!w.nps)return 0;
  const pr=w.wage*.09*months;return pr*(1+.022*(months/24));}
 // ───────── i18n ─────────
 const STR={
- ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기"},
- en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back"},
- vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại"},
- ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि"},
- id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali"}};
+ ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호"},
+ en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No."},
+ vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài"},
+ ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर"},
+ id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing"}};
 // ───────── 보장 지도 (출처: 근로복지공단·easylaw·제안서 원장) ─────────
 const COVERAGE=w=>({
  now:[["산재보험","on","일하다 다치면 치료·보상 — 체류자격 무관 당연적용"],
@@ -135,9 +149,22 @@ const fmt=n=>Math.round(n).toLocaleString("ko-KR");
 const won=n=>`<span class="won">₩</span>${fmt(n)}`;
 const BASE_Y=2026,BASE_M=9; // 최신 납입월(시연 기준)
 function ymOf(w,k){const t=BASE_Y*12+(BASE_M-1)-(w.months-k);return[Math.floor(t/12),t%12+1];}
-let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null};
+let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false};
 const W=()=>WORKERS.find(x=>x.id===state.workerId);
 const T=()=>STR[state.lang];
+// ───────── 온보딩 (A1) ─────────
+const LANGS=[["ko","한국어"],["en","English"],["vi","Tiếng Việt"],["ne","नेपाली"],["id","Bahasa Indonesia"]];
+function vOnboard(t){
+ return `<div class="onb">
+  <div class="logo"><b>공</b><span class="mini">확인</span></div>
+  <h1>일하는 외국인 공제회</h1>
+  <div class="promise">${t.promise}</div>
+  <div class="book" style="margin-bottom:18px">${LANGS.map(([c,n])=>
+    `<div class="langrow ${state.lang===c?"sel":""}" data-lang="${c}">${n}<span class="ck">✓</span></div>`).join("")}</div>
+  <div class="field"><label>${t.idlabel}</label><input value="900101-5•••••••" disabled></div>
+  <button class="btn" data-go="enter">${t.start}</button>
+  <div class="demo">데모: <a data-enter-role="employer">사업주 포털</a>·<a data-enter-role="admin">관리자</a></div>
+ </div>`;}
 // ───────── 근로자 화면 ─────────
 function vAcct(w,t){const a=account(w);const[y,m]=ymOf(w,w.months);
  return `
@@ -284,8 +311,10 @@ function vAdmin(){
 // ───────── 렌더 ─────────
 function render(){
  const w=W(),t=T();
+ document.querySelector("nav").style.display=state.entered?"flex":"none";
  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.r===state.role));
  const v=$("#view");
+ if(!state.entered){v.className="mobile";v.innerHTML=vOnboard(t);return;}
  if(state.role==="employer"){v.className="";v.innerHTML=vEmployer();return;}
  if(state.role==="admin"){v.className="";v.innerHTML=vAdmin();return;}
  v.className="mobile";
@@ -300,11 +329,14 @@ function render(){
  if(r)r.addEventListener("input",e=>{state.simM=+e.target.value;render();});
 }
 document.addEventListener("click",e=>{
- const el=e.target.closest("[data-r],[data-w],[data-go]");if(!el)return;
+ const el=e.target.closest("[data-r],[data-w],[data-go],[data-lang],[data-enter-role]");if(!el)return;
+ if(el.dataset.lang){state.lang=el.dataset.lang;$("#lang").value=state.lang;render();return;}
+ if(el.dataset.enterRole){state.entered=true;state.role=el.dataset.enterRole;render();return;}
  if(el.dataset.r){state.role=el.dataset.r;state.wtab="acct";render();return;}
  if(el.dataset.w){state.wtab=el.dataset.w;state.simM=null;render();return;}
  const g=el.dataset.go;
- if(g==="sim"){state.wtab="sim";state.simM=W().months;}
+ if(g==="enter"){state.entered=true;state.role="worker";state.wtab="acct";}
+ else if(g==="sim"){state.wtab="sim";state.simM=W().months;}
  else if(g==="apply"){state.wtab="apply";state.step=1;state.sec=false;}
  else if(g==="apply1"){state.step=1;state.sec=false;}
  else if(g==="step2"){state.step=2;state.sec=false;}
