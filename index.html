@@ -95,6 +95,16 @@ svg.spark{display:block;margin:8px 0}
 .langrow.sel .ck{opacity:1}
 .onb .demo{text-align:center;font-size:12px;color:var(--mut);margin-top:18px}
 .onb .demo a{color:var(--g);font-weight:700;cursor:pointer;margin:0 6px;text-decoration:underline}
+.cr.tap{cursor:pointer}
+.cdetail{font-size:12.5px;color:var(--ink);background:var(--paper);border-left:3px solid var(--g);padding:10px 12px;margin:2px 0 10px;line-height:1.65;border-radius:0 6px 6px 0}
+.tl{display:flex;align-items:flex-start;margin:18px 0 6px}
+.tl>div{flex:1;text-align:center;position:relative;font-size:10.5px;color:var(--mut);line-height:1.45}
+.tl>div::before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:#fff;border:2.5px solid var(--g);margin:0 auto 6px;position:relative;z-index:1}
+.tl>div::after{content:"";position:absolute;top:5px;left:50%;width:100%;height:2px;background:var(--rule)}
+.tl>div:last-child::after{display:none}
+.tl b{display:block;color:var(--ink);font-size:11.5px}
+.jump{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.jump button{border:1px solid var(--g);background:#fff;color:var(--g);border-radius:6px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer}
 @media(max-width:480px){.kpis{flex-direction:column}.kpis>div{border-right:0;border-bottom:1px solid var(--rule)}}
 </style></head><body>
 <header><h1>일하는 외국인 공제회 <span style="opacity:.6;font-weight:400;font-size:12px">prototype v0.3</span></h1>
@@ -125,31 +135,91 @@ function refundNow(w,months){if(!w.nps)return 0;
  const pr=w.wage*.09*months;return pr*(1+.022*(months/24));}
 // ───────── i18n ─────────
 const STR={
- ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호"},
- en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No."},
- vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài"},
- ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर"},
- id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing"}};
-// ───────── 보장 지도 (출처: 근로복지공단·easylaw·제안서 원장) ─────────
-const COVERAGE=w=>({
- now:[["산재보험","on","일하다 다치면 치료·보상 — 체류자격 무관 당연적용"],
-  ["건강보험","on","병원 진료 — 직장가입 당연적용"],
-  ["고용보험 · 직업훈련","on","고용안정·직능개발 — '21~'23 단계적 당연적용"],
-  ["고용보험 · 실업급여","opt","임의가입 — 신청해야 적용"],
-  ["상해보험 (전용)","on","업무 밖 상해·질병 — 근로자 가입 의무(외고법 §23)"]],
- leave:[["일하는 외국인 공제회","new","개인계좌(본인 4%+사업주 2~4%+수익) — 출국 시 100% 환급 ★본 제안"],
-  ["출국만기보험","on","퇴직금 — 사업주 8.3% 적립(외고법 §13)"],
-  ["귀국비용보험","on","귀국 비용 — 근로자 적립(외고법 §15)"]],
- gap:[w.nps?["국민연금","on","가입 중 — 10년 요건으로 수급 사실상 불가 → 반환일시금(원금+이자 2.2%)"]
-         :["국민연금","x","가입 제외(상호주의) — 노후 보장 공백, 공제회가 이 자리를 채움"],
-  ["장기요양보험","x","수급 가능성 없는 부과 — 가입제외 신청 가능('26.5. 시행령)"]]});
+ ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호",cur:"현재 구간",today:"오늘",mat:"만기"},
+ en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No.",cur:"current step",today:"Today",mat:"Maturity"},
+ vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài",cur:"giai đoạn hiện tại",today:"Hôm nay",mat:"Đáo hạn"},
+ ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर",cur:"अहिलेको चरण",today:"आज",mat:"परिपक्वता"},
+ id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing",cur:"tahap saat ini",today:"Hari ini",mat:"Jatuh tempo"}};
+// ───────── 보장 지도 — 5개 언어 (출처: 근로복지공단·easylaw·제안서 원장) ─────────
+// [이름, 한줄, 자세히] × ko/en/vi/ne/id
+const COV={
+ sanjae:{st:"on",t:{
+  ko:["산재보험","일하다 다치면 치료·보상","일하다 다치거나 아프면 치료비와 보상금을 받습니다. 비자와 상관없이 모든 근로자가 자동 가입입니다. 보험료는 회사가 전액 냅니다."],
+  en:["Industrial Accident Insurance","Covers work injuries","If you are hurt or get sick at work, treatment and compensation are covered. Automatic for all workers regardless of visa. The employer pays the full premium."],
+  vi:["Bảo hiểm tai nạn lao động","Bồi thường khi bị thương do công việc","Nếu bạn bị thương hoặc ốm do công việc, chi phí điều trị và bồi thường được chi trả. Tự động áp dụng cho mọi lao động, công ty trả toàn bộ phí."],
+  ne:["औद्योगिक दुर्घटना बीमा","काममा चोट लागे उपचार र क्षतिपूर्ति","काममा चोट लागे वा बिरामी भए उपचार खर्च र क्षतिपूर्ति पाइन्छ। भिसा जुनसुकै भए पनि स्वतः लागू हुन्छ। शुल्क कम्पनीले तिर्छ।"],
+  id:["Asuransi Kecelakaan Kerja","Menanggung cedera kerja","Jika Anda terluka atau sakit karena pekerjaan, biaya pengobatan dan kompensasi ditanggung. Otomatis untuk semua pekerja, premi dibayar perusahaan."]}},
+ geonbo:{st:"on",t:{
+  ko:["건강보험","병원 진료를 건강보험 가격으로","회사에 다니면 자동 가입됩니다. 보험료는 나와 회사가 절반씩 냅니다. 병원과 약국에서 치료비를 크게 할인받습니다."],
+  en:["Health Insurance","Hospital care at insured prices","Automatic when employed. You and your employer each pay half the premium. Hospitals and pharmacies cost much less."],
+  vi:["Bảo hiểm y tế","Khám chữa bệnh giá bảo hiểm","Tự động tham gia khi đi làm. Bạn và công ty mỗi bên trả một nửa phí. Chi phí bệnh viện, nhà thuốc giảm nhiều."],
+  ne:["स्वास्थ्य बीमा","अस्पताल उपचार सस्तो मूल्यमा","काम गर्दा स्वतः सामेल हुन्छ। शुल्क तपाईं र कम्पनीले आधा-आधा तिर्छन्। अस्पताल र औषधि निकै सस्तो पर्छ।"],
+  id:["Asuransi Kesehatan","Berobat dengan harga asuransi","Otomatis saat bekerja. Anda dan perusahaan membayar premi setengah-setengah. Biaya rumah sakit dan apotek jauh lebih murah."]}},
+ goyong1:{st:"on",t:{
+  ko:["고용보험 · 직업훈련","직업훈련·고용유지 지원","보험료는 회사만 냅니다. 직업훈련을 받을 수 있고, 회사가 어려울 때 고용유지 지원을 받습니다. 자동 가입입니다."],
+  en:["Employment Ins. · Training","Job training support","Premium paid by employer only. You can receive job training, and employment-retention support in downturns. Automatic."],
+  vi:["BH việc làm · Đào tạo","Hỗ trợ đào tạo nghề","Phí do công ty trả. Bạn có thể được đào tạo nghề và hỗ trợ giữ việc khi công ty khó khăn. Tự động áp dụng."],
+  ne:["रोजगार बीमा · तालिम","सीप तालिम सहयोग","शुल्क कम्पनीले मात्र तिर्छ। सीप तालिम पाइन्छ, कम्पनी समस्यामा पर्दा रोजगार जोगाउने सहयोग मिल्छ। स्वतः लागू।"],
+  id:["Asuransi Kerja · Pelatihan","Dukungan pelatihan kerja","Premi dibayar perusahaan saja. Anda bisa ikut pelatihan kerja dan dukungan mempertahankan pekerjaan. Otomatis."]}},
+ goyong2:{st:"opt",t:{
+  ko:["고용보험 · 실업급여","신청하면 가입 — 실직 시 구직급여","원하면 신청해서 가입합니다. 가입하면 보험료를 내고, 일자리를 잃었을 때 구직급여를 받을 수 있습니다. 신청하지 않으면 받을 수 없습니다."],
+  en:["Employment Ins. · Unemployment benefit","Optional — enroll to be covered","You may enroll if you wish. Once enrolled you pay a premium and can receive job-seeking benefits if you lose your job. No enrollment, no benefit."],
+  vi:["BH việc làm · Trợ cấp thất nghiệp","Tự chọn — đăng ký mới được hưởng","Bạn có thể đăng ký nếu muốn. Khi tham gia, bạn đóng phí và được trợ cấp tìm việc nếu mất việc. Không đăng ký thì không được hưởng."],
+  ne:["रोजगार बीमा · बेरोजगार भत्ता","वैकल्पिक — निवेदन दिए मात्र","चाहेमा निवेदन दिएर सामेल हुन सकिन्छ। सामेल भए शुल्क तिर्नुपर्छ र काम गुमाए भत्ता पाइन्छ। निवेदन नदिए पाइँदैन।"],
+  id:["Asuransi Kerja · Tunjangan PHK","Opsional — daftar dulu","Anda boleh mendaftar jika mau. Setelah terdaftar, Anda bayar premi dan bisa dapat tunjangan saat kehilangan kerja. Tanpa daftar, tanpa tunjangan."]}},
+ sanghae:{st:"on",t:{
+  ko:["상해보험 (전용)","일 밖에서 다칠 때 대비","업무 밖 사고·질병·사망에 대비하는 보험입니다. 외국인 근로자가 의무로 가입합니다(외국인고용법 제23조)."],
+  en:["Personal Accident Ins.","Covers off-duty injuries","Covers accidents, illness and death outside work. Mandatory for foreign workers (Foreign Workers Act §23)."],
+  vi:["BH tai nạn cá nhân","Rủi ro ngoài giờ làm","Bảo hiểm cho tai nạn, bệnh tật, tử vong ngoài công việc. Lao động nước ngoài bắt buộc tham gia (Luật §23)."],
+  ne:["दुर्घटना बीमा (विशेष)","काम बाहिरको जोखिम","काम बाहिरको दुर्घटना, रोग, मृत्युका लागि बीमा। विदेशी कामदारले अनिवार्य सामेल हुनुपर्छ (ऐन §23)।"],
+  id:["Asuransi Kecelakaan Diri","Risiko di luar kerja","Menanggung kecelakaan, sakit, kematian di luar pekerjaan. Wajib bagi pekerja asing (UU §23)."]}},
+ gongje:{st:"new",t:{
+  ko:["일하는 외국인 공제회","내 계좌 — 출국 시 100% 환급 ★본 제안","매달 내 4%와 회사 2~4%가 내 이름의 계좌에 쌓입니다. 한국을 떠날 때 전부 돌려받고, 장기체류로 바꾸면 국민연금으로 이어집니다. (제안 중인 제도)"],
+  en:["Working Foreigner Fund","My account — 100% refund ★proposal","Each month your 4% and the employer's 2–4% go into an account in your name. You get it all back when you leave Korea; if you switch to long-term stay it transfers to the National Pension. (Proposed)"],
+  vi:["Quỹ tương trợ LĐ nước ngoài","Tài khoản của tôi — hoàn 100% ★đề xuất","Mỗi tháng 4% của bạn và 2–4% của công ty vào tài khoản mang tên bạn. Khi rời Hàn Quốc nhận lại toàn bộ; nếu chuyển cư trú dài hạn, chuyển sang Quỹ hưu trí quốc gia. (Đang đề xuất)"],
+  ne:["श्रमिक पारस्परिक कोष","मेरो खाता — १००% फिर्ता ★प्रस्ताव","हरेक महिना तपाईंको ४% र कम्पनीको २–४% तपाईंकै नाममा जम्मा हुन्छ। कोरिया छोड्दा सबै फिर्ता; दीर्घ बसाइमा गए राष्ट्रिय पेन्सनमा सर्छ। (प्रस्तावित)"],
+  id:["Dana Pekerja Asing","Akun saya — 100% kembali ★usulan","Tiap bulan 4% Anda dan 2–4% perusahaan masuk ke akun atas nama Anda. Saat meninggalkan Korea semuanya kembali; jika pindah izin tinggal jangka panjang, dialihkan ke Pensiun Nasional. (Usulan)"]}},
+ chulguk:{st:"on",t:{
+  ko:["출국만기보험","퇴직금 — 회사가 8.3% 적립","회사가 매달 월급의 8.3%를 적립합니다. 출국할 때 퇴직금으로 받습니다(외국인고용법 제13조)."],
+  en:["Departure Guarantee Ins.","Severance — employer saves 8.3%","The employer sets aside 8.3% of your wage monthly. Paid as severance when you depart (Act §13)."],
+  vi:["BH mãn hạn xuất cảnh","Trợ cấp thôi việc — 8,3%","Công ty tích lũy 8,3% lương mỗi tháng. Nhận như trợ cấp thôi việc khi xuất cảnh (Luật §13)."],
+  ne:["प्रस्थान बीमा","सेवा सुविधा — ८.३%","कम्पनीले मासिक तलबको ८.३% जम्मा गर्छ। देश छोड्दा सेवा सुविधाका रूपमा पाइन्छ (ऐन §13)।"],
+  id:["Asuransi Kepulangan","Pesangon — 8,3%","Perusahaan menyisihkan 8,3% gaji tiap bulan. Dibayar sebagai pesangon saat Anda pulang (UU §13)."]}},
+ gwiguk:{st:"on",t:{
+  ko:["귀국비용보험","귀국 비행기값 적립","내가 조금씩 적립해 두었다가 귀국할 때 찾아서 씁니다(외국인고용법 제15조)."],
+  en:["Return Cost Ins.","Savings for your trip home","You save a small amount, then withdraw it for your return trip (Act §15)."],
+  vi:["BH chi phí về nước","Tiết kiệm vé về nước","Bạn tích lũy một khoản nhỏ, rút ra dùng khi về nước (Luật §15)."],
+  ne:["फिर्ती खर्च बीमा","घर फर्किने खर्च बचत","थोरै-थोरै जम्मा गरेर घर फर्किंदा झिकेर प्रयोग गर्नुहुन्छ (ऐन §15)।"],
+  id:["Asuransi Biaya Pulang","Tabungan ongkos pulang","Anda menabung sedikit demi sedikit, lalu diambil saat pulang (UU §15)."]}},
+ nps_on:{st:"on",t:{
+  ko:["국민연금","가입 중 — 10년 요건으로 수급 사실상 불가","보험료를 내고 있지만 연금을 받으려면 10년 납부가 필요합니다. E-9 체류로는 채우기 어렵습니다. 출국하면 원금+이자(2.2%)만 돌려받습니다."],
+  en:["National Pension","Enrolled — but 10-yr rule blocks benefits","You pay premiums, but a pension requires 10 years of contributions — hard on an E-9 stay. On departure you get only principal + 2.2% interest."],
+  vi:["Hưu trí quốc gia","Đang đóng — khó hưởng vì quy định 10 năm","Bạn đang đóng phí nhưng lương hưu cần 10 năm đóng — khó đạt với visa E-9. Khi xuất cảnh chỉ nhận lại gốc + lãi 2,2%."],
+  ne:["राष्ट्रिय पेन्सन","तिर्दै — तर १० वर्षे नियमले पाउन कठिन","शुल्क तिर्दै हुनुहुन्छ तर पेन्सनका लागि १० वर्ष चाहिन्छ — E-9 बसाइमा कठिन। फर्किंदा साँवा + २.२% ब्याज मात्र फिर्ता।"],
+  id:["Pensiun Nasional","Terdaftar — aturan 10 thn menghalangi","Anda membayar premi, tetapi pensiun butuh 10 tahun iuran — sulit dengan visa E-9. Saat pulang hanya pokok + bunga 2,2%."]}},
+ nps_off:{st:"x",t:{
+  ko:["국민연금","가입 제외(상호주의) — 노후 적립 없음","출신국과의 상호주의 때문에 국민연금에 가입되지 않습니다. 지금은 노후를 위한 적립이 전혀 없습니다. 공제회가 이 빈자리를 채우는 제안입니다."],
+  en:["National Pension","Excluded (reciprocity) — no retirement savings","Due to reciprocity rules with your home country, you are not enrolled. You currently have no retirement savings at all. The Fund proposal fills this gap."],
+  vi:["Hưu trí quốc gia","Bị loại trừ — không có tích lũy hưu trí","Do nguyên tắc có đi có lại với nước bạn, bạn không được tham gia. Hiện bạn không có khoản tích lũy hưu trí nào. Quỹ tương trợ được đề xuất để lấp chỗ trống này."],
+  ne:["राष्ट्रिय पेन्सन","बहिष्कृत — बुढेसकालको बचत शून्य","आफ्नो देशसँगको पारस्परिकता नियमका कारण तपाईं सामेल हुनुहुन्न। अहिले बुढेसकालका लागि कुनै बचत छैन। यही खाली ठाउँ भर्न कोष प्रस्ताव गरिएको हो।"],
+  id:["Pensiun Nasional","Dikecualikan — tanpa tabungan pensiun","Karena aturan timbal balik dengan negara asal, Anda tidak terdaftar. Saat ini Anda tidak punya tabungan pensiun sama sekali. Dana ini diusulkan untuk mengisi kekosongan itu."]}},
+ janggi:{st:"x",t:{
+  ko:["장기요양보험","수급 가능성 없는 부과 — 제외 신청 가능","노인 돌봄을 위한 보험이지만 단기 체류자는 혜택받을 가능성이 없습니다. 가입제외를 신청할 수 있습니다('26.5. 시행령)."],
+  en:["Long-term Care Ins.","No realistic benefit — opt-out available","Insurance for elderly care, but short-term workers have no realistic chance of benefits. You may apply for exemption (2026.5 decree)."],
+  vi:["BH chăm sóc dài hạn","Khó hưởng — có thể xin miễn","Bảo hiểm chăm sóc người già, nhưng lao động ngắn hạn gần như không thể hưởng. Có thể xin miễn tham gia (nghị định 5/2026)."],
+  ne:["दीर्घ स्याहार बीमा","लाभको सम्भावना छैन — छुट माग्न सकिन्छ","वृद्ध स्याहारको बीमा हो तर छोटो बसाइकाले लाभ पाउने सम्भावना छैन। छुटका लागि निवेदन दिन सकिन्छ (२०२६.५)।"],
+  id:["Asuransi Perawatan Lansia","Hampir mustahil dinikmati — bisa minta pengecualian","Asuransi perawatan lansia, tetapi pekerja jangka pendek hampir tak mungkin menikmatinya. Bisa mengajukan pengecualian (dekret 5/2026)."]}}
+};
+const COV_ORDER=w=>({now:["sanjae","geonbo","goyong1","goyong2","sanghae"],
+ leave:["gongje","chulguk","gwiguk"],
+ gap:[w.nps?"nps_on":"nps_off","janggi"]});
 // ───────── 유틸 ─────────
 const $=s=>document.querySelector(s);
 const fmt=n=>Math.round(n).toLocaleString("ko-KR");
 const won=n=>`<span class="won">₩</span>${fmt(n)}`;
 const BASE_Y=2026,BASE_M=9; // 최신 납입월(시연 기준)
 function ymOf(w,k){const t=BASE_Y*12+(BASE_M-1)-(w.months-k);return[Math.floor(t/12),t%12+1];}
-let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false};
+let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false,covOpen:null};
 const W=()=>WORKERS.find(x=>x.id===state.workerId);
 const T=()=>STR[state.lang];
 // ───────── 온보딩 (A1) ─────────
@@ -173,7 +243,7 @@ function vAcct(w,t){const a=account(w);const[y,m]=ymOf(w,w.months);
  <div class="hero"><div class="lbl">${t.total}</div><div class="big">${won(a.total)}</div></div>
  <div class="book">
    <div class="row"><span class="nm">${t.mine} (4%)</span><span class="leader"></span><span class="amt">${fmt(a.me)}</span></div>
-   <div class="row"><span class="nm">${t.boss} (2→4%)</span><span class="leader"></span><span class="amt">${fmt(a.emp)}</span></div>
+   <div class="row"><div><div class="nm">${t.boss} (2→4%)</div><div class="nt">${t.cur}: ${(PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]*100).toFixed(0)}% · ${Math.min(Math.floor((w.months-1)/24),2)===2?"49":Math.floor((w.months-1)/24)*24+1+"~"+(Math.floor((w.months-1)/24)+1)*24}${Math.min(Math.floor((w.months-1)/24),2)===2?"개월차~":"개월차"}</div></div><span class="leader"></span><span class="amt">${fmt(a.emp)}</span></div>
    <div class="row"><span class="nm">${t.gain}</span><span class="leader"></span><span class="amt">${fmt(a.gain)}</span></div>
    <div class="row"><div><div class="nm">${y}.${String(m).padStart(2,"0")}</div><div class="nt">${fmt(w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]))}원</div></div>
      <div class="stamp" style="margin-left:auto"><span>공제회</span><b>${t.paid}</b><span>${m}月</span></div></div>
@@ -209,7 +279,8 @@ function vSim(w,t){const m=state.simM??w.months;const a=account(w,m);const ref=r
  <div class="profile"><h2>${t.simulate}</h2></div>
  <div class="hero"><div class="lbl">${m} ${t.months}</div><div class="big">${won(a.total)}</div></div>
  <div class="jl"><input type="range" id="simr" min="1" max="${PARAMS.maturity}" value="${m}" style="background:linear-gradient(90deg,var(--g) ${pct}%,var(--rule) ${pct}%)">
-   <div class="jlbl"><span>입국</span><span>오늘(${w.months}개월)</span><span>만기 ${PARAMS.maturity}개월</span></div></div>
+   <div class="jlbl"><span>입국</span><span>${t.today}(${w.months})</span><span>${t.mat} ${PARAMS.maturity}</span></div>
+ <div class="jump"><button data-go="simToday">${t.today}</button><button data-go="simMat">${t.mat}</button></div></div>
  <div class="bars">
    <div class="gh">공제회 (사업주 기여 포함)</div>
    <div class="bar" style="width:100%">₩${fmt(a.total)}</div>
@@ -242,7 +313,15 @@ function vBridge(w,t){const a=account(w);
    <div><div style="font-size:26px">✈️</div><div class="t">귀국</div><div class="d">100% 환급<br>출국 확인 후 3일 내 지급</div></div>
    <div><div style="font-size:26px">🏠</div><div class="t">E-7-4 전환</div><div class="d">국민연금으로 이체<br>가입기간 ${w.months}개월 합산 인정</div></div>
  </div>
- <div class="note">어느 쪽을 선택해도 적립금은 사라지지 않습니다 — 전환 시 공제회 적립액과 가입기간이 국민연금에 승계됩니다(포터빌리티 브리지, 제안)</div>`;}
+ <div class="note">어느 쪽을 선택해도 적립금은 사라지지 않습니다 — 전환 시 공제회 적립액과 가입기간이 국민연금에 승계됩니다(포터빌리티 브리지, 제안)</div>
+ <div class="gh">전환하면 이렇게 흘러갑니다</div>
+ <div class="tl">
+   <div><b>E-7-4 전환</b>공제회 → 국민연금<br>이체·기간 합산</div>
+   <div><b>계속 납부</b>내국인과 동일<br>규칙 적용</div>
+   <div><b>10년 충족</b>연금 수급권 확보<br>(미만이면 반환일시금)</div>
+   <div><b>65세~</b>연금 수령 —<br>귀국해도 본국 계좌로</div>
+ </div>
+ <div class="note">핵심은 나이가 아니라 가입기간: 10년을 채우면 어디에 살든 65세부터 평생 연금이 나옵니다.</div>`;}
 function vNominee(w,t){
  return `<button class="back" data-go="acct">${t.back}</button>
  <div class="profile"><h2>수급권자 지정</h2>${state.nominee?'<span class="st2 ok2" style="margin-left:auto">지정 완료</span>':""}</div>
@@ -252,11 +331,13 @@ function vNominee(w,t){
  <div class="field"><label>연락처</label><input placeholder="+977 …"></div>
  <div class="field"><label>신분증 촬영 (e-KYC)</label><div style="border:1.5px dashed var(--rule);border-radius:8px;padding:26px;text-align:center;color:var(--mut)">📷 촬영하기</div></div>
  <button class="btn" data-go="saveNom">지정하기</button>`;}
-function vCover(w,t){const c=COVERAGE(w);
- const grp=(k,rows)=>`<div class="gh">${t[k]}</div><div class="book">`+rows.map(([nm,st,nt])=>
-  `<div class="row"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="st ${st}">${t["st_"+st]}</span></div>`).join("")+`</div>`;
+function vCover(w,t){const o=COV_ORDER(w),L=state.lang;
+ const row=k=>{const e=COV[k],[nm,line,det]=e.t[L]||e.t.ko;const open=state.covOpen===k;
+  return `<div class="row tap" data-cov="${k}"><div><div class="nm">${nm}</div><div class="nt">${line}</div></div><span class="st ${e.st}">${t["st_"+e.st]}</span></div>`
+   +(open?`<div class="cdetail">${det}</div>`:"");};
+ const grp=(k,keys)=>`<div class="gh">${t[k]}</div><div class="book">`+keys.map(row).join("")+`</div>`;
  return `<div class="profile"><h2>${w.name}</h2><span class="tag">${w.visa} · ${w.cc}</span></div>`
-  +grp("now",c.now)+grp("leave",c.leave)+grp("gap",c.gap);}
+  +grp("now",o.now)+grp("leave",o.leave)+grp("gap",o.gap);}
 // ───────── 사업주 ─────────
 function vEmployer(){
  const monthPay=w=>w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]);
@@ -329,14 +410,17 @@ function render(){
  if(r)r.addEventListener("input",e=>{state.simM=+e.target.value;render();});
 }
 document.addEventListener("click",e=>{
- const el=e.target.closest("[data-r],[data-w],[data-go],[data-lang],[data-enter-role]");if(!el)return;
+ const el=e.target.closest("[data-r],[data-w],[data-go],[data-lang],[data-enter-role],[data-cov]");if(!el)return;
  if(el.dataset.lang){state.lang=el.dataset.lang;$("#lang").value=state.lang;render();return;}
+ if(el.dataset.cov){state.covOpen=state.covOpen===el.dataset.cov?null:el.dataset.cov;render();return;}
  if(el.dataset.enterRole){state.entered=true;state.role=el.dataset.enterRole;render();return;}
  if(el.dataset.r){state.role=el.dataset.r;state.wtab="acct";render();return;}
  if(el.dataset.w){state.wtab=el.dataset.w;state.simM=null;render();return;}
  const g=el.dataset.go;
  if(g==="enter"){state.entered=true;state.role="worker";state.wtab="acct";}
  else if(g==="sim"){state.wtab="sim";state.simM=W().months;}
+ else if(g==="simToday"){state.simM=W().months;}
+ else if(g==="simMat"){state.simM=PARAMS.maturity;}
  else if(g==="apply"){state.wtab="apply";state.step=1;state.sec=false;}
  else if(g==="apply1"){state.step=1;state.sec=false;}
  else if(g==="step2"){state.step=2;state.sec=false;}
