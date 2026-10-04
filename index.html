@@ -129,6 +129,30 @@ svg.spark{display:block;margin:8px 0}
 .langrow.sel .ck{opacity:1}
 .onb .demo{text-align:center;font-size:12px;color:var(--mut);margin-top:20px}
 .onb .demo a{color:var(--g);font-weight:700;cursor:pointer;margin:0 6px;text-decoration:underline}
+/* ── 인사 밴드 + 링 카드 */
+.band{background:linear-gradient(135deg,var(--gd) 0%,#0E5B40 100%);margin:-20px -20px 0;padding:18px 20px 74px;border-radius:0 0 30px 30px}
+@media(min-width:760px){.band{margin:-26px -22px 0;border-radius:34px 34px 30px 30px;padding:20px 22px 76px}}
+.hello{display:flex;align-items:center;gap:11px;color:var(--cream)}
+.ava{width:42px;height:42px;border-radius:50%;background:#f6f1e322;border:1.5px solid #f6f1e355;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+.hi{font-size:15.5px;font-weight:800}
+.asof{font-size:10.5px;opacity:.65;margin-top:2px;font-variant-numeric:tabular-nums}
+.hello .ic{margin-left:auto;display:flex;gap:14px;opacity:.85}
+.hello .ic span{cursor:pointer}
+.ringcard{background:var(--card);border-radius:20px;padding:22px 18px 16px;margin:-58px 0 14px;box-shadow:0 14px 34px #07352726,0 1px 0 #fff inset;border:1px solid #EFECE2;text-align:center;position:relative}
+.ring{position:relative;width:188px;height:188px;margin:0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .cen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .cen .l{font-size:10.5px;color:var(--mut)}
+.ring .cen .v{font-size:25px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.5px;color:var(--ink);line-height:1.2}
+.ring .cen .v .won{font-size:14px;font-weight:600;color:var(--mut)}
+.ring .cen .tagline{margin-top:3px}
+.legend{display:flex;justify-content:center;gap:4px;margin-top:14px;border-top:1px solid #EFECE2;padding-top:12px}
+.legend>div{flex:1;min-width:0}
+.legend .dt{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:1px}
+.legend .ll{font-size:10px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend .lv{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.c1{background:#0B4A33}.c2{background:#3E8E6E}.c3{background:#C9A227}
+.t1{color:#0B4A33}.t2{color:#3E8E6E}.t3{color:#A3831B}
 /* ── 하단 독 */
 .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:min(362px,calc(100% - 36px));background:#FFFFFFF2;backdrop-filter:blur(10px);border:1px solid var(--rule);border-radius:20px;display:flex;box-shadow:0 10px 32px #0003;z-index:8}
 .dock button{flex:1;background:none;border:0;padding:10px 4px 9px;cursor:pointer;color:var(--mut);font-size:10.5px;font-weight:700;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:16px}
@@ -173,11 +197,11 @@ function refundNow(w,months){if(!w.nps)return 0;
  const pr=w.wage*.09*months;return pr*(1+.022*(months/24));}
 // ───────── i18n ─────────
 const STR={
- ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호",cur:"현재 구간",today:"오늘",mat:"만기"},
- en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No.",cur:"current step",today:"Today",mat:"Maturity"},
- vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài",cur:"giai đoạn hiện tại",today:"Hôm nay",mat:"Đáo hạn"},
- ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर",cur:"अहिलेको चरण",today:"आज",mat:"परिपक्वता"},
- id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing",cur:"tahap saat ini",today:"Hari ini",mat:"Jatuh tempo"}};
+ ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호",cur:"현재 구간",today:"오늘",mat:"만기",hi:"안녕하세요",asof:"기준"},
+ en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No.",cur:"current step",today:"Today",mat:"Maturity",hi:"Hi",asof:"as of"},
+ vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài",cur:"giai đoạn hiện tại",today:"Hôm nay",mat:"Đáo hạn",hi:"Xin chào",asof:"tính đến"},
+ ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर",cur:"अहिलेको चरण",today:"आज",mat:"परिपक्वता",hi:"नमस्ते",asof:"सम्म"},
+ id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing",cur:"tahap saat ini",today:"Hari ini",mat:"Jatuh tempo",hi:"Halo",asof:"per"}};
 // ───────── 보장 지도 — 5개 언어 (출처: 근로복지공단·easylaw·제안서 원장) ─────────
 // [이름, 한줄, 자세히] × ko/en/vi/ne/id
 const COV={
@@ -257,7 +281,7 @@ const fmt=n=>Math.round(n).toLocaleString("ko-KR");
 const won=n=>`<span class="won">₩</span>${fmt(n)}`;
 const BASE_Y=2026,BASE_M=9; // 최신 납입월(시연 기준)
 function ymOf(w,k){const t=BASE_Y*12+(BASE_M-1)-(w.months-k);return[Math.floor(t/12),t%12+1];}
-let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false,covOpen:null};
+let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false,covOpen:null,hideAmt:false};
 const W=()=>WORKERS.find(x=>x.id===state.workerId);
 const T=()=>STR[state.lang];
 // ───────── 온보딩 (A1) ─────────
@@ -274,26 +298,41 @@ function vOnboard(t){
   <div class="demo">데모: <a data-enter-role="employer">사업주 포털</a>·<a data-enter-role="admin">관리자</a></div>
  </div>`;}
 // ───────── 근로자 화면 ─────────
-function vAcct(w,t){const a=account(w);const[y,m]=ymOf(w,w.months);const[y0,m0]=ymOf(w,1);
+function vAcct(w,t){const a=account(w);const[y,m]=ymOf(w,w.months);
+ const C=2*Math.PI*62, f1=a.me/a.total, f2=a.emp/a.total;
+ const seg=(off,frac,col)=>`<circle cx="74" cy="74" r="62" fill="none" stroke="${col}" stroke-width="13" stroke-linecap="round" stroke-dasharray="${(frac*C-4).toFixed(1)} ${(C-frac*C+4).toFixed(1)}" stroke-dashoffset="${(-off*C).toFixed(1)}"/>`;
+ const amt=n=>state.hideAmt?"••••••":fmt(n);
+ const eye=state.hideAmt?'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>':'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
  return `
- <div class="cover">
-   <div class="ct">일하는 외국인 공제회 통장</div>
-   <div class="cno">No. ${w.id}-${y0}-${String(m0).padStart(2,"0")}</div>
-   <div class="lbl">${t.total}</div>
-   <div class="big count" data-v="${Math.round(a.total)}">${won(a.total)}</div>
-   <div class="cfoot">${w.name}<span class="tag">${w.visa} · ${w.cc}</span>
-     <span class="prog2">${w.months}/${PARAMS.maturity} ${t.months}</span></div>
+ <div class="band"><div class="hello">
+   <div class="ava">${w.name[0]}</div>
+   <div><div class="hi">${t.hi}, ${w.name.split(" ")[0]}</div><div class="asof">${y}.${String(m).padStart(2,"0")}.30 ${t.asof} · ${w.visa}</div></div>
+   <div class="ic"><span data-go="eye">${eye}</span></div>
+ </div></div>
+ <div class="ringcard">
+   <div class="ring"><svg width="148" height="148" viewBox="0 0 148 148" style="width:188px;height:188px">
+     <circle cx="74" cy="74" r="62" fill="none" stroke="#EFECE2" stroke-width="13"/>
+     ${seg(0,f1,"#0B4A33")}${seg(f1,f2,"#3E8E6E")}${seg(f1+f2,1-f1-f2,"#C9A227")}
+   </svg>
+   <div class="cen"><div class="l">${t.total}</div>
+     <div class="v count" data-v="${Math.round(a.total)}">${state.hideAmt?"••••••":won(a.total)}</div>
+     <div class="tagline"><span class="prog" style="margin:0">${w.months}/${PARAMS.maturity} ${t.months}</span></div></div>
+   </div>
+   <div class="legend">
+     <div><span class="dt c1"></span><span class="ll">${t.mine} 4%</span><div class="lv t1">${amt(a.me)}</div></div>
+     <div><span class="dt c2"></span><span class="ll">${t.boss} 2→4%</span><div class="lv t2">${amt(a.emp)}</div></div>
+     <div><span class="dt c3"></span><span class="ll">${t.gain}</span><div class="lv t3">${amt(a.gain)}</div></div>
+   </div>
  </div>
  <div class="book">
-   <div class="row"><span class="nm">${t.mine} (4%)</span><span class="leader"></span><span class="amt">${fmt(a.me)}</span></div>
-   <div class="row"><div><div class="nm">${t.boss} (2→4%)</div><div class="nt">${t.cur}: ${(PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]*100).toFixed(0)}% · ${Math.min(Math.floor((w.months-1)/24),2)===2?"49":Math.floor((w.months-1)/24)*24+1+"~"+(Math.floor((w.months-1)/24)+1)*24}${Math.min(Math.floor((w.months-1)/24),2)===2?"개월차~":"개월차"}</div></div><span class="leader"></span><span class="amt">${fmt(a.emp)}</span></div>
-   <div class="row"><span class="nm">${t.gain}</span><span class="leader"></span><span class="amt">${fmt(a.gain)}</span></div>
-   <div class="row"><div><div class="nm">${y}.${String(m).padStart(2,"0")}</div><div class="nt">${fmt(w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]))}원</div></div>
+   <div class="row"><div><div class="nm">${t.cur}</div><div class="nt">${t.boss} ${(PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]*100).toFixed(0)}% · ${Math.min(Math.floor((w.months-1)/24),2)===2?"49개월차~":Math.floor((w.months-1)/24)*24+1+"~"+(Math.floor((w.months-1)/24)+1)*24+"개월차"}</div></div>
+     <span class="leader"></span><span class="amt">${amt(w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]))}<span style="font-weight:400;font-size:11px;color:var(--mut)">/월</span></span></div>
+   <div class="row"><div><div class="nm">${y}.${String(m).padStart(2,"0")} ${t.paid}</div><div class="nt">4대보험 통합징수 자동 확인</div></div>
      <div class="stamp" style="margin-left:auto"><span>공제회</span><b>${t.paid}</b><span>${m}月</span></div></div>
  </div>
  <button class="btn" data-go="sim">${t.simulate}</button>
  <div style="margin-top:16px">
-   <div class="linkrow" data-go="bridge">${IC.home.replace('26','20').replace('26','20')} 한국에 계속 산다면 — E-7-4 전환 미리보기<span class="chev">›</span></div>
+   <div class="linkrow" data-go="bridge">${IC.home} 한국에 계속 산다면 — E-7-4 전환 미리보기<span class="chev">›</span></div>
    <div class="linkrow" data-go="nominee">${IC.users} 수급권자(가족) 지정
      <span class="st2 ${state.nominee?"ok2":"warn2"}">${state.nominee?("지정 완료 — "+state.nominee):"미지정"}</span></div>
  </div>`;}
@@ -450,7 +489,7 @@ function render(){
  const body={acct:vAcct,ledger:vLedger,cover:vCover,sim:vSim,apply:vApply,bridge:vBridge,nominee:vNominee}[state.wtab](w,t);
  v.innerHTML=body+(inTab?dock:"");
  const cEl=v.querySelector(".count");
- if(cEl&&!cEl.dataset.done){cEl.dataset.done=1;const tgt=+cEl.dataset.v,t0=performance.now();
+ if(cEl&&!cEl.dataset.done&&!state.hideAmt){cEl.dataset.done=1;const tgt=+cEl.dataset.v,t0=performance.now();
   const tick=n=>{const p=Math.min((n-t0)/700,1),e=1-Math.pow(1-p,3);
    cEl.innerHTML=`<span class="won">₩</span>${Math.round(tgt*e).toLocaleString("ko-KR")}`;
    if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
@@ -467,6 +506,7 @@ document.addEventListener("click",e=>{
  const g=el.dataset.go;
  if(g==="enter"){state.entered=true;state.role="worker";state.wtab="acct";}
  else if(g==="sim"){state.wtab="sim";state.simM=W().months;}
+ else if(g==="eye"){state.hideAmt=!state.hideAmt;}
  else if(g==="simToday"){state.simM=W().months;}
  else if(g==="simMat"){state.simM=PARAMS.maturity;}
  else if(g==="apply"){state.wtab="apply";state.step=1;state.sec=false;}
