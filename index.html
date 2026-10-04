@@ -86,7 +86,7 @@ svg.spark{display:block;margin:8px 0}
 <header><h1>일하는 외국인 공제회 <span style="opacity:.6;font-weight:400;font-size:12px">prototype v0.3</span></h1>
 <nav>
   <select id="who"></select>
-  <select id="lang"><option value="ko">한국어</option><option value="en">EN</option><option value="vi">VI</option><option value="ne" selected>NE</option><option value="id">ID</option></select>
+  <select id="lang"><option value="ko" selected>한국어</option><option value="en">EN</option><option value="vi">VI</option><option value="ne">NE</option><option value="id">ID</option></select>
   <button data-r="worker" class="on">근로자</button><button data-r="employer">사업주</button><button data-r="admin">관리자</button>
 </nav></header>
 <main id="view"></main>
@@ -135,7 +135,7 @@ const fmt=n=>Math.round(n).toLocaleString("ko-KR");
 const won=n=>`<span class="won">₩</span>${fmt(n)}`;
 const BASE_Y=2026,BASE_M=9; // 최신 납입월(시연 기준)
 function ymOf(w,k){const t=BASE_Y*12+(BASE_M-1)-(w.months-k);return[Math.floor(t/12),t%12+1];}
-let state={role:"worker",workerId:"W001",lang:"ne",wtab:"acct",step:1,sec:false,nominee:null,simM:null};
+let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null};
 const W=()=>WORKERS.find(x=>x.id===state.workerId);
 const T=()=>STR[state.lang];
 // ───────── 근로자 화면 ─────────
@@ -315,7 +315,7 @@ document.addEventListener("click",e=>{
  render();
 });
 $("#lang").addEventListener("change",e=>{state.lang=e.target.value;render();});
-$("#who").addEventListener("change",e=>{state.workerId=e.target.value;state.lang=W().lang;$("#lang").value=state.lang;state.wtab="acct";state.simM=null;render();});
+$("#who").addEventListener("change",e=>{state.workerId=e.target.value;state.wtab="acct";state.simM=null;render();}); // 언어는 셀렉터로만 변경(기본 한국어)
 $("#who").innerHTML=WORKERS.map(w=>`<option value="${w.id}">${w.name}</option>`).join("");
 render();
 </script></body></html>
