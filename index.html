@@ -192,7 +192,7 @@ const WORKERS=[
  {id:"W001",name:"Ramesh Gurung",country:"네팔",cc:"NP",lang:"ne",visa:"E-9",wage:2400000,months:36,nps:false,bank:"Nabil Bank (네팔)"},
  {id:"W002",name:"Nguyen Van An",country:"베트남",cc:"VN",lang:"vi",visa:"E-9",wage:2610000,months:18,nps:false,bank:"Vietcombank (베트남)"},
  {id:"W003",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)"},
- {id:"W004",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2",wage:2800000,months:70,nps:true,bank:"중국은행"}];
+ {id:"W004",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2(F-4 전환 대상)",wage:2800000,months:70,nps:true,bank:"중국은행"}];
 function account(w,months,p=PARAMS){
  const m0=months??w.months,r=p.fund_return/12;let bal=0,me=0,emp=0;
  for(let m=0;m<m0;m++){const er=p.employer_rate_steps[Math.min(Math.floor(m/24),2)];
