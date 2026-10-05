@@ -191,7 +191,7 @@ const PARAMS={worker_rate:.04,employer_rate_steps:[.02,.03,.04],fund_return:.03,
 const WORKERS=[
  {id:"W001",name:"Ramesh Gurung",country:"네팔",cc:"NP",lang:"ne",visa:"E-9",wage:2400000,months:36,nps:false,bank:"Nabil Bank (네팔)"},
  {id:"W002",name:"Nguyen Van An",country:"베트남",cc:"VN",lang:"vi",visa:"E-9",wage:2610000,months:18,nps:false,bank:"Vietcombank (베트남)"},
- {id:"W003",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)"},
+ {id:"W003",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)",hiArr:300000},
  {id:"W004",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2(F-4 전환 대상)",wage:2800000,months:70,nps:true,bank:"중국은행"}];
 function account(w,months,p=PARAMS){
  const m0=months??w.months,r=p.fund_return/12;let bal=0,me=0,emp=0;
@@ -378,20 +378,32 @@ function vSim(w,t){const m=state.simM??w.months;const a=account(w,m);const ref=r
  </div>
  <div class="note">운용수익은 연 3% 보수 가정의 예시입니다</div>
  <button class="btn" data-go="apply">${t.apply} →</button>`;}
-function vApply(w,t){const s=state.step;
- const steps=`<div class="steps"><div class="${s>=1?"on":""}">1 신고</div><div class="${s>=2?"on":""}">2 계좌</div><div class="${s>=3?"on":""}">3 완료</div></div>`;
+function vApply(w,t){const s=state.step;const tot=account(w).total;const arr=w.hiArr||0;const net=tot-arr;
+ const steps=`<div class="steps"><div class="${s>=1?"on":""}">1 신고</div><div class="${s>=2?"on":""}">2 정산</div><div class="${s>=3?"on":""}">3 계좌</div><div class="${s>=4?"on":""}">4 완료</div></div>`;
  if(s===1)return `<button class="back" data-go="sim">${t.back}</button><div class="profile"><h2>${t.apply}</h2></div>${steps}
   <div class="field"><label>출국 예정일 — 항공권 날짜만 있으면 됩니다. 서류는 필요 없습니다.</label><input type="date" value="2026-12-15"></div>
   <button class="btn" data-go="step2">다음 →</button>`;
- if(s===2)return `<button class="back" data-go="apply1">${t.back}</button><div class="profile"><h2>${t.apply}</h2></div>${steps}
+ if(s===2)return `<button class="back" data-go="apply1">${t.back}</button><div class="profile"><h2>출국 정산</h2></div>${steps}
+  <div class="book">
+   <div class="row"><div><div class="nm">공제회 적립금</div><div class="nt">내 납부 + 사업주 기여 + 운용수익</div></div><span class="amt">₩${fmt(tot)}</span></div>
+   <div class="row"><div><div class="nm">건강보험 미납</div><div class="nt">${arr?"퇴사 후 출국 전 지역가입 기간분 (예시 금액)":"직장가입 기간은 사업주가 원천공제 — 미납 없음"}</div></div><span class="amt" style="color:${arr?"var(--red)":"var(--mut)"}">${arr?"− ₩"+fmt(arr):"₩0"}</span></div>
+   <div class="row"><div><div class="nm"><b>실수령 예정액</b></div></div><span class="amt" style="color:var(--g);font-weight:900">₩${fmt(net)}</span></div>
+  </div>
+  ${arr?`<label class="field" style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6"><input type="checkbox" id="arrOk" style="width:20px;height:20px;margin-top:2px;flex:none"> 미납 건강보험료를 환급금에서 정산하는 데 동의합니다. 정산하면 출국 후 체납으로 남지 않습니다.</label>`
+       :`<div class="note" style="text-align:center;font-size:12.5px">✓ 정산할 금액이 없습니다</div>`}
+  ${state.arrWarn?`<div class="note" style="color:var(--red);font-weight:700">정산 동의에 체크해 주세요</div>`:""}
+  <div class="note">건강보험 정산은 공제회법의 상계 조항(제안)을 전제로 한 설계입니다. 직장가입 기간 보험료는 근로자 정산 대상이 아닙니다.</div>
+  <button class="btn" data-go="step3">다음 →</button>`;
+ if(s===3)return `<button class="back" data-go="step2">${t.back}</button><div class="profile"><h2>${t.apply}</h2></div>${steps}
   <div class="field"><label>본국 수령 계좌</label><select><option>${w.bank}</option><option>다른 은행…</option></select></div>
-  <div class="field"><label>예상 수령액</label><input value="₩${fmt(account(w).total)}" disabled></div>
+  <div class="field"><label>예상 수령액${arr?" (정산 후)":""}</label><input value="₩${fmt(net)}" disabled></div>
   <button class="btn" data-go="sec">다음 →</button>
-  ${state.sec?`<div class="sheet"><div style="color:var(--g)">${IC.finger}</div><b>본인 확인</b><div class="note">고액 거래 보안 승인 — 지문을 대 주세요</div><button class="btn" data-go="step3">확인됨 → 접수</button></div>`:""}`;
+  ${state.sec?`<div class="sheet"><div style="color:var(--g)">${IC.finger}</div><b>본인 확인</b><div class="note">고액 거래 보안 승인 — 지문을 대 주세요</div><button class="btn" data-go="step4">확인됨 → 접수</button></div>`:""}`;
  return `<div class="profile"><h2>${t.apply}</h2></div>${steps}
   <div class="stamp big"><span>공제회</span><b>접수 완료</b><span>${BASE_Y}.${BASE_M}</span></div>
   <p style="text-align:center;font-weight:700">출국 확인 후 3일 내 지급됩니다</p>
-  <p class="note" style="text-align:center">말레이시아 EPF 출국 인출: 지점 방문·서류 다수 — 공제회: 앱 3단계·서류 0건</p>
+  ${arr?`<p class="note" style="text-align:center">건강보험 미납 ₩${fmt(arr)} 정산 완료 — 출국 후 남는 건강보험 체납이 없습니다</p>`:""}
+  <p class="note" style="text-align:center">말레이시아 EPF 출국 인출: 지점 방문·서류 다수 — 공제회: 앱 4단계·서류 0건</p>
   <button class="btn ghost" data-go="acct">${t.tabAcct}</button>`;}
 function vBridge(w,t){const a=account(w);
  return `<button class="back" data-go="acct">${t.back}</button>
@@ -519,7 +531,8 @@ document.addEventListener("click",e=>{
  else if(g==="apply1"){state.step=1;state.sec=false;}
  else if(g==="step2"){state.step=2;state.sec=false;}
  else if(g==="sec"){state.sec=true;}
- else if(g==="step3"){state.step=3;state.sec=false;}
+ else if(g==="step3"){if(W().hiArr&&!($("#arrOk")||{}).checked){state.arrWarn=true;render();return;}state.arrWarn=false;state.step=3;state.sec=false;}
+ else if(g==="step4"){state.step=4;state.sec=false;}
  else if(g==="saveNom"){const n=$("#nmName").value.trim();if(n){state.nominee=n;state.wtab="acct";}}
  else{state.wtab=g;}
  render();
