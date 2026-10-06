@@ -478,7 +478,7 @@ function vEmployer(){
   ${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));const wg=h.wage;
    const r=(nm,nt,tag,c)=>`<div class="row"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="tag" style="margin-left:auto;flex:none;${c||""}">${tag}</span></div>`;
    return r("산재보험","체류자격 무관 자동 적용","자동")
-    + r("건강보험","직장가입자 즉시 취득","자동")
+    + r("건강보험 + 장기요양","직장가입자 즉시 취득 · 장기요양보험료 함께 부과 — 근로자 신청 시 장기요양 가입 제외 가능","자동")
     + r("고용보험","고용안정·직업능력개발 당연적용 · 실업급여는 근로자 신청 시","자동")
     + `<div class="row" style="background:var(--g2);margin:0 -16px;padding:12px 16px"><div><div class="nm">국민연금 칸 → <b style="color:var(--g)">공제회 자동 취득</b></div>
        <div class="nt">근로자 4% ₩${fmt(wg*.04)} · 사업주 2% ₩${fmt(wg*.02)} (1~24개월차) — 국적 무관 동일</div>
