@@ -189,10 +189,10 @@ const PARAMS={worker_rate:.04,employer_rate_steps:[.02,.03,.04],fund_return:.03,
  nps_employer_2026:.0475,nps_employer_2033:.065,refund_interest_2026:.022,
  departure_insurance:.083,avg_wage:2610000,maturity:58};
 const WORKERS=[
- {id:"W001",name:"Ramesh Gurung",country:"네팔",cc:"NP",lang:"ne",visa:"E-9",wage:2400000,months:36,nps:false,bank:"Nabil Bank (네팔)"},
- {id:"W002",name:"Nguyen Van An",country:"베트남",cc:"VN",lang:"vi",visa:"E-9",wage:2610000,months:18,nps:false,bank:"Vietcombank (베트남)"},
- {id:"W003",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)",hiArr:300000},
- {id:"W004",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2(F-4 전환 대상)",wage:2800000,months:70,nps:true,bank:"중국은행"}];
+ {id:"W001",rid:"900101-5••••••",name:"Ramesh Gurung",country:"네팔",cc:"NP",lang:"ne",visa:"E-9",wage:2400000,months:36,nps:false,bank:"Nabil Bank (네팔)"},
+ {id:"W002",rid:"980803-5••••••",name:"Nguyen Van An",country:"베트남",cc:"VN",lang:"vi",visa:"E-9",wage:2610000,months:18,nps:false,bank:"Vietcombank (베트남)"},
+ {id:"W003",rid:"930217-6••••••",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)",hiArr:300000},
+ {id:"W004",rid:"860512-6••••••",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2(F-4 전환 대상)",wage:2800000,months:70,nps:true,bank:"중국은행"}];
 function account(w,months,p=PARAMS){
  const m0=months??w.months,r=p.fund_return/12;let bal=0,me=0,emp=0;
  for(let m=0;m<m0;m++){const er=p.employer_rate_steps[Math.min(Math.floor(m/24),2)];
@@ -299,8 +299,12 @@ function vOnboard(t){
   <div class="promise">${t.promise}</div>
   <div class="book" style="margin-bottom:18px">${LANGS.map(([c,n])=>
     `<div class="langrow ${state.lang===c?"sel":""}" data-lang="${c}">${n}<span class="ck">✓</span></div>`).join("")}</div>
-  <div class="field"><label>${t.idlabel}</label><input value="900101-5•••••••" disabled></div>
-  <button class="btn" data-go="enter">${t.start}</button>
+  <div class="gh" style="margin:4px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">데모 근로자를 골라 들어가세요</div>
+  <div class="book" style="padding:2px 16px">${WORKERS.map(w=>`<div class="row" data-go="enterAs:${w.id}" style="cursor:pointer">
+     <div class="ava" style="width:38px;height:38px;font-size:15px;background:var(--g2);color:var(--g);border:0;flex:none">${w.name[0]}</div>
+     <div style="margin-left:12px"><div class="nm">${w.name}</div><div class="nt">${w.country} · ${w.visa} · ${w.months}개월</div><div class="nt" style="font-variant-numeric:tabular-nums">${t.idlabel} ${w.rid}</div></div>
+     <span class="chev" style="margin-left:auto;color:var(--mut)">›</span></div>`).join("")}</div>
+  <div class="note" style="text-align:center">실제 서비스에서는 본인 인증으로 로그인해 자기 계좌만 봅니다.</div>
   <div class="demo">데모: <a data-enter-role="employer">사업주 포털</a>·<a data-enter-role="admin">관리자</a></div>
  </div>`;}
 // ───────── 근로자 화면 ─────────
@@ -479,7 +483,7 @@ function vEmployer(){
  
  <div class="gh" style="margin:22px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">신규 채용 — 공제회 자동 등록 <span style="color:var(--mut);font-weight:500">· 취득신고 결과 수신(제안)</span></div>
  <div class="book" style="padding:12px 16px">
-  <div class="field" style="margin-bottom:10px"><label>외국인등록번호</label><input value="${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));return h.id==="W004"?"860512-6••••••":h.id==="W003"?"930217-6••••••":h.id==="W002"?"980803-5••••••":"900101-5••••••";})()}" disabled></div>
+  <div class="field" style="margin-bottom:10px"><label>외국인등록번호</label><input value="${WORKERS.find(x=>x.id===(state.hire||"W001")).rid}" disabled></div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${WORKERS.map(h=>`<button data-go="hire:${h.id}" style="border:1.5px solid ${(state.hire||"W001")===h.id?"var(--g)":"var(--rule)"};background:${(state.hire||"W001")===h.id?"var(--g2)":"var(--card)"};color:${(state.hire||"W001")===h.id?"var(--g)":"var(--ink)"};border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer">${h.name.split(" ")[0]} · ${h.cc}</button>`).join("")}</div>
   ${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));const wg=h.wage;
    const r=(nm,nt,tag,c)=>`<div class="row"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="tag" style="margin-left:auto;flex:none;${c||""}">${tag}</span></div>`;
@@ -553,6 +557,7 @@ document.addEventListener("click",e=>{
  if(el.dataset.w){state.wtab=el.dataset.w;state.simM=null;render();return;}
  const g=el.dataset.go;
  if(g==="enter"){state.entered=true;state.role="worker";state.wtab="acct";}
+ else if(g.startsWith("enterAs:")){state.workerId=g.slice(8);$("#who").value=state.workerId;state.entered=true;state.role="worker";state.wtab="acct";state.simM=null;}
  else if(g==="sim"){state.wtab="sim";state.simM=W().months;}
  else if(g==="eye"){state.hideAmt=!state.hideAmt;}
  else if(g==="simToday"){state.simM=W().months;}
