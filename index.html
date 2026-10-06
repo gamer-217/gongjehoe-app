@@ -464,13 +464,30 @@ function vEmployer(){
    <div style="padding:10px 0"><svg class="spark" width="100%" height="48" viewBox="0 0 300 48" preserveAspectRatio="none">
      <polyline points="${pl(nps)}" fill="none" stroke="#B1B8BE" stroke-width="1.6"/>
      <polyline points="${pl(flat)}" fill="none" stroke="#083891" stroke-width="2"/></svg>
-   <div class="jlbl"><span>'26</span><span style="color:#6D7882">회색: 국민연금 4.75→6.5% · 녹색: 공제회 2→4%</span><span>'33</span></div></div>
+   <div class="jlbl"><span>'26</span><span style="color:#6D7882">회색: 국민연금 4.75→6.5% · 파랑: 공제회 2→4%</span><span>'33</span></div></div>
  </div>
  <table><tr><th>이름</th><th>비자</th><th class="num">재직</th><th class="num">당월 기여</th><th class="num">누적 기여</th><th class="num">요율</th></tr>
  ${WORKERS.map(w=>{const a=account(w);const er=PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)];
   return `<tr><td><b>${w.name}</b></td><td>${w.visa}</td><td class="num">${w.months}개월</td><td class="num">${fmt(empPay(w))}</td><td class="num">${fmt(a.emp)}</td><td class="num">${(er*100).toFixed(0)}%</td></tr>`;}).join("")}
  </table>
- <div class="feed">
+ 
+ <div class="gh" style="margin:22px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">신규 채용 — 4대보험 취득신고 <span style="color:var(--mut);font-weight:500">· 4대사회보험 정보연계센터 연계(제안)</span></div>
+ <div class="book" style="padding:12px 16px">
+  <div class="field" style="margin-bottom:10px"><label>외국인등록번호</label><input value="${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));return h.id==="W004"?"860512-6••••••":h.id==="W003"?"930217-6••••••":h.id==="W002"?"980803-5••••••":"900101-5••••••";})()}" disabled></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${WORKERS.map(h=>`<button data-go="hire:${h.id}" style="border:1.5px solid ${(state.hire||"W001")===h.id?"var(--g)":"var(--rule)"};background:${(state.hire||"W001")===h.id?"var(--g2)":"var(--card)"};color:${(state.hire||"W001")===h.id?"var(--g)":"var(--ink)"};border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer">${h.name.split(" ")[0]} · ${h.cc}</button>`).join("")}</div>
+  ${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));const wg=h.wage;
+   const r=(nm,nt,tag,c)=>`<div class="row"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="tag" style="margin-left:auto;flex:none;${c||""}">${tag}</span></div>`;
+   return r("산재보험","체류자격 무관 자동 적용","자동")
+    + r("건강보험","직장가입자 즉시 취득","자동")
+    + r("고용보험","고용안정·직업능력개발 당연적용 · 실업급여는 근로자 신청 시","자동")
+    + `<div class="row" style="background:var(--g2);margin:0 -16px;padding:12px 16px"><div><div class="nm">국민연금 칸 → <b style="color:var(--g)">공제회 자동 취득</b></div>
+       <div class="nt">근로자 4% ₩${fmt(wg*.04)} · 사업주 2% ₩${fmt(wg*.02)} (1~24개월차) — 국적 무관 동일</div>
+       <div class="nt" style="margin-top:4px">현행이라면: ${h.nps?`국민연금 가입 — 근로자 4.75% ₩${fmt(wg*.0475)} · 사업주 4.75% ₩${fmt(wg*.0475)}`:`${h.country} 국적 — 국민연금 적용 제외(상호주의), 노후 적립 없음`}</div></div>
+       <span class="tag" style="margin-left:auto;flex:none;background:var(--g);color:#fff">대체</span></div>`
+    + r("외국인 전용보험 4종","출국만기·임금체불보증·귀국비용·상해 — 현재 별도 창구, 같은 신고로 일괄 연계(제안)","연계",'background:#FFF3DB;color:#8A5C00');})()}
+  <div class="note" style="margin-top:10px">사업주 추가 신고 없음 — 기존 취득신고 한 번으로 처리. 요율은 근로자 4%, 사업주 2→3→4%(24개월 단위 단계 인상).</div>
+ </div>
+<div class="feed">
    <div class="row"><span class="chk">✓</span><div><div class="nm">9월분 통합징수 납부 확인</div><div class="nt">4대보험 고지서에 공제회 1행 포함 — 추가 신고 없음</div></div></div>
    <div class="row"><span class="chk">✓</span><div><div class="nm">신규 고용 — 공제회 자동 가입 완료</div><div class="nt">Ramesh Gurung · 고용허가 연계 자동 등록</div></div></div>
  </div>`;}
@@ -536,6 +553,7 @@ document.addEventListener("click",e=>{
  else if(g==="simMat"){state.simM=PARAMS.maturity;}
  else if(g==="apply"){state.wtab="apply";state.step=1;state.sec=false;state.payRef=false;}
  else if(g==="payRef"){state.payRef=!state.payRef;}
+ else if(g.startsWith("hire:")){state.hire=g.slice(5);}
  else if(g==="apply1"){state.step=1;state.sec=false;}
  else if(g==="step2"){state.step=2;state.sec=false;}
  else if(g==="sec"){state.sec=true;}
