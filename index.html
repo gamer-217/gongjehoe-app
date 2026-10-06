@@ -474,7 +474,7 @@ function vEmployer(){
   return `<tr><td><b>${w.name}</b></td><td>${w.visa}</td><td class="num">${w.months}개월</td><td class="num">${fmt(empPay(w))}</td><td class="num">${fmt(a.emp)}</td><td class="num">${(er*100).toFixed(0)}%</td></tr>`;}).join("")}
  </table>
  
- <div class="gh" style="margin:22px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">신규 채용 — 공제회 자동 등록 <span style="color:var(--mut);font-weight:500">· 포인슈어 취득신고 결과 수신(제안)</span></div>
+ <div class="gh" style="margin:22px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">신규 채용 — 공제회 자동 등록 <span style="color:var(--mut);font-weight:500">· 취득신고 결과 수신(제안)</span></div>
  <div class="book" style="padding:12px 16px">
   <div class="field" style="margin-bottom:10px"><label>외국인등록번호</label><input value="${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));return h.id==="W004"?"860512-6••••••":h.id==="W003"?"930217-6••••••":h.id==="W002"?"980803-5••••••":"900101-5••••••";})()}" disabled></div>
   <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${WORKERS.map(h=>`<button data-go="hire:${h.id}" style="border:1.5px solid ${(state.hire||"W001")===h.id?"var(--g)":"var(--rule)"};background:${(state.hire||"W001")===h.id?"var(--g2)":"var(--card)"};color:${(state.hire||"W001")===h.id?"var(--g)":"var(--ink)"};border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer">${h.name.split(" ")[0]} · ${h.cc}</button>`).join("")}</div>
@@ -487,8 +487,8 @@ function vEmployer(){
        <div class="nt">근로자 4% ₩${fmt(wg*.04)} · 사업주 2% ₩${fmt(wg*.02)} (1~24개월차) — 국적 무관 동일</div>
        <div class="nt" style="margin-top:4px">현행이라면: ${h.nps?`국민연금 가입 — 근로자 4.75% ₩${fmt(wg*.0475)} · 사업주 4.75% ₩${fmt(wg*.0475)}`:`${h.country} 국적 — 국민연금 적용 제외(상호주의), 노후 적립 없음`}</div></div>
        <span class="tag" style="margin-left:auto;flex:none;background:var(--g);color:#fff">대체</span></div>`
-    + r("외국인 전용보험 4종","출국만기·임금체불보증·귀국비용·상해 — 현재 별도 창구, 같은 신고로 일괄 연계(제안)","연계",'background:#FFF3DB;color:#8A5C00');})()}
-  <div class="note" style="margin-top:10px"><b>총무 추가 입력 0</b> — 신고는 지금처럼 포인슈어에서 한 번. 공제회 앱은 신고를 처리하지 않고, 취득 결과를 받아 근로자 계좌를 자동 개설합니다. 위 4대보험 판정은 포인슈어·각 공단 소관(참고 표시). 요율은 근로자 4%, 사업주 2→3→4%(24개월 단위 단계 인상).</div>
+    + r("외국인 전용보험 4종","출국만기·임금체불보증·귀국비용·상해 — 현재 별도 창구, 취득신고 정보로 일괄 연계(제안)","연계",'background:#FFF3DB;color:#8A5C00');})()}
+  <div class="note" style="margin-top:10px"><b>총무 추가 입력 0</b> — 신고는 지금처럼 포인슈어·각 공단 EDI·서면 등 어느 창구로든 한 번. 판정은 창구가 아니라 모든 신고가 모이는 국민연금 자격관리 단계에서, 징수는 건강보험공단 통합징수 고지서 1행으로. 공제회 앱은 신고를 처리하지 않고 결과만 받아 계좌를 자동 개설합니다. 요율은 근로자 4%, 사업주 2→3→4%(24개월 단위 단계 인상).</div>
  </div>
 <div class="feed">
    <div class="row"><span class="chk">✓</span><div><div class="nm">9월분 통합징수 납부 확인</div><div class="nt">4대보험 고지서에 공제회 1행 포함 — 추가 신고 없음</div></div></div>
