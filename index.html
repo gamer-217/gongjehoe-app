@@ -422,7 +422,6 @@ function vApply(w,t){const s=state.step;const tot=account(w).total;const arr=w.h
   <p style="text-align:center;font-weight:700">출국 확인 후 3일 내 지급됩니다</p>
   ${arr?(pay?`<p class="note" style="text-align:center">건강보험 미납 ₩${fmt(arr)} 대신 납부 접수 — 출국 후 남는 체납이 없습니다</p>`:`<p class="note" style="text-align:center">잊지 마세요: 건강보험 미납 ₩${fmt(arr)} — 출국 전 납부</p>`):""}
   <p class="note" style="text-align:center">출국만기·귀국비용보험 청구는 따로 하세요 — 출국일부터 3년 안</p>
-  <p class="note" style="text-align:center">말레이시아 EPF 출국 인출: 지점 방문·서류 다수 — 공제회: 앱 4단계·서류 0건</p>
   <button class="btn ghost" data-go="acct">${t.tabAcct}</button>`;}
 function vBridge(w,t){const a=account(w);
  return `<button class="back" data-go="acct">${t.back}</button>
