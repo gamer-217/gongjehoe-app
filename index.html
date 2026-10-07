@@ -254,11 +254,11 @@ const COV={
   ne:["प्रस्थान बीमा","सेवा सुविधा — ८.३%","कम्पनीले मासिक तलबको ८.३% जम्मा गर्छ। देश छोड्दा सेवा सुविधाका रूपमा पाइन्छ (ऐन §13)।"],
   id:["Asuransi Kepulangan","Pesangon — 8,3%","Perusahaan menyisihkan 8,3% gaji tiap bulan. Dibayar sebagai pesangon saat Anda pulang (UU §13)."]}},
  gwiguk:{st:"on",t:{
-  ko:["귀국비용보험","귀국 비행기값 적립","내가 조금씩 적립해 두었다가 귀국할 때 찾아서 씁니다(외국인고용법 제15조)."],
-  en:["Return Cost Ins.","Savings for your trip home","You save a small amount, then withdraw it for your return trip (Act §15)."],
-  vi:["BH chi phí về nước","Tiết kiệm vé về nước","Bạn tích lũy một khoản nhỏ, rút ra dùng khi về nước (Luật §15)."],
-  ne:["फिर्ती खर्च बीमा","घर फर्किने खर्च बचत","थोरै-थोरै जम्मा गरेर घर फर्किंदा झिकेर प्रयोग गर्नुहुन्छ (ऐन §15)।"],
-  id:["Asuransi Biaya Pulang","Tabungan ongkos pulang","Anda menabung sedikit demi sedikit, lalu diambil saat pulang (UU §15)."]}},
+  ko:["귀국비용보험","귀국 비행기값 — 내가 납입","근로계약 시작 3개월 안에 국가별 금액(40~60만 원)을 냅니다. 출국할 때 청구해 돌려받습니다. 출국일부터 3년이 지나면 휴면 처리됩니다(외국인고용법 제15조)."],
+  en:["Return Cost Ins.","Your trip home — you pay","Within 3 months of your contract you pay a set amount by country (KRW 400–600k). Claim it back when you depart. After 3 years from departure it becomes dormant (Act §15)."],
+  vi:["BH chi phí về nước","Vé về nước — bạn tự đóng","Trong 3 tháng đầu hợp đồng, bạn đóng một khoản theo quốc gia (400–600 nghìn won). Yêu cầu hoàn lại khi xuất cảnh. Quá 3 năm kể từ ngày xuất cảnh sẽ thành tiền ngủ quên (Luật §15)."],
+  ne:["फिर्ती खर्च बीमा","घर फर्किने खर्च — आफैं तिर्ने","सम्झौता सुरु भएको ३ महिनाभित्र देशअनुसार तोकिएको रकम (४–६ लाख वन) तिर्नुहुन्छ। देश छोड्दा दाबी गरेर फिर्ता पाउनुहुन्छ। प्रस्थानपछि ३ वर्ष नाघे निष्क्रिय हुन्छ (ऐन §15)।"],
+  id:["Asuransi Biaya Pulang","Ongkos pulang — Anda bayar","Dalam 3 bulan pertama kontrak Anda membayar jumlah tetap per negara (400–600 ribu won). Klaim kembali saat pulang. Lewat 3 tahun sejak keberangkatan menjadi dana tidur (UU §15)."]}},
  nps_on:{st:"on",t:{
   ko:["국민연금","가입 중 — 10년 요건으로 수급 사실상 불가","보험료를 내고 있지만 연금을 받으려면 10년 납부가 필요합니다. E-9 체류로는 채우기 어렵습니다. 출국하면 원금+이자(2.2%)만 돌려받습니다. 2026년 10월 법 개정으로 외국인의 추후납부(추납)·부양가족연금은 원칙적으로 배제됩니다(상호주의·시행령 예외)."],
   en:["National Pension","Enrolled — but 10-yr rule blocks benefits","You pay premiums, but a pension requires 10 years of contributions — hard on an E-9 stay. On departure you get only principal + 2.2% interest. A law amended in Oct 2026 excludes foreigners from back-payments and dependent supplements in principle (exceptions: reciprocity, decree)."],
@@ -405,8 +405,9 @@ function vApply(w,t){const s=state.step;const tot=account(w).total;const arr=w.h
      <button data-go="payRef" style="flex:1;border:1.5px solid var(--g);border-radius:10px;padding:11px 6px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;background:${pay?"var(--g)":"var(--card)"};color:${pay?"#fff":"var(--g)"}">${pay?"✓ ":""}환급금에서 바로 납부</button>
      <a href="https://www.nhis.or.kr" target="_blank" rel="noopener" style="flex:1;text-align:center;border:1.5px solid var(--rule);border-radius:10px;padding:11px 6px;font-size:13px;font-weight:800;color:var(--ink);text-decoration:none;background:var(--card)">직접 납부하기 ›</a></div>
      ${pay?`<div class="note" style="margin:-4px 0 10px">본인 선택으로 환급금 중 ₩${fmt(arr)}을 건강보험공단에 대신 납부합니다. 다시 누르면 취소됩니다.</div>`:""}`:""}
-   <div class="row"><div><div class="nm">출국만기보험 (퇴직금)</div><div class="nt">사업주가 가입한 보험 — 출국 시 보험사에 청구</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
-   <div class="row"><div><div class="nm">귀국비용보험</div><div class="nt">본인이 가입한 보험 — 귀국 항공권 비용 청구</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
+   <div class="row"><div><div class="nm">출국만기보험 (퇴직금)</div><div class="nt">사업주가 가입한 의무보험 — 출국 전에 신청해 두세요</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
+   <div class="row"><div><div class="nm">귀국비용보험</div><div class="nt">내가 낸 의무보험 — 출국 전에 신청해 두세요</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
+   <div class="note" style="margin:2px 0 10px">두 보험은 출국일부터 3년 안에 본국에서도 청구할 수 있지만, 지나면 휴면보험금이 됩니다. 고용허가제 전용보험의 휴면보험금은 2026년 6월 323억 원입니다. <a href="https://www.eps.go.kr/eo/EmployPerSystem.eo?tabGb=06" target="_blank" rel="noopener" style="color:var(--g);font-weight:700">청구 안내 ›</a></div>
    ${w.nps?`<div class="row"><div><div class="nm">국민연금 반환일시금</div><div class="nt">가입 이력이 있어 출국 시 별도 청구 대상</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>`:""}
   </div>
   <div class="note">공제회는 다른 기관의 미납을 이유로 환급을 보류하거나 차감하지 않습니다. 본인이 선택한 경우에만 환급금에서 대신 납부합니다.</div>
@@ -420,6 +421,7 @@ function vApply(w,t){const s=state.step;const tot=account(w).total;const arr=w.h
   <div class="stamp big"><span>공제회</span><b>접수 완료</b><span>${BASE_Y}.${BASE_M}</span></div>
   <p style="text-align:center;font-weight:700">출국 확인 후 3일 내 지급됩니다</p>
   ${arr?(pay?`<p class="note" style="text-align:center">건강보험 미납 ₩${fmt(arr)} 대신 납부 접수 — 출국 후 남는 체납이 없습니다</p>`:`<p class="note" style="text-align:center">잊지 마세요: 건강보험 미납 ₩${fmt(arr)} — 출국 전 납부</p>`):""}
+  <p class="note" style="text-align:center">출국만기·귀국비용보험 청구는 따로 하세요 — 출국일부터 3년 안</p>
   <p class="note" style="text-align:center">말레이시아 EPF 출국 인출: 지점 방문·서류 다수 — 공제회: 앱 4단계·서류 0건</p>
   <button class="btn ghost" data-go="acct">${t.tabAcct}</button>`;}
 function vBridge(w,t){const a=account(w);
