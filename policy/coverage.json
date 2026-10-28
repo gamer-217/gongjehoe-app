@@ -1,0 +1,17 @@
+{
+  "_doc": "보장 지도 규칙표(§5.2-5). 결과는 저장하지 않고 coverageMap()이 계산한다. 문구는 locales의 coverage.<key>.*",
+  "source": "레거시 v0.5 보장 지도(근로복지공단·easylaw·정책제안서 원장)를 규칙표로 이전",
+  "items": [
+    { "key": "sanjae",  "group": "now",   "status": "on" },
+    { "key": "geonbo",  "group": "now",   "status": "on" },
+    { "key": "goyong1", "group": "now",   "status": "on" },
+    { "key": "goyong2", "group": "now",   "status": "opt" },
+    { "key": "sanghae", "group": "now",   "status": "on" },
+    { "key": "gongje",  "group": "leave", "status": "new" },
+    { "key": "chulguk", "group": "leave", "status": "on" },
+    { "key": "gwiguk",  "group": "leave", "status": "on" },
+    { "key": "nps_on",  "group": "gap",   "status": "on", "when": { "nps": true } },
+    { "key": "nps_off", "group": "gap",   "status": "x",  "when": { "nps": false } },
+    { "key": "janggi",  "group": "gap",   "status": "on" }
+  ]
+}
