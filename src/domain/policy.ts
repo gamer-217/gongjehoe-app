@@ -54,6 +54,7 @@ export interface Policy {
     nps_helpline: Param<string>;
     foreign_helpline: Param<string>;
     eps_helpline: Param<string>;
+    nps_min_years: Param<number>;
   };
   nps: { source: string; countries: Record<string, NpsCountry> };
   coverage: { source: string; items: CoverageRule[] };

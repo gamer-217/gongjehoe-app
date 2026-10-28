@@ -1,0 +1,57 @@
+/* 디자인 토큰 — 설계서 §9.2 임시값.
+   기준: KRDS(대한민국 정부 디자인 시스템, https://www.krds.go.kr). 2026-10-28 이 환경에서 krds.go.kr 접속 불가 →
+   공개 토큰 확인 후 교체(docs/확인필요.md). 녹색(#0F5132)은 폐기, KRDS 파랑 계열 하나로 통일 */
+:root {
+  --color-primary: #0b50d0;
+  --color-primary-strong: #083891;
+  --color-primary-weak: #eaf1fd;
+  --color-text: #1e2124;
+  --color-text-sub: #464c53;
+  --color-text-weak: #6d7882;
+  --color-bg: #f4f5f6;
+  --color-surface: #ffffff;
+  --color-line: #e3e6ea;
+  --color-success: #12805c;
+  --color-success-weak: #e6f4ee;
+  --color-warning: #9e6a00;
+  --color-warning-weak: #fff6e0;
+  --color-danger: #d02c2c;
+  --color-danger-weak: #fdeceb;
+  --color-neutral-weak: #eef0f2;
+  --color-employer: #4f7fd8;
+  --color-dividend: #12805c;
+
+  --radius-card: 16px;
+  --radius-button: 12px;
+  --radius-chip: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --font-body: 17px;
+  --font-sub: 15px;
+  --font-min: 14px;
+  --font-title: 20px;
+  --font-title-lg: 24px;
+  --font-amount: 36px;
+  --line: 1.5;
+
+  --shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+  --tabbar-h: 64px;
+  --appbar-h: 56px;
+  --touch: 48px;
+  --motion: 180ms;
+
+  --font-family: 'Pretendard GOV', 'Pretendard Variable', Pretendard, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-family-deva: 'Noto Sans Devanagari', 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0ms;
+  }
+}
