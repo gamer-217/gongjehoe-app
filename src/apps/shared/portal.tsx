@@ -1,7 +1,7 @@
 // 사업주·운영자 공통 틀 — 데스크톱, 한국어 기본·영어 전환(portal.* 키는 ko·en만)
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import i18n, { LANGS } from '../../i18n';
+import i18n, { LANGS, ensureLang } from '../../i18n';
 import type { TFunction } from 'i18next';
 
 const KEY = 'gongjehoe.portalLang';
@@ -17,6 +17,10 @@ function readLang(): PLang {
 
 export function usePortalLang(): [PLang, (l: PLang) => void, TFunction] {
   const [lang, set] = useState<PLang>(readLang);
+  const [, setReady] = useState(0);
+  useEffect(() => {
+    void ensureLang(lang).then(() => setReady((n) => n + 1));
+  }, [lang]);
   const setLang = (l: PLang) => {
     try {
       localStorage.setItem(KEY, l);

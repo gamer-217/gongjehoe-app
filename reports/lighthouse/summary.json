@@ -1,0 +1,22 @@
+{
+  "tool": "@lhci/cli, Lighthouse 모바일 기본 에뮬레이션(느린 4G·CPU 4배 감속)",
+  "runsPerUrl": 3,
+  "urls": {
+    "/gongjehoe-app/#/w/W001": {
+      "performance": 90,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 90,
+      "lcp_ms": 3336,
+      "fcp_ms": 1706
+    },
+    "/gongjehoe-app/#/w/W001/receive/apply": {
+      "performance": 93,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 90,
+      "lcp_ms": 3023,
+      "fcp_ms": 1717
+    }
+  }
+}

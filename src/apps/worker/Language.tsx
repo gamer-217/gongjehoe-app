@@ -24,8 +24,8 @@ export function LanguageScreen() {
               lang={l.code}
               aria-checked={i18n.language === l.code}
               className="ui-langbtn"
-              onClick={() => {
-                setLang(l.code);
+              onClick={async () => {
+                await setLang(l.code);
                 toast(i18n.getFixedT(l.code)('lang.changed'));
               }}
             >

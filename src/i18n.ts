@@ -1,11 +1,7 @@
-// 다국어(§10.1) — 모든 문구는 locales/*.json에서만
+// 다국어(§10.1) — 모든 문구는 locales/*.json에서만. 한국어(기준)만 첫 번들에 넣고 나머지는 필요할 때 받는다
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import ko from '../locales/ko.json' with { type: 'json' };
-import en from '../locales/en.json' with { type: 'json' };
-import vi from '../locales/vi.json' with { type: 'json' };
-import ne from '../locales/ne.json' with { type: 'json' };
-import id from '../locales/id.json' with { type: 'json' };
 import type { Lang } from './domain';
 
 export const LANGS: { code: Lang; native: string }[] = [
@@ -15,6 +11,13 @@ export const LANGS: { code: Lang; native: string }[] = [
   { code: 'ne', native: 'नेपाली' },
   { code: 'id', native: 'Bahasa Indonesia' },
 ];
+
+const loaders: Record<Exclude<Lang, 'ko'>, () => Promise<{ default: unknown }>> = {
+  en: () => import('../locales/en.json'),
+  vi: () => import('../locales/vi.json'),
+  ne: () => import('../locales/ne.json'),
+  id: () => import('../locales/id.json'),
+};
 
 const KEY = 'gongjehoe.lang';
 
@@ -27,31 +30,36 @@ export function storedLang(): Lang | null {
   }
 }
 
-export function setLang(lang: Lang) {
+/** 언어 묶음을 받아 둔다(이미 있으면 바로 끝) */
+export async function ensureLang(lang: Lang): Promise<void> {
+  if (lang === 'ko' || i18n.hasResourceBundle(lang, 'translation')) return;
+  const m = await loaders[lang]();
+  i18n.addResourceBundle(lang, 'translation', m.default, true, true);
+}
+
+export async function setLang(lang: Lang) {
   try {
     localStorage.setItem(KEY, lang);
   } catch {
     // 저장 실패는 무시 — 이번 화면에서만 유지
   }
-  void i18n.changeLanguage(lang);
+  await ensureLang(lang);
+  await i18n.changeLanguage(lang);
 }
 
 i18n.on('languageChanged', (lng) => {
   if (typeof document !== 'undefined') document.documentElement.lang = lng;
 });
 
+const initial = storedLang() ?? 'ko';
 void i18n.use(initReactI18next).init({
-  resources: {
-    ko: { translation: ko },
-    en: { translation: en },
-    vi: { translation: vi },
-    ne: { translation: ne },
-    id: { translation: id },
-  },
-  lng: storedLang() ?? 'ko',
+  resources: { ko: { translation: ko } },
+  lng: 'ko',
   fallbackLng: 'ko',
   interpolation: { escapeValue: false },
   returnNull: false,
 });
+/** 첫 화면 언어가 준비되면 끝나는 약속 — main.tsx가 기다린 뒤 그린다(한국어가 잠깐 보이는 것 방지) */
+export const i18nReady: Promise<void> = initial === 'ko' ? Promise.resolve() : setLang(initial);
 
 export default i18n;

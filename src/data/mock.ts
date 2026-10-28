@@ -1,5 +1,4 @@
 // MockRepository — fixtures를 초기값으로, 변경분은 localStorage에 저장(실패하면 메모리만). §7.1
-import fixtures from '../../fixtures/demo.json' with { type: 'json' };
 import {
   balance, claimTransition, clock, isDepartureDateAllowed, hasOpenClaim, maskAccount, memberStatusAfter, normalizeAccountNumber,
   policy, settlementEntries, validateNominees,
@@ -8,7 +7,9 @@ import {
 import { RepositoryError, type EmployerView, type MemberView, type NewBankAccount, type NewNominee, type Repository } from './repository';
 
 const STORAGE_KEY = 'gongjehoe.v2.data';
-const base = fixtures as unknown as Dataset;
+/** fixtures는 첫 조회 때 따로 받는다(첫 화면 번들에서 제외, NFR-03) */
+let base: Dataset;
+const loadFixtures = () => import('../../fixtures/demo.json').then((m) => (base = m.default as unknown as Dataset));
 
 function load(): Dataset {
   try {
@@ -35,7 +36,14 @@ function save(ds: Dataset) {
 const tick = <T,>(v: T): Promise<T> => new Promise((r) => setTimeout(() => r(v), 0));
 
 export class MockRepository implements Repository {
-  private ds: Dataset = load();
+  private ds!: Dataset;
+  private ready: Promise<void>;
+
+  constructor(initial?: Dataset) {
+    this.ready = (initial ? Promise.resolve((base = initial)) : loadFixtures()).then(() => {
+      this.ds = load();
+    });
+  }
   private listeners = new Set<() => void>();
   private seq = 0;
 
@@ -58,6 +66,7 @@ export class MockRepository implements Repository {
   }
 
   snapshot(): Dataset {
+    if (!this.ds) throw new Error('not ready');
     return this.ds;
   }
 
@@ -94,18 +103,22 @@ export class MockRepository implements Repository {
   }
 
   async listMembers() {
+    await this.ready;
     return tick(this.ds.members.map((m) => this.view(m.member_id)));
   }
 
   async getMember(memberId: string) {
+    await this.ready;
     return tick(this.view(memberId));
   }
 
   async listEmployers() {
+    await this.ready;
     return tick(this.ds.employers);
   }
 
   async getEmployer(employerId: string): Promise<EmployerView> {
+    await this.ready;
     const employer = this.ds.employers.find((e) => e.employer_id === employerId);
     if (!employer) throw new RepositoryError('EMPLOYER_NOT_FOUND');
     const memberIds = [...new Set(this.ds.employments.filter((e) => e.employer_id === employerId).map((e) => e.member_id))];
@@ -113,6 +126,7 @@ export class MockRepository implements Repository {
   }
 
   async listClaims() {
+    await this.ready;
     return tick(
       [...this.ds.claims]
         .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
@@ -121,6 +135,7 @@ export class MockRepository implements Repository {
   }
 
   async submitClaim(input: { memberId: string; departure_date: ISODate; bank_account_id: string }): Promise<Claim> {
+    await this.ready;
     const today = clock.today();
     const v = this.view(input.memberId);
     if (!isDepartureDateAllowed(input.departure_date, today, policy)) throw new RepositoryError('DEPARTURE_OUT_OF_WINDOW');
@@ -185,12 +200,14 @@ export class MockRepository implements Repository {
   }
 
   async transitionClaim(claimId: string, action: ClaimAction, actor: Actor, reason?: RejectReason) {
+    await this.ready;
     const c = this.apply(claimId, action, actor, reason);
     this.commit();
     return tick(c);
   }
 
   async saveNominees(memberId: string, list: NewNominee[]) {
+    await this.ready;
     const errs = validateNominees(list, policy);
     if (errs.length) throw new RepositoryError(errs[0]);
     this.ds.nominees = this.ds.nominees.filter((n) => n.member_id !== memberId);
@@ -201,6 +218,7 @@ export class MockRepository implements Repository {
   }
 
   async addBankAccount(memberId: string, input: NewBankAccount): Promise<BankAccount> {
+    await this.ready;
     const number = normalizeAccountNumber(input.account_number);
     if (!/^[0-9]{6,20}$/.test(number)) throw new RepositoryError('INVALID_ACCOUNT');
     for (const a of this.ds.bank_accounts) if (a.member_id === memberId) a.active = false;
@@ -221,12 +239,14 @@ export class MockRepository implements Repository {
   }
 
   async setActiveBankAccount(memberId: string, accountId: string) {
+    await this.ready;
     for (const a of this.ds.bank_accounts) if (a.member_id === memberId) a.active = a.id === accountId;
     this.commit();
     return tick(undefined);
   }
 
   async reset() {
+    await this.ready;
     this.ds = structuredClone(base);
     try {
       localStorage.removeItem(STORAGE_KEY);
