@@ -1,0 +1,163 @@
+{
+  "_doc": "제도 수치의 유일한 출처(NFR-06, §12). label: 법령|제안|가정|결정. verified=false인 값은 화면에 숫자로 내지 않는다(§14.2-3).",
+  "version_id": "POL-2026.10",
+  "effective_from": "2020-01-01",
+  "params": {
+    "worker_rate": {
+      "value": 0.04,
+      "label": "제안",
+      "verified": true,
+      "rule": "BR-01",
+      "source": "이성옥·김태희(2025), 다문화콘텐츠연구 54집 89-119; 정책제안서(2026.10)"
+    },
+    "employer_rate_steps": {
+      "value": [
+        {
+          "from_month": 1,
+          "rate": 0.02
+        },
+        {
+          "from_month": 25,
+          "rate": 0.03
+        },
+        {
+          "from_month": 49,
+          "rate": 0.04
+        }
+      ],
+      "label": "제안",
+      "verified": true,
+      "rule": "BR-02",
+      "source": "이성옥·김태희(2025); 정책제안서(2026.10)"
+    },
+    "maturity_months": {
+      "value": 58,
+      "label": "법령",
+      "verified": true,
+      "rule": "BR-04",
+      "source": "외국인고용법 제18조(입국일부터 3년)·제18조의2(재고용 시 2년 미만 1회 연장). 1년 10개월은 실무 관행. 확인 2026-10-28",
+      "note": "만기 후 재고용 중이면 적립 계속, 사업주 요율은 마지막 단계 유지"
+    },
+    "demo_dividend_rate": {
+      "value": 0.03,
+      "label": "가정",
+      "verified": true,
+      "rule": "BR-05",
+      "source": "설계서 v2 §4 BR-05 — 공제회는 아직 없는 제도라 과거 배당률도 시연용 가정값",
+      "note": "화면에 '시연용 가정 배당' 표시 필수"
+    },
+    "projection_rate": {
+      "value": 0.03,
+      "label": "가정",
+      "verified": true,
+      "rule": "BR-06",
+      "source": "설계서 v2 §4 BR-06 — 시뮬레이션 가정 수익률",
+      "note": "화면에 '예시' 표시 필수"
+    },
+    "payout_target_business_days": {
+      "value": 3,
+      "label": "제안",
+      "verified": true,
+      "rule": "BR-08",
+      "source": "정책제안서(2026.10) — 출국 확인 후 3영업일 지급 목표"
+    },
+    "claim_window_days": {
+      "value": 30,
+      "label": "결정",
+      "verified": true,
+      "rule": "BR-09",
+      "source": "설계서 v2 §4 BR-09(설계 결정값)"
+    },
+    "max_nominees": {
+      "value": 3,
+      "label": "결정",
+      "verified": true,
+      "rule": "BR-11",
+      "source": "설계서 v2 §4 BR-11"
+    },
+    "nominee_share_chips": {
+      "value": [
+        100,
+        50,
+        34,
+        33
+      ],
+      "label": "결정",
+      "verified": true,
+      "rule": "BR-11",
+      "source": "설계서 v2 §4 BR-11"
+    },
+    "departure_insurance_rate": {
+      "value": 0.083,
+      "label": "법령",
+      "verified": true,
+      "rule": "BR-14",
+      "source": "외국인고용법 제13조 → 시행령 제21조②1호 → 고용노동부고시 제2011-33호(월 통상임금의 8.3%). 현행 고시 여부는 docs/확인필요.md"
+    },
+    "nps_total_rate_by_year": {
+      "value": {
+        "2020": 0.09,
+        "2021": 0.09,
+        "2022": 0.09,
+        "2023": 0.09,
+        "2024": 0.09,
+        "2025": 0.09,
+        "2026": 0.095,
+        "2027": 0.1,
+        "2028": 0.105,
+        "2029": 0.11,
+        "2030": 0.115,
+        "2031": 0.12,
+        "2032": 0.125,
+        "2033": 0.13
+      },
+      "label": "법령",
+      "verified": true,
+      "rule": "BR-15",
+      "source": "국민연금법 제88조·부칙 제4조(2025.3.20 국회 통과, 2025.4.2 공포, 2026.1.1 시행) — 9%에서 매년 0.5%p 인상, 2033년 13%. 사용자 부담은 절반(korea.kr 2025.3.20 보도). 확인 2026-10-28"
+    },
+    "nps_lump_sum_interest": {
+      "value": 0.022,
+      "label": "가정",
+      "verified": false,
+      "rule": "BR-16",
+      "source": "국민연금법 제77조②·시행령 제50조: 납부 기간별 '3년 만기 정기예금 이자율' 적용(단일 값 아님). 2.2%는 블로그 등 2차 자료에만 있음",
+      "note": "verified=false: 화면 비교는 이자를 뺀 원금 기준 약식 예시로만 표시"
+    },
+    "contribution_due_day": {
+      "value": 10,
+      "label": "제안",
+      "verified": true,
+      "rule": "BR-21",
+      "source": "국민건강보험법 제78조①, 보험료징수법 제16조의7 — 다음 달 10일(공제회는 통합징수 준용 제안). 확인 2026-10-28"
+    },
+    "nps_helpline": {
+      "value": "1355",
+      "label": "법령",
+      "verified": true,
+      "rule": "W-45",
+      "source": "국민연금공단 고객센터 1355(평일 09-18, 해외 +82-63-713-6900). 확인 2026-10-28"
+    },
+    "foreign_helpline": {
+      "value": "1345",
+      "label": "법령",
+      "verified": true,
+      "rule": "W-45",
+      "source": "법무부 외국인종합안내센터 1345(09-22, 18시 이후 한·중·영). immigration.go.kr 확인 2026-10-28"
+    },
+    "eps_helpline": {
+      "value": "1577-0071",
+      "label": "법령",
+      "verified": true,
+      "rule": "W-45",
+      "source": "고용노동부 외국인력상담센터 1577-0071(평일 09-18). gov.kr 확인 2026-10-28. 지원 언어 수는 미확인이라 화면에 내지 않음"
+    },
+    "nps_min_years": {
+      "value": 10,
+      "label": "법령",
+      "verified": true,
+      "rule": "W-43",
+      "source": "국민연금법 제61조 — 노령연금은 가입기간 10년 이상"
+    }
+  }
+}

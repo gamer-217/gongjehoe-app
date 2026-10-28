@@ -1,0 +1,493 @@
+{
+  "_meta": {
+    "lang": "vi",
+    "name": "Tiếng Việt",
+    "_review": "machine"
+  },
+  "common": {
+    "appName": "Quỹ tương trợ lao động nước ngoài",
+    "back": "Quay lại",
+    "close": "Đóng",
+    "next": "Tiếp",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "loading": "Đang tải",
+    "error": "Không tải được thông tin.",
+    "retry": "Thử lại",
+    "amountSr": "{{amount}} won",
+    "amountHidden": "Số tiền đang bị ẩn",
+    "showAmount": "Xem số tiền",
+    "hideAmount": "Ẩn số tiền",
+    "language": "Đổi ngôn ngữ",
+    "listen": "Nghe đọc",
+    "months": "{{count}} tháng",
+    "asOf": "Tính đến {{date}}",
+    "example": "Ví dụ",
+    "proposal": "(Đề xuất)",
+    "reviewing": "(Đang xem xét)",
+    "demoDividend": "Lãi giả định để trình diễn",
+    "percent": "{{value}}%",
+    "edit": "Sửa",
+    "done": "Xong",
+    "optional": "Không bắt buộc",
+    "secure": {
+      "title": "Có phải bạn không?",
+      "body": "Hãy xác nhận bằng vân tay hoặc khuôn mặt. Không giới hạn thời gian.",
+      "demoNote": "Khi trình diễn, bấm nút bên dưới để xác nhận.",
+      "ok": "Vâng, là tôi",
+      "checking": "Đang xác nhận"
+    }
+  },
+  "nav": {
+    "label": "Menu chính",
+    "home": "Trang chủ",
+    "history": "Lịch sử",
+    "receive": "Nhận tiền",
+    "me": "Của tôi"
+  },
+  "onboard": {
+    "promise": "Tài khoản của bạn: làm bao nhiêu, tích bấy nhiêu, khi về nước nhận lại hết",
+    "chooseLang": "Chọn ngôn ngữ",
+    "start": "Bắt đầu"
+  },
+  "home": {
+    "hello": "Xin chào {{name}}",
+    "total": "Tổng tiền đã tích lũy",
+    "ringLabel": "Đã tham gia {{months}} tháng. Đáo hạn sau {{maturity}} tháng.",
+    "ringSmall": "/ {{maturity}} tháng",
+    "ringMatured": "Đáo hạn",
+    "matured": "Đã đáo hạn · Vẫn đang tích lũy",
+    "toMaturity": "Còn {{count}} tháng đến đáo hạn",
+    "parts": {
+      "label": "Tiền tích lũy gồm",
+      "worker": "Tiền của bạn",
+      "employer": "Tiền công ty góp cho bạn",
+      "dividend": "Tiền lãi đã chốt",
+      "note": "Tiền công ty góp cũng là tiền của bạn. Khi về nước, bạn nhận lại tất cả."
+    },
+    "pay": {
+      "title": "Tiền đóng tháng {{ym}}",
+      "PAID": "Đã đóng",
+      "PENDING": "Chưa xác nhận",
+      "OVERDUE": "Chưa đóng",
+      "paidDesc": "Đã vào ngày {{date}}. Bạn {{worker}} + công ty {{employer}}",
+      "pendingDesc": "Hạn đóng là {{date}}.",
+      "overdueDesc": "Đã quá hạn đóng {{date}}. Hãy hỏi công ty."
+    },
+    "alerts": {
+      "label": "Thông báo",
+      "hiArrearsTitle": "Nợ bảo hiểm y tế {{amount}}",
+      "hiArrearsBody": "Đây là thông tin của Bảo hiểm Y tế Quốc gia (NHIS), không phải của Quỹ. Hãy hỏi Bảo hiểm Y tế Quốc gia (NHIS).",
+      "nomineeTitle": "Bạn chưa chọn người thân nhận tiền",
+      "nomineeBody": "Hãy chọn người thân sẽ nhận tiền nếu bạn gặp chuyện không may.",
+      "nomineeAction": "Chọn ngay",
+      "dividendTitle": "Đã chốt tiền lãi năm {{year}}",
+      "dividendBody": "Đã vào {{amount}}. Đây là lãi giả định để trình diễn.",
+      "claimTitle": "Đang xử lý yêu cầu nhận tiền",
+      "claimBody": "Bước hiện tại: {{status}}",
+      "claimAction": "Xem tình trạng",
+      "closedTitle": "Đã nhận tiền xong",
+      "closedBody": "Bạn đã nhận hết tiền. Cảm ơn bạn đã vất vả."
+    },
+    "quick": {
+      "label": "Đi nhanh",
+      "simulate": "Về nước nhận bao nhiêu?",
+      "coverage": "Bản đồ bảo hiểm"
+    }
+  },
+  "history": {
+    "title": "Lịch sử",
+    "filter": "Xem",
+    "all": "Tất cả",
+    "paid": "Tiền đóng",
+    "dividend": "Tiền lãi",
+    "chart": "Tiền tích lũy theo thời gian",
+    "current": "Đang có",
+    "cumulative": "Tổng cộng",
+    "rowParts": "Bạn {{worker}} · Công ty {{employer}}",
+    "dividendRow": "Tiền lãi năm {{year}}",
+    "proRata": "Tiền lãi năm đó (theo ngày)",
+    "payout": "Đã trả tiền",
+    "rateChange": "Phần công ty góp tăng lên {{rate}}%",
+    "employerChange": "Nơi làm việc: {{name}}",
+    "gap": "{{ym}} không đóng (thời gian chuyển chỗ làm)",
+    "empty": "Lần đóng đầu tiên sẽ hiện sau hạn đóng.",
+    "statement": "Lấy bảng kê"
+  },
+  "statement": {
+    "title": "Bảng kê",
+    "chooseYear": "Chọn năm",
+    "open": "Mở bảng kê",
+    "print": "In",
+    "heading": "Bảng kê tích lũy năm {{year}}",
+    "name": "Họ tên",
+    "member": "Mã thành viên",
+    "month": "Tháng",
+    "worker": "Tiền của bạn",
+    "employer": "Công ty góp",
+    "dividend": "Tiền lãi",
+    "sum": "Tổng",
+    "yearEnd": "Tích lũy cuối năm {{year}}",
+    "note": "Bảng kê làm từ dữ liệu trình diễn. Không phải giấy tờ thật."
+  },
+  "receive": {
+    "title": "Nhận tiền",
+    "simulate": "Tiền nhận khi về nước",
+    "simulateDesc": "Xem về lúc nào thì nhận bao nhiêu",
+    "apply": "Xin nhận tiền",
+    "applyDesc": "Xin ngay trên app trước khi về nước",
+    "status": "Tình trạng",
+    "statusDesc": "Xem yêu cầu đã đến bước nào",
+    "convert": "Nếu ở lại lâu dài?",
+    "convertDesc": "Xem trước cách chuyển sang Hưu trí Quốc gia"
+  },
+  "sim": {
+    "title": "Tiền nhận khi về nước",
+    "question": "Khi nào bạn về nước?",
+    "now": "Bây giờ",
+    "m6": "6 tháng nữa",
+    "m12": "1 năm nữa",
+    "maturity": "Đáo hạn ({{count}} tháng)",
+    "result": "Nếu về nước vào {{ym}}",
+    "confirmed": "Tiền đã chắc chắn",
+    "expected": "Tiền sẽ tích thêm",
+    "expectedNote": "Ví dụ · Lương như cũ, lãi {{rate}}%/năm",
+    "total": "Tiền sẽ nhận (ví dụ)",
+    "totalNow": "Tiền sẽ nhận",
+    "compare": "So với Hưu trí Quốc gia hiện nay",
+    "ours": "Quỹ",
+    "nps": "Hưu trí Quốc gia trả 1 lần (ước tính)",
+    "npsNote": "Ví dụ đơn giản, chỉ tính tiền gốc, không tính lãi.",
+    "npsNone": "Theo luật hiện nay, lao động nước bạn không có tiền tích lũy cho tuổi già.",
+    "how": "Tính thế nào?",
+    "how1": "Tiền đã chắc chắn là tổng số tiền đã thật sự vào tài khoản của bạn.",
+    "how2": "Tiền sẽ tích thêm là ví dụ, coi như lương không đổi: phần bạn {{worker}}% cộng phần công ty ({{steps}} tùy thời gian tham gia).",
+    "how3": "Giả định lãi {{rate}}%/năm. Lãi thật được chốt mỗi năm 1 lần.",
+    "how4": "So sánh Hưu trí Quốc gia là tính đơn giản: chỉ cộng tiền gốc đã đóng với cùng mức lương."
+  },
+  "apply": {
+    "title": "Xin nhận tiền",
+    "progress": "Các bước",
+    "step1": "1/4 · Chọn ngày về nước",
+    "step2": "2/4 · Chọn tài khoản nhận tiền",
+    "step3": "3/4 · Kiểm tra thông tin",
+    "step4": "4/4 · Xác nhận bạn là ai",
+    "dateQ": "Ngày dự định về nước",
+    "in2w": "2 tuần nữa",
+    "in1m": "1 tháng nữa",
+    "pick": "Tự chọn",
+    "windowNote": "Chỉ chọn được ngày trong {{days}} ngày tới.",
+    "selected": "Ngày đã chọn: {{date}}",
+    "prevMonth": "Tháng trước",
+    "nextMonth": "Tháng sau",
+    "noDocs": "Không cần gửi giấy tờ. Quỹ tự kiểm tra hồ sơ xuất cảnh.",
+    "accountQ": "Tài khoản nhận tiền",
+    "addAccount": "Thêm tài khoản mới",
+    "noAccount": "Chưa có tài khoản. Hãy thêm tài khoản trước.",
+    "summary": "Thông tin yêu cầu",
+    "amount": "Đang có",
+    "amountNote": "Bạn sẽ nhận toàn bộ số dư vào ngày chuyển tiền, cùng tiền lãi năm đó (theo ngày).",
+    "account": "Tài khoản nhận tiền",
+    "date": "Ngày dự định về nước",
+    "agree": "Thông tin đúng. Tôi xin nhận tiền sau khi về nước.",
+    "submit": "Gửi yêu cầu",
+    "doneTitle": "Đã nhận yêu cầu",
+    "doneLead": "Các bước tiếp theo:",
+    "done1": "Xác nhận xuất cảnh: Quỹ kiểm tra hồ sơ xuất nhập cảnh.",
+    "done2": "Duyệt: Quỹ duyệt việc trả tiền.",
+    "done3": "Chuyển tiền: cố gắng chuyển trong {{days}} ngày làm việc sau khi xác nhận xuất cảnh.",
+    "goStatus": "Xem tình trạng",
+    "openExists": "Bạn đã có yêu cầu đang xử lý.",
+    "closed": "Bạn đã nhận tiền rồi.",
+    "error": "Không gửi được. Hãy thử lại."
+  },
+  "status": {
+    "title": "Tình trạng",
+    "empty": "Bạn chưa gửi yêu cầu nào.",
+    "goApply": "Xin nhận tiền",
+    "timeline": "Các bước",
+    "s": {
+      "DRAFT": "Đang soạn",
+      "SUBMITTED": "Đã nhận",
+      "VERIFIED": "Đã xác nhận xuất cảnh",
+      "PAYING": "Đã duyệt trả",
+      "PAID": "Đã chuyển tiền",
+      "CANCELLED": "Đã hủy",
+      "REJECTED": "Bị từ chối"
+    },
+    "state": {
+      "done": "Xong",
+      "current": "Đang làm",
+      "todo": "Sắp tới",
+      "bad": "Dừng"
+    },
+    "d": {
+      "SUBMITTED": "Đã nhận yêu cầu.",
+      "VERIFIED": "Đã xác nhận hồ sơ xuất cảnh.",
+      "PAYING": "Đã duyệt trả tiền. Tiền sẽ vào sớm.",
+      "PAID": "Đã gửi {{amount}}."
+    },
+    "at": "{{date}}",
+    "departure": "Ngày về nước {{date}}",
+    "snapshot": "Tích lũy lúc gửi yêu cầu {{amount}}",
+    "cancel": "Hủy yêu cầu",
+    "cancelQ": "Hủy yêu cầu này?",
+    "cancelBody": "Nếu hủy, tài khoản sẽ tiếp tục tích lũy. Bạn có thể gửi lại sau.",
+    "cancelYes": "Vâng, hủy",
+    "cancelled": "Đã hủy yêu cầu.",
+    "cantCancel": "Chỉ hủy được ở bước Đã nhận.",
+    "rejected": "Lý do từ chối: {{reason}}",
+    "reason": {
+      "NO_DEPARTURE_RECORD": "Không tìm thấy hồ sơ xuất cảnh.",
+      "ACCOUNT_MISMATCH": "Chủ tài khoản không phải là bạn.",
+      "DUPLICATE": "Đã có yêu cầu giống vậy."
+    },
+    "history": "Yêu cầu trước"
+  },
+  "convert": {
+    "title": "Nếu ở lại lâu dài?",
+    "proposal": "(Đề xuất) Cần sửa luật mới làm được.",
+    "lead": "Nếu đổi sang visa lao động lành nghề (E-7-4), sẽ có 1 trong 2 cách.",
+    "home": "Về nước",
+    "homeDesc": "Nhận lại hết tiền tích lũy.",
+    "stay": "Đổi sang E-7-4",
+    "stayDesc": "Chuyển tiền tích lũy và {{months}} tháng tham gia sang Hưu trí Quốc gia.",
+    "amountNow": "Tiền sẽ chuyển (tính đến nay)",
+    "why": "Phải đóng Hưu trí Quốc gia lâu mới nhận được lương hưu. Cộng thời gian đóng ở Quỹ sẽ giúp đủ thời gian dễ hơn.",
+    "notice": "Chỉ xem trước được. Chỉ xin chuyển thật khi có luật mới."
+  },
+  "me": {
+    "title": "Của tôi",
+    "name": "Họ tên",
+    "nationality": "Quốc tịch",
+    "visa": "Loại visa",
+    "joined": "Tháng tham gia",
+    "employer": "Nơi làm việc",
+    "rid": "Số đăng ký người nước ngoài",
+    "status": "Tình trạng",
+    "st": {
+      "ACTIVE": "Đang tích lũy",
+      "DEPARTING": "Chuẩn bị về nước",
+      "CLOSED": "Đã nhận tiền",
+      "CONVERTED": "Đã chuyển sang Hưu trí"
+    },
+    "menu": "Menu",
+    "nominees": "Người thân nhận tiền",
+    "nomineesDesc": "Đã chọn {{count}} người",
+    "nomineesNone": "Chưa có",
+    "accounts": "Tài khoản nhận tiền",
+    "coverage": "Bản đồ bảo hiểm",
+    "coverageDesc": "Xem hết bảo hiểm và Quỹ một lần",
+    "language": "Ngôn ngữ",
+    "help": "Trợ giúp · Gọi tư vấn"
+  },
+  "country": {
+    "NP": "Nepal",
+    "VN": "Việt Nam",
+    "ID": "Indonesia",
+    "CN": "Trung Quốc",
+    "KR": "Hàn Quốc"
+  },
+  "nominee": {
+    "title": "Người thân nhận tiền",
+    "intro": "Người thân sẽ nhận tiền nếu bạn gặp chuyện không may. Chọn được tối đa {{max}} người.",
+    "empty": "Bạn chưa chọn người thân nào.",
+    "add": "Thêm người thân",
+    "person": "Người thân thứ {{n}}",
+    "name": "Họ tên",
+    "namePh": "Tên như trong hộ chiếu",
+    "relation": "Quan hệ",
+    "share": "Phần nhận",
+    "contact": "Liên lạc",
+    "contactPh": "Số điện thoại",
+    "remove": "Bỏ người này",
+    "equal": "Chia đều",
+    "sum": "Tổng {{sum}}%",
+    "sumOk": "Tổng là 100%.",
+    "kyc": "Kiểm tra giấy tờ tùy thân sẽ làm khi dùng thật.",
+    "kycStatus": {
+      "PENDING": "Chưa kiểm tra",
+      "VERIFIED": "Đã kiểm tra"
+    },
+    "saved": "Đã lưu người thân.",
+    "err": {
+      "EMPTY": "Hãy thêm ít nhất 1 người thân.",
+      "TOO_MANY": "Chọn được tối đa {{max}} người.",
+      "SUM_NOT_100": "Tổng các phần phải là 100%.",
+      "INVALID_SHARE": "Hãy chọn phần nhận.",
+      "NAME_REQUIRED": "Hãy nhập họ tên."
+    },
+    "rel": {
+      "SPOUSE": "Vợ/chồng",
+      "CHILD": "Con",
+      "MOTHER": "Mẹ",
+      "FATHER": "Bố",
+      "SIBLING": "Anh chị em",
+      "OTHER": "Người thân khác"
+    }
+  },
+  "account": {
+    "title": "Tài khoản nhận tiền",
+    "inUse": "Đang dùng",
+    "use": "Dùng tài khoản này",
+    "unverified": "Chưa kiểm tra",
+    "verified": "Đã kiểm tra",
+    "add": "Thêm tài khoản mới",
+    "country": "Nước",
+    "bank": "Ngân hàng",
+    "bankPh": "Chọn ngân hàng",
+    "number": "Số tài khoản",
+    "numberHint": "Có dấu cách hoặc - cũng được.",
+    "numberErr": "Hãy nhập 6 đến 20 chữ số.",
+    "cleaned": "Số đã sửa gọn: {{number}}",
+    "holder": "Chủ tài khoản",
+    "holderHint": "Tên tiếng Anh như trong hộ chiếu",
+    "holderCheck": "Kiểm tra chủ tài khoản",
+    "holderOk": "Tên chủ tài khoản đúng (trình diễn).",
+    "holderNeed": "Hãy kiểm tra chủ tài khoản.",
+    "save": "Lưu tài khoản",
+    "saved": "Đã lưu tài khoản.",
+    "empty": "Chưa có tài khoản."
+  },
+  "coverage": {
+    "title": "Bản đồ bảo hiểm",
+    "lead": "Xem nhanh: cái gì đang bảo vệ bạn, cái gì nhận khi về nước, chỗ nào còn trống.",
+    "group": {
+      "now": "Đang bảo vệ bạn",
+      "leave": "Nhận khi về nước",
+      "gap": "Chỗ còn trống"
+    },
+    "st": {
+      "on": "Có",
+      "opt": "Tự chọn",
+      "x": "Không có",
+      "new": "Đề xuất"
+    },
+    "payer": "Ai đóng tiền?",
+    "where": "Đăng ký ở đâu?",
+    "items": {
+      "sanjae": {
+        "name": "Bảo hiểm tai nạn lao động",
+        "line": "Bị thương khi làm việc: được chữa và bồi thường",
+        "detail": "Nếu bị thương hay bệnh do làm việc, bạn được trả tiền chữa bệnh và tiền bồi thường. Mọi người lao động đều tự động có, dù visa nào.",
+        "payer": "Công ty đóng hết.",
+        "where": "Cơ quan Phúc lợi Lao động (COMWEL)"
+      },
+      "geonbo": {
+        "name": "Bảo hiểm y tế",
+        "line": "Đi khám rẻ hơn",
+        "detail": "Đi làm ở công ty là tự động có. Đi bệnh viện và nhà thuốc trả ít tiền hơn nhiều.",
+        "payer": "Bạn và công ty mỗi bên một nửa.",
+        "where": "Bảo hiểm Y tế Quốc gia (NHIS)"
+      },
+      "goyong1": {
+        "name": "Bảo hiểm việc làm (học nghề)",
+        "line": "Hỗ trợ học nghề",
+        "detail": "Được học nghề, và khi công ty khó khăn thì có hỗ trợ giữ việc làm. Tự động có.",
+        "payer": "Công ty đóng.",
+        "where": "Không cần đăng ký."
+      },
+      "goyong2": {
+        "name": "Bảo hiểm việc làm (thất nghiệp)",
+        "line": "Đăng ký mới có · Mất việc được trợ cấp",
+        "detail": "Nếu muốn thì đăng ký. Khi tham gia, bạn đóng tiền bảo hiểm và được trợ cấp tìm việc nếu mất việc. Không đăng ký thì không được nhận.",
+        "payer": "Bạn và công ty cùng đóng.",
+        "where": "Trung tâm việc làm"
+      },
+      "sanghae": {
+        "name": "Bảo hiểm tai nạn (cho người nước ngoài)",
+        "line": "Bị thương hay ốm ngoài giờ làm",
+        "detail": "Bảo hiểm cho tai nạn, bệnh tật, tử vong ngoài công việc. Lao động nước ngoài bắt buộc phải có.",
+        "payer": "Bạn đóng.",
+        "where": "Quầy bảo hiểm cho lao động nước ngoài"
+      },
+      "gongje": {
+        "name": "Quỹ tương trợ lao động nước ngoài",
+        "line": "Tài khoản tên bạn · Về nước nhận lại hết",
+        "detail": "Mỗi tháng, phần bạn {{worker}}% và phần công ty {{employer}} được góp vào tài khoản tên bạn. Khi rời Hàn Quốc, bạn nhận lại hết. Nếu ở lại lâu dài, tiền chuyển sang Hưu trí Quốc gia. Đây vẫn là đề xuất.",
+        "payer": "Bạn và công ty cùng đóng.",
+        "where": "App này"
+      },
+      "chulguk": {
+        "name": "Bảo hiểm khi về nước",
+        "line": "Trợ cấp thôi việc · Công ty góp mỗi tháng",
+        "detail": "Mỗi tháng công ty góp {{rate}}% tiền lương. Khi về nước, bạn nhận như trợ cấp thôi việc. Khác với Quỹ.",
+        "payer": "Công ty đóng.",
+        "where": "Quầy bảo hiểm cho lao động nước ngoài"
+      },
+      "gwiguk": {
+        "name": "Bảo hiểm vé về nước",
+        "line": "Tiền vé máy bay về · Bạn đóng",
+        "detail": "Ngay sau khi bắt đầu hợp đồng lao động, bạn đóng một khoản cố định. Khi về nước thì xin nhận lại.",
+        "payer": "Bạn đóng.",
+        "where": "Quầy bảo hiểm cho lao động nước ngoài"
+      },
+      "nps_on": {
+        "name": "Hưu trí Quốc gia",
+        "line": "Đang tham gia · Khó nhận lương hưu",
+        "detail": "Bạn đang đóng tiền, nhưng phải đóng hơn {{years}} năm mới nhận lương hưu. Với visa hiện tại khó đủ, nên nhiều người nhận lại tiền đã đóng 1 lần khi về nước.",
+        "payer": "Bạn và công ty mỗi bên một nửa.",
+        "where": "Cơ quan Hưu trí Quốc gia (NPS) (xin nhận 1 lần khi về nước)"
+      },
+      "nps_off": {
+        "name": "Hưu trí Quốc gia",
+        "line": "Không được tham gia · Không có tiền tuổi già",
+        "detail": "Người nước bạn không được tham gia Hưu trí Quốc gia. Vì vậy hiện không có tiền tích lũy cho tuổi già. Quỹ là đề xuất để lấp chỗ trống này.",
+        "payer": "Không có",
+        "where": "Không có"
+      },
+      "janggi": {
+        "name": "Bảo hiểm chăm sóc dài hạn",
+        "line": "Hầu như không dùng · Có thể xin bỏ",
+        "detail": "Bảo hiểm này để chăm sóc người già, nên người ở ngắn hạn khó được hưởng. Nếu xin, bạn có thể không phải tham gia.",
+        "payer": "Bạn và công ty đóng cùng bảo hiểm y tế.",
+        "where": "Bảo hiểm Y tế Quốc gia (NHIS) (xin không tham gia)"
+      }
+    }
+  },
+  "lang": {
+    "title": "Ngôn ngữ",
+    "lead": "Chọn ngôn ngữ hiện trên màn hình.",
+    "changed": "Đã đổi ngôn ngữ."
+  },
+  "help": {
+    "title": "Trợ giúp",
+    "calls": "Gọi tư vấn",
+    "call": "Gọi {{number}}",
+    "nps": "Tổng đài Cơ quan Hưu trí Quốc gia (NPS)",
+    "foreign": "Trung tâm hướng dẫn người nước ngoài",
+    "eps": "Trung tâm tư vấn lao động nước ngoài",
+    "faq": "Câu hỏi thường gặp",
+    "q1": "Quỹ là gì?",
+    "a1": "Khi đi làm, mỗi tháng bạn và công ty góp một ít vào tài khoản tên bạn. Khi rời Hàn Quốc, bạn nhận lại hết. Đây vẫn là đề xuất.",
+    "q2": "Tiền công ty góp có phải của tôi không?",
+    "a2": "Có. Tiền công ty góp cũng vào tài khoản của bạn, và bạn nhận cùng lúc khi về nước.",
+    "q3": "Đổi công ty thì sao?",
+    "a3": "Tài khoản vẫn giữ nguyên. Thời gian tham gia được tính nối tiếp, nên phần công ty góp không bị giảm.",
+    "q4": "Khi nào tôi nhận tiền?",
+    "a4": "Xin trên app trước khi về nước. Sau khi xác nhận bạn đã xuất cảnh, tiền được gửi vào tài khoản bạn đã chọn."
+  },
+  "cal": {
+    "dow": [
+      "CN",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7"
+    ],
+    "month": "{{ym}}"
+  },
+  "demo": {
+    "chip": "Demo",
+    "menu": "Menu demo",
+    "launcher": "Màn hình đầu (launcher)",
+    "reset": "Đặt lại demo",
+    "resetDone": "Đã đưa dữ liệu demo về ban đầu.",
+    "next": "Sang bước tiếp theo",
+    "nextDone": "Đã sang bước tiếp theo.",
+    "nextNone": "Không có yêu cầu đang xử lý."
+  }
+}

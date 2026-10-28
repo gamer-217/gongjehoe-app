@@ -1,0 +1,19 @@
+{
+  "_doc": "A-30 재정 시뮬레이터 기본값·범위(선택 구현). 모두 [가정] 시뮬레이션 입력값",
+  "label": "가정",
+  "source": "docs/ref_fund-simulator.jsx(코호트 수입–지출 균형 모형) 기본값. OCB 기준선은 이성옥·김태희(2025) 표4 결정론적 추계",
+  "years": 30,
+  "params": {
+    "N":        { "default": 11.2, "min": 5,   "max": 20,  "step": 0.1, "unit": "만명" },
+    "D":        { "default": 4,    "min": 2,   "max": 6,   "step": 1,   "unit": "년" },
+    "exitRate": { "default": 65,   "min": 40,  "max": 100, "step": 5,   "unit": "%" },
+    "wRate":    { "default": 4,    "min": 0,   "max": 8,   "step": 0.5, "unit": "%" },
+    "eRate":    { "default": 4,    "min": 0,   "max": 8,   "step": 0.5, "unit": "%" },
+    "govRate":  { "default": 10,   "min": 0,   "max": 20,  "step": 1,   "unit": "%" },
+    "ret":      { "default": 3,    "min": 1,   "max": 7,   "step": 0.5, "unit": "%" },
+    "admin":    { "default": 1.5,  "min": 0,   "max": 5,   "step": 0.5, "unit": "%" },
+    "wageM":    { "default": 261,  "min": 200, "max": 350, "step": 1,   "unit": "만원" },
+    "g":        { "default": 3,    "min": 0,   "max": 6,   "step": 0.5, "unit": "%" }
+  },
+  "ocb_points": { "1": 0.42, "2": 1.30, "3": 2.65, "4": 2.25, "5": 2.32, "10": 5.4, "20": 18.0, "30": 27.0 }
+}

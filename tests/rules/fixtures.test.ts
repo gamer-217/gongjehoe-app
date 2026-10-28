@@ -1,0 +1,47 @@
+import { describe, expect, test } from 'vitest';
+import data from '../../fixtures/demo.json' with { type: 'json' };
+import { balance, employerRateFor, policy, type Dataset } from '../../src/domain';
+
+const ds = data as unknown as Dataset;
+const ledgerOf = (m: string) => ds.ledger.filter((e) => e.member_id === m);
+const billsOf = (m: string) => ds.bills.filter((b) => b.employment_id.startsWith(m));
+
+describe('§5.3 시연 인물 총액 스냅숏(P4 최초 생성값 고정)', () => {
+  // 레거시 v0.5 값(Ramesh 5,723,627원)과 다른 이유는 README 참고: 월복리→연 1회 확정 배당, 고정 월급→연도별 최저임금 인상 반영
+  test.each([
+    ['W001', 36, 5_436_835],
+    ['W002', 18, 2_791_912],
+    ['W003', 52, 8_543_842],
+    ['W004', 70, 13_511_303],
+  ])('%s: %i개월, 총 %i원', (m, months, total) => {
+    expect(billsOf(m).at(-1)!.member_month_seq).toBe(months);
+    expect(balance(ledgerOf(m)).total).toBe(total);
+  });
+});
+
+describe('§5.2 원장 무결성', () => {
+  test.each(ds.members.map((m) => [m.member_id]))('%s: 수납액 합 = 원장 기여 합', (m) => {
+    const bills = new Set(billsOf(m).map((b) => b.bill_id));
+    const paid = ds.payments.filter((p) => bills.has(p.bill_id)).reduce((s, p) => s + p.amount, 0);
+    const b = balance(ledgerOf(m));
+    expect(b.worker + b.employer).toBe(paid);
+  });
+  test('모든 BILL은 정책 버전과 요율 단계를 기록한다', () => {
+    for (const b of ds.bills) {
+      expect(b.policy_version_id).toBe(policy.version_id);
+      expect(b.employer_rate).toBe(employerRateFor(b.member_month_seq, policy));
+    }
+  });
+  test('BR-03 Nguyen: 사업장 변경 후 seq가 13부터 이어진다', () => {
+    const second = ds.bills.filter((b) => b.employment_id === 'W002-E2');
+    expect(second[0].ym).toBe('2026-04');
+    expect(second[0].member_month_seq).toBe(13);
+    expect(ds.bills.some((b) => b.employment_id.startsWith('W002') && b.ym === '2026-03')).toBe(false);
+  });
+  test('BR-05 배당은 시연용 가정값으로 표시된다', () => {
+    expect(ds.dividends.every((d) => d.demo)).toBe(true);
+  });
+  test('NFR-05 등록번호는 모두 마스킹', () => {
+    for (const p of ds.persons) expect(p.rid_masked).toMatch(/^\d{6}-\d•{6}$/);
+  });
+});

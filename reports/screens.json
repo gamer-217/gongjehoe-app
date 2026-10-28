@@ -1,0 +1,557 @@
+{
+  "viewport": {
+    "mobile": 390,
+    "desktop": 1280
+  },
+  "screensChecked": 133,
+  "overflowScreens": 0,
+  "hangulCharsInNonKo": 0,
+  "byLang": {
+    "desktop-en": {
+      "a10-fund": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "a20-claims": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "a30-sim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e10-dashboard": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e20-worker": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e30-bill": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e40-hire": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "launcher": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "ui-preview": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "desktop-ko": {
+      "a10-fund": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "a20-claims": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "a30-sim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e10-dashboard": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e20-worker": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e30-bill": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "e40-hire": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "launcher": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "ui-preview": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "en": {
+      "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-kim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-siti": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w20-history": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w21-statement": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate-nonnps": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-account": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-confirm": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-date": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-done": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-secure": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w32-status-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w33-convert": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w40-me": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w42-accounts-add": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w43-coverage": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w44-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w45-help": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "id": {
+      "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-kim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-siti": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w20-history": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w21-statement": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate-nonnps": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-account": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-confirm": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-date": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-done": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-secure": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w32-status-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w33-convert": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w40-me": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w42-accounts-add": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w43-coverage": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w44-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w45-help": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "ko": {
+      "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-kim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-siti": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w20-history": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w21-statement": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate-nonnps": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-account": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-confirm": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-date": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-done": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-secure": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w32-status-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w33-convert": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w40-me": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w42-accounts-add": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w43-coverage": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w44-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w45-help": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "ne": {
+      "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-kim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-siti": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w20-history": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w21-statement": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate-nonnps": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-account": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-confirm": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-date": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-done": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-secure": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w32-status-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w33-convert": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w40-me": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w42-accounts-add": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w43-coverage": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w44-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w45-help": {
+        "overflow": false,
+        "hangul": 0
+      }
+    },
+    "vi": {
+      "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-kim": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home-siti": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w10-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w20-history": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w21-statement": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate-nonnps": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w30-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-account": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-confirm": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-date": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-done": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w31-apply-secure": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w32-status-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w33-convert": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w40-me": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees-empty": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w41-nominees": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w42-accounts-add": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w43-coverage": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w44-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w45-help": {
+        "overflow": false,
+        "hangul": 0
+      }
+    }
+  }
+}

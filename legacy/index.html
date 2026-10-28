@@ -1,0 +1,582 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>일하는 외국인 공제회 — Prototype v0.5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#052561">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="공제회">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F5F6;--ink:#1E2124;--g:#0B50D0;--gd:#052561;--g2:#ECF2FE;--red:#D63D4A;--rule:#E6E8EA;--mut:#6D7882;--cream:#FFFFFF;--card:#FFFFFF}
+*{box-sizing:border-box;margin:0}
+html{background:#DDE1E6}
+body{background:#DDE1E6;color:var(--ink);font-family:'Noto Sans KR','Noto Sans Devanagari','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased}
+header{background:var(--gd);color:var(--cream);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+header h1{font-size:15px;font-weight:800;letter-spacing:.2px}
+header h1 span{opacity:.45;font-weight:400;font-size:11px}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+nav select,nav button{border:1px solid #ffffff2e;background:#ffffff14;color:var(--cream);padding:6px 11px;border-radius:8px;cursor:pointer;font-size:12.5px;font-family:inherit}
+nav select option{color:var(--ink)}
+nav button.on{background:var(--cream);color:var(--gd);font-weight:800;border-color:var(--cream)}
+main{max-width:860px;margin:0 auto;padding:22px 16px 60px}
+main.mobile{max-width:430px;background:var(--paper);min-height:calc(100vh - 56px);padding:20px 20px 110px}
+@media(min-width:760px){
+ main.mobile{max-width:402px;margin:30px auto;border-radius:34px;min-height:800px;box-shadow:0 24px 70px #00000038,0 2px 10px #0002,inset 0 0 0 1px #ffffff66;padding:26px 22px 110px;position:relative}
+}
+/* ── 통장 표지 (히어로) */
+.cover{background:var(--gd);background-image:repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 8px);color:var(--cream);border-radius:16px;padding:20px 20px 18px;margin:14px 0 18px;box-shadow:0 10px 26px #05256133;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:7px;border:1px solid #ffffff22;border-radius:11px;pointer-events:none}
+.cover .ct{font-weight:800;font-size:12.5px;letter-spacing:1.5px;opacity:.85}
+.cover .cno{font-size:10.5px;opacity:.55;margin-top:2px;font-variant-numeric:tabular-nums}
+.cover .lbl{font-size:11px;opacity:.7;margin-top:16px}
+.cover .big{font-size:42px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-1px;line-height:1.1;color:var(--cream)}
+.cover .big .won{font-size:20px;font-weight:600;margin-right:3px;opacity:.85}
+.cover .cfoot{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12.5px;font-weight:700}
+.cover .cfoot .tag{background:#ffffff26;color:var(--cream);border:1px solid #ffffff3a}
+.cover .prog2{margin-left:auto;font-size:11px;opacity:.7;font-variant-numeric:tabular-nums}
+/* ── 장부 */
+.book{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:2px 16px;margin-bottom:14px;box-shadow:0 1px 3px #0000000a}
+.row{display:flex;align-items:baseline;gap:8px;padding:13px 0;border-bottom:1px solid #EDEFF2}
+.row:last-child{border-bottom:0}
+.row .nm{font-weight:700;font-size:13.5px}
+.row .nt{color:var(--mut);font-size:11.5px;margin-top:3px;line-height:1.5}
+.row .amt{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap;font-size:14px}
+.leader{flex:1;border-bottom:1px dotted #CDD1D5;transform:translateY(-4px)}
+.cr.tap{cursor:pointer}
+.cr.tap:active{background:#00000006}
+.cdetail{font-size:12.5px;background:var(--g2);border-left:3px solid var(--g);padding:11px 13px;margin:4px 0 12px;line-height:1.7;border-radius:0 10px 10px 0}
+.hero{display:none}
+.profile{display:flex;align-items:center;gap:10px;padding:4px 2px 14px}
+.profile h2{font-size:19px;font-weight:800}
+.tag{background:var(--g2);color:var(--g);border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800}
+.prog{margin-left:auto;font-size:11.5px;color:var(--mut);font-variant-numeric:tabular-nums}
+/* ── 도장 */
+.stamp{width:62px;height:62px;border:2.5px solid var(--red);border-radius:50%;color:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;transform:rotate(-8deg);font-size:10.5px;line-height:1.25;flex:none;position:relative;background:radial-gradient(circle at 35% 30%,#d63d4a10,transparent 65%)}
+.stamp::after{content:"";position:absolute;inset:4px;border:1px dashed #d63d4a77;border-radius:50%}
+.stamp b{font-size:13px}
+.stamp.big{width:98px;height:98px;font-size:13px;margin:20px auto}
+.stamp.big b{font-size:18px}
+/* ── 버튼·링크 */
+.btn{display:block;width:100%;background:var(--g);color:var(--cream);border:0;border-radius:13px;padding:15px;font-size:15.5px;font-weight:800;cursor:pointer;margin-top:12px;font-family:inherit;box-shadow:0 4px 14px #0b50d030;transition:transform .06s}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:var(--card);color:var(--g);border:1.5px solid var(--g);box-shadow:none}
+.linkrow{display:flex;align-items:center;gap:10px;padding:14px 2px;border-bottom:1px solid #EDEFF2;cursor:pointer;font-size:13.5px;font-weight:700}
+.linkrow svg{flex:none;color:var(--g)}
+.linkrow .chev{margin-left:auto;color:var(--mut);font-weight:400}
+.linkrow .st2{margin-left:auto;font-size:10.5px;font-weight:800;border-radius:6px;padding:3px 8px}
+.ok2{background:var(--g2);color:var(--g)} .warn2{background:#FFF3DB;color:#8A5C00}
+.gh{font-size:12px;font-weight:900;color:var(--g);margin:20px 2px 8px;letter-spacing:.6px}
+.st{margin-left:auto;font-size:10.5px;font-weight:800;border-radius:6px;padding:3px 9px;white-space:nowrap}
+.st.on{background:var(--g2);color:var(--g)}.st.opt{background:#FFF3DB;color:#8A5C00}
+.st.x{background:#E6E8EA;color:#6D7882}.st.new{background:var(--g);color:var(--cream)}
+.note{font-size:11px;color:var(--mut);margin:10px 2px;line-height:1.6}
+/* ── 시뮬레이터 */
+.jl{margin:26px 6px 6px}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;border-radius:3px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--card);border:3.5px solid var(--g);cursor:pointer;box-shadow:0 2px 8px #0003}
+.jlbl{display:flex;justify-content:space-between;font-size:11px;color:var(--mut);margin-top:8px}
+.jump{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.jump button{border:1.5px solid var(--g);background:var(--card);color:var(--g);border-radius:8px;padding:5px 14px;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.bars{margin-top:16px}
+.bar{height:30px;border-radius:7px;background:var(--g);margin:7px 0;display:flex;align-items:center;color:var(--cream);font-size:12px;font-weight:800;padding:0 10px;white-space:nowrap;font-variant-numeric:tabular-nums;box-shadow:0 3px 8px #0b50d022}
+.bar.gray{background:#CDD1D5;box-shadow:none}
+/* ── 플로우 */
+.steps{display:flex;gap:6px;margin:4px 0 20px}
+.steps div{flex:1;text-align:center;font-size:12px;padding:9px 4px;border-bottom:3px solid var(--rule);color:var(--mut);font-weight:700}
+.steps div.on{border-color:var(--g);color:var(--g)}
+.field{margin:14px 0}
+.field label{display:block;font-size:12px;color:var(--mut);margin-bottom:6px;font-weight:500}
+.field input,.field select{width:100%;padding:13px;border:1px solid var(--rule);border-radius:11px;background:var(--card);font-size:14px;color:var(--ink);font-family:inherit}
+.sheet{position:fixed;left:50%;transform:translateX(-50%);bottom:0;background:var(--card);border-radius:20px 20px 0 0;padding:26px 22px;box-shadow:0 -10px 40px #0004;width:min(402px,100%);text-align:center;z-index:9}
+.fork{display:flex;gap:10px;margin:16px 0}
+.fork>div{flex:1;border:1.5px solid var(--g);border-radius:13px;padding:16px 10px;text-align:center;background:var(--card)}
+.fork svg{color:var(--g);margin-bottom:6px}
+.fork .t{font-weight:800;font-size:13.5px;margin-bottom:6px;color:var(--g)}
+.fork .d{font-size:11.5px;color:var(--mut);line-height:1.55}
+.tl{display:flex;align-items:flex-start;margin:18px 0 6px}
+.tl>div{flex:1;text-align:center;position:relative;font-size:10.5px;color:var(--mut);line-height:1.5}
+.tl>div::before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--g);margin:0 auto 7px;position:relative;z-index:1}
+.tl>div::after{content:"";position:absolute;top:6px;left:50%;width:100%;height:2px;background:var(--rule)}
+.tl>div:last-child::after{display:none}
+.tl b{display:block;color:var(--ink);font-size:11.5px}
+/* ── 데스크톱(사업주·관리자) */
+.kpis{display:flex;border:1px solid var(--rule);border-radius:14px;background:var(--card);margin-bottom:16px;overflow:hidden;box-shadow:0 1px 3px #0000000a}
+.kpis>div{flex:1;padding:16px;border-right:1px solid #EDEFF2}
+.kpis>div:last-child{border-right:0}
+.kpis .l{font-size:11px;color:var(--mut)}
+.kpis .v{font-size:22px;font-weight:900;color:var(--g);font-variant-numeric:tabular-nums;margin-top:4px}
+table{width:100%;border-collapse:collapse;background:var(--card);font-size:12.5px;border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
+th,td{border-bottom:1px solid #EDEFF2;padding:11px 12px;text-align:left}
+tr:last-child td{border-bottom:0}
+th{font-size:11px;color:var(--mut);font-weight:800;background:#F1F3F5;letter-spacing:.3px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.feed{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:4px 16px;margin-top:16px}
+.chk{color:var(--red);font-weight:900;margin-right:4px}
+.wm{position:fixed;top:72px;right:16px;font-size:11px;color:#B1B8BE;border:1px solid #B1B8BE;padding:2px 9px;border-radius:5px;transform:rotate(3deg);z-index:5}
+.divline{border-top:1.5px dashed var(--g);margin:4px 0;padding-top:7px;font-size:11px;color:var(--g);font-weight:800}
+.divyear{background:var(--g2);border-radius:8px;padding:8px 10px;font-size:12px;font-weight:700;color:var(--g);margin:5px 0}
+svg.spark{display:block;margin:8px 0}
+.back{background:none;border:0;color:var(--mut);font-size:13px;cursor:pointer;padding:4px 0;margin-bottom:8px;font-family:inherit}
+/* ── 온보딩 */
+.onb{display:flex;flex-direction:column;min-height:70vh;justify-content:center;padding:10px 2px}
+.logo{width:92px;height:92px;border:3px solid var(--g);border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;position:relative;background:var(--card)}
+.logo b{color:var(--g);font-size:32px;font-weight:900;letter-spacing:-.5px}
+.logo::after{content:"";position:absolute;inset:6px;border:1px solid var(--g);border-radius:50%;opacity:.35}
+.logo .mini{position:absolute;right:-10px;bottom:-6px;width:36px;height:36px;border:2px solid var(--red);border-radius:50%;color:var(--red);font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg);background:var(--card)}
+.onb h1{text-align:center;font-size:21px;font-weight:900}
+.onb .promise{text-align:center;color:var(--mut);font-size:13.5px;margin:9px 0 28px}
+.langrow{display:flex;align-items:center;padding:14px 12px;border-bottom:1px solid #EDEFF2;cursor:pointer;font-size:14.5px;font-weight:600}
+.langrow:last-child{border-bottom:0}
+.langrow.sel{background:var(--g2);font-weight:800}
+.langrow .ck{margin-left:auto;color:var(--g);font-weight:900;opacity:0}
+.langrow.sel .ck{opacity:1}
+.onb .demo{text-align:center;font-size:12px;color:var(--mut);margin-top:20px}
+.onb .demo a{color:var(--g);font-weight:700;cursor:pointer;margin:0 6px;text-decoration:underline}
+/* ── 인사 밴드 + 링 카드 */
+.band{background:linear-gradient(135deg,var(--gd) 0%,#256EF4 100%);margin:-20px -20px 0;padding:18px 20px 74px;border-radius:0 0 30px 30px}
+@media(min-width:760px){.band{margin:-26px -22px 0;border-radius:34px 34px 30px 30px;padding:20px 22px 76px}}
+.hello{display:flex;align-items:center;gap:11px;color:var(--cream)}
+.ava{width:42px;height:42px;border-radius:50%;background:#ffffff22;border:1.5px solid #ffffff55;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+.hi{font-size:15.5px;font-weight:800}
+.asof{font-size:10.5px;opacity:.65;margin-top:2px;font-variant-numeric:tabular-nums}
+.hello .ic{margin-left:auto;display:flex;gap:14px;opacity:.85}
+.hello .ic span{cursor:pointer}
+.ringcard{background:var(--card);border-radius:20px;padding:22px 18px 16px;margin:-58px 0 14px;box-shadow:0 14px 34px #05256126,0 1px 0 #fff inset;border:1px solid #F1F3F5;text-align:center;position:relative}
+.ring{position:relative;width:188px;height:188px;margin:0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .cen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .cen .l{font-size:10.5px;color:var(--mut)}
+.ring .cen .v{font-size:25px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.5px;color:var(--ink);line-height:1.2}
+.ring .cen .v .won{font-size:14px;font-weight:600;color:var(--mut)}
+.ring .cen .tagline{margin-top:3px}
+.legend{display:flex;justify-content:center;gap:4px;margin-top:14px;border-top:1px solid #F1F3F5;padding-top:12px}
+.legend>div{flex:1;min-width:0}
+.legend .dt{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;vertical-align:1px}
+.legend .ll{font-size:10px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend .lv{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:2px}
+.c1{background:#0B50D0}.c2{background:#4C87F6}.c3{background:#0FB87D}
+.t1{color:#0B50D0}.t2{color:#4C87F6}.t3{color:#0A8A5E}
+/* ── 하단 독 */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;width:min(362px,calc(100% - 36px));background:#FFFFFFF2;backdrop-filter:blur(10px);border:1px solid var(--rule);border-radius:20px;display:flex;box-shadow:0 10px 32px #0003;z-index:8}
+.dock button{flex:1;background:none;border:0;padding:10px 4px 9px;cursor:pointer;color:var(--mut);font-size:10.5px;font-weight:700;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:16px}
+.dock button.on{color:var(--g)}
+.dock button.on svg{stroke-width:2.4}
+.dock svg{stroke:currentColor}
+</style></head><body>
+<header><h1>일하는 외국인 공제회 <span style="opacity:.6;font-weight:400;font-size:12px">prototype v0.5</span></h1>
+<nav>
+  <select id="who"></select>
+  <select id="lang"><option value="ko" selected>한국어</option><option value="en">EN</option><option value="vi">VI</option><option value="ne">NE</option><option value="id">ID</option></select>
+  <button data-r="worker" class="on">근로자</button><button data-r="employer">사업주</button><button data-r="admin">관리자</button>
+</nav></header>
+<main id="view"></main>
+<script>
+"use strict";
+const IC={
+ book:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+ list:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
+ shield:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+ plane:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>',
+ home:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+ users:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+ finger:'<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11c0 5-2 7-2 7"/><path d="M15.5 9.5a3.5 3.5 0 0 0-7 0c0 2.5-.5 6-2 8"/><path d="M19 10a7 7 0 0 0-14 0c0 1.5 0 3-.5 4.5"/><path d="M12 18.5c2-.5 3.5-2 3.5-5"/></svg>',
+ cam:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>'};
+// ───────── 데이터 (검증치만 — 출처: 정책제안서·팩트체크원장) ─────────
+const PARAMS={worker_rate:.04,employer_rate_steps:[.02,.03,.04],fund_return:.03,
+ nps_employer_2026:.0475,nps_employer_2033:.065,refund_interest_2026:.022,
+ departure_insurance:.083,avg_wage:2610000,maturity:58};
+const WORKERS=[
+ {id:"W001",rid:"900101-5••••••",name:"Ramesh Gurung",country:"네팔",cc:"NP",lang:"ne",visa:"E-9",wage:2400000,months:36,nps:false,bank:"Nabil Bank (네팔)"},
+ {id:"W002",rid:"980803-5••••••",name:"Nguyen Van An",country:"베트남",cc:"VN",lang:"vi",visa:"E-9",wage:2610000,months:18,nps:true,bank:"Vietcombank (베트남)"},
+ {id:"W003",rid:"930217-6••••••",name:"Siti Rahma",country:"인도네시아",cc:"ID",lang:"id",visa:"E-9",wage:2500000,months:52,nps:true,bank:"Bank Mandiri (인도네시아)",hiArr:300000},
+ {id:"W004",rid:"860512-6••••••",name:"김해란",country:"중국(동포)",cc:"CN",lang:"ko",visa:"H-2(F-4 전환 대상)",wage:2800000,months:70,nps:true,bank:"중국은행"}];
+function account(w,months,p=PARAMS){
+ const m0=months??w.months,r=p.fund_return/12;let bal=0,me=0,emp=0;
+ for(let m=0;m<m0;m++){const er=p.employer_rate_steps[Math.min(Math.floor(m/24),2)];
+  me+=w.wage*p.worker_rate;emp+=w.wage*er;bal=(bal+w.wage*(p.worker_rate+er))*(1+r);}
+ return{me,emp,gain:bal-me-emp,total:bal};}
+// 현행 반환일시금 약식(적용국만): 원금(노사 9%)+이자 2.2% 단리 근사 — 시연용 예시 산정
+function refundNow(w,months){if(!w.nps)return 0;
+ const pr=w.wage*.09*months;return pr*(1+.022*(months/24));}
+// ───────── i18n ─────────
+const STR={
+ ko:{tabAcct:"계좌",tabLedger:"내역",tabCover:"보장",total:"총 적립액",mine:"내 납부",boss:"사업주 기여",gain:"운용수익",simulate:"오늘 귀국하면?",toMaturity:"만기까지 채우면?",apply:"환급 신청",months:"개월 적립",now:"지금 나를 지키는 것",leave:"떠날 때 받는 것",gap:"비어 있는 자리",st_on:"적용",st_opt:"선택 가입",st_x:"제외",st_new:"제안",paid:"납입확인",back:"← 돌아가기",promise:"일한 만큼, 떠날 때 전부 돌려받는 내 계좌",start:"시작하기",idlabel:"외국인등록번호",cur:"현재 구간",today:"오늘",mat:"만기",hi:"안녕하세요",asof:"기준"},
+ en:{tabAcct:"Account",tabLedger:"Ledger",tabCover:"Coverage",total:"Total Balance",mine:"My Contribution",boss:"Employer Contribution",gain:"Investment Return",simulate:"If I return home today?",toMaturity:"If I stay to maturity?",apply:"Claim Refund",months:"months saved",now:"Protecting me now",leave:"When I leave",gap:"Gaps",st_on:"Covered",st_opt:"Optional",st_x:"Excluded",st_new:"Proposed",paid:"PAID",back:"← Back",promise:"Everything you save comes back to you when you leave",start:"Start",idlabel:"Alien Registration No.",cur:"current step",today:"Today",mat:"Maturity",hi:"Hi",asof:"as of"},
+ vi:{tabAcct:"Tài khoản",tabLedger:"Sổ cái",tabCover:"Bảo hiểm",total:"Tổng số dư",mine:"Tôi đóng",boss:"Chủ sử dụng đóng",gain:"Lợi nhuận",simulate:"Nếu về nước hôm nay?",toMaturity:"Nếu ở đến đáo hạn?",apply:"Yêu cầu hoàn trả",months:"tháng tích lũy",now:"Đang bảo vệ tôi",leave:"Khi tôi về nước",gap:"Khoảng trống",st_on:"Áp dụng",st_opt:"Tự chọn",st_x:"Loại trừ",st_new:"Đề xuất",paid:"ĐÃ ĐÓNG",back:"← Quay lại",promise:"Làm bao nhiêu, nhận lại đủ bấy nhiêu khi về nước",start:"Bắt đầu",idlabel:"Số đăng ký người nước ngoài",cur:"giai đoạn hiện tại",today:"Hôm nay",mat:"Đáo hạn",hi:"Xin chào",asof:"tính đến"},
+ ne:{tabAcct:"खाता",tabLedger:"खाताबही",tabCover:"सुरक्षा",total:"कुल रकम",mine:"मेरो योगदान",boss:"रोजगारदाताको योगदान",gain:"लगानी प्रतिफल",simulate:"आज घर फर्किए भने?",toMaturity:"अन्त्यसम्म बसे भने?",apply:"फिर्ता दाबी",months:"महिना बचत",now:"अहिले मलाई जोगाउने",leave:"फर्किंदा पाइने",gap:"खाली ठाउँ",st_on:"लागू",st_opt:"वैकल्पिक",st_x:"छुट",st_new:"प्रस्तावित",paid:"भुक्तानी",back:"← पछाडि",promise:"काम गरेजति, फर्किंदा सबै फिर्ता",start:"सुरु गर्नुहोस्",idlabel:"विदेशी दर्ता नम्बर",cur:"अहिलेको चरण",today:"आज",mat:"परिपक्वता",hi:"नमस्ते",asof:"सम्म"},
+ id:{tabAcct:"Akun",tabLedger:"Buku",tabCover:"Perlindungan",total:"Total Saldo",mine:"Kontribusi Saya",boss:"Kontribusi Majikan",gain:"Hasil Investasi",simulate:"Jika pulang hari ini?",toMaturity:"Jika sampai jatuh tempo?",apply:"Klaim Pengembalian",months:"bulan menabung",now:"Melindungi saya",leave:"Saat saya pulang",gap:"Celah",st_on:"Berlaku",st_opt:"Opsional",st_x:"Dikecualikan",st_new:"Usulan",paid:"LUNAS",back:"← Kembali",promise:"Semua tabungan Anda kembali saat pulang",start:"Mulai",idlabel:"Nomor Registrasi Orang Asing",cur:"tahap saat ini",today:"Hari ini",mat:"Jatuh tempo",hi:"Halo",asof:"per"}};
+// ───────── 보장 지도 — 5개 언어 (출처: 근로복지공단·easylaw·제안서 원장) ─────────
+// [이름, 한줄, 자세히] × ko/en/vi/ne/id
+const COV={
+ sanjae:{st:"on",t:{
+  ko:["산재보험","일하다 다치면 치료·보상","일하다 다치거나 아프면 치료비와 보상금을 받습니다. 비자와 상관없이 모든 근로자가 자동 가입입니다. 보험료는 회사가 전액 냅니다."],
+  en:["Industrial Accident Insurance","Covers work injuries","If you are hurt or get sick at work, treatment and compensation are covered. Automatic for all workers regardless of visa. The employer pays the full premium."],
+  vi:["Bảo hiểm tai nạn lao động","Bồi thường khi bị thương do công việc","Nếu bạn bị thương hoặc ốm do công việc, chi phí điều trị và bồi thường được chi trả. Tự động áp dụng cho mọi lao động, công ty trả toàn bộ phí."],
+  ne:["औद्योगिक दुर्घटना बीमा","काममा चोट लागे उपचार र क्षतिपूर्ति","काममा चोट लागे वा बिरामी भए उपचार खर्च र क्षतिपूर्ति पाइन्छ। भिसा जुनसुकै भए पनि स्वतः लागू हुन्छ। शुल्क कम्पनीले तिर्छ।"],
+  id:["Asuransi Kecelakaan Kerja","Menanggung cedera kerja","Jika Anda terluka atau sakit karena pekerjaan, biaya pengobatan dan kompensasi ditanggung. Otomatis untuk semua pekerja, premi dibayar perusahaan."]}},
+ geonbo:{st:"on",t:{
+  ko:["건강보험","병원 진료를 건강보험 가격으로","회사에 다니면 자동 가입됩니다. 보험료는 나와 회사가 절반씩 냅니다. 병원과 약국에서 치료비를 크게 할인받습니다."],
+  en:["Health Insurance","Hospital care at insured prices","Automatic when employed. You and your employer each pay half the premium. Hospitals and pharmacies cost much less."],
+  vi:["Bảo hiểm y tế","Khám chữa bệnh giá bảo hiểm","Tự động tham gia khi đi làm. Bạn và công ty mỗi bên trả một nửa phí. Chi phí bệnh viện, nhà thuốc giảm nhiều."],
+  ne:["स्वास्थ्य बीमा","अस्पताल उपचार सस्तो मूल्यमा","काम गर्दा स्वतः सामेल हुन्छ। शुल्क तपाईं र कम्पनीले आधा-आधा तिर्छन्। अस्पताल र औषधि निकै सस्तो पर्छ।"],
+  id:["Asuransi Kesehatan","Berobat dengan harga asuransi","Otomatis saat bekerja. Anda dan perusahaan membayar premi setengah-setengah. Biaya rumah sakit dan apotek jauh lebih murah."]}},
+ goyong1:{st:"on",t:{
+  ko:["고용보험 · 직업훈련","직업훈련·고용유지 지원","보험료는 회사만 냅니다. 직업훈련을 받을 수 있고, 회사가 어려울 때 고용유지 지원을 받습니다. 자동 가입입니다."],
+  en:["Employment Ins. · Training","Job training support","Premium paid by employer only. You can receive job training, and employment-retention support in downturns. Automatic."],
+  vi:["BH việc làm · Đào tạo","Hỗ trợ đào tạo nghề","Phí do công ty trả. Bạn có thể được đào tạo nghề và hỗ trợ giữ việc khi công ty khó khăn. Tự động áp dụng."],
+  ne:["रोजगार बीमा · तालिम","सीप तालिम सहयोग","शुल्क कम्पनीले मात्र तिर्छ। सीप तालिम पाइन्छ, कम्पनी समस्यामा पर्दा रोजगार जोगाउने सहयोग मिल्छ। स्वतः लागू।"],
+  id:["Asuransi Kerja · Pelatihan","Dukungan pelatihan kerja","Premi dibayar perusahaan saja. Anda bisa ikut pelatihan kerja dan dukungan mempertahankan pekerjaan. Otomatis."]}},
+ goyong2:{st:"opt",t:{
+  ko:["고용보험 · 실업급여","신청하면 가입 — 실직 시 구직급여","원하면 신청해서 가입합니다. 가입하면 보험료를 내고, 일자리를 잃었을 때 구직급여를 받을 수 있습니다. 신청하지 않으면 받을 수 없습니다."],
+  en:["Employment Ins. · Unemployment benefit","Optional — enroll to be covered","You may enroll if you wish. Once enrolled you pay a premium and can receive job-seeking benefits if you lose your job. No enrollment, no benefit."],
+  vi:["BH việc làm · Trợ cấp thất nghiệp","Tự chọn — đăng ký mới được hưởng","Bạn có thể đăng ký nếu muốn. Khi tham gia, bạn đóng phí và được trợ cấp tìm việc nếu mất việc. Không đăng ký thì không được hưởng."],
+  ne:["रोजगार बीमा · बेरोजगार भत्ता","वैकल्पिक — निवेदन दिए मात्र","चाहेमा निवेदन दिएर सामेल हुन सकिन्छ। सामेल भए शुल्क तिर्नुपर्छ र काम गुमाए भत्ता पाइन्छ। निवेदन नदिए पाइँदैन।"],
+  id:["Asuransi Kerja · Tunjangan PHK","Opsional — daftar dulu","Anda boleh mendaftar jika mau. Setelah terdaftar, Anda bayar premi dan bisa dapat tunjangan saat kehilangan kerja. Tanpa daftar, tanpa tunjangan."]}},
+ sanghae:{st:"on",t:{
+  ko:["상해보험 (전용)","일 밖에서 다칠 때 대비","업무 밖 사고·질병·사망에 대비하는 보험입니다. 외국인 근로자가 의무로 가입합니다(외국인고용법 제23조)."],
+  en:["Personal Accident Ins.","Covers off-duty injuries","Covers accidents, illness and death outside work. Mandatory for foreign workers (Foreign Workers Act §23)."],
+  vi:["BH tai nạn cá nhân","Rủi ro ngoài giờ làm","Bảo hiểm cho tai nạn, bệnh tật, tử vong ngoài công việc. Lao động nước ngoài bắt buộc tham gia (Luật §23)."],
+  ne:["दुर्घटना बीमा (विशेष)","काम बाहिरको जोखिम","काम बाहिरको दुर्घटना, रोग, मृत्युका लागि बीमा। विदेशी कामदारले अनिवार्य सामेल हुनुपर्छ (ऐन §23)।"],
+  id:["Asuransi Kecelakaan Diri","Risiko di luar kerja","Menanggung kecelakaan, sakit, kematian di luar pekerjaan. Wajib bagi pekerja asing (UU §23)."]}},
+ gongje:{st:"new",t:{
+  ko:["일하는 외국인 공제회","내 계좌 — 출국 시 100% 환급 ★본 제안","매달 내 4%와 회사 2~4%가 내 이름의 계좌에 쌓입니다. 한국을 떠날 때 전부 돌려받고, 장기체류로 바꾸면 국민연금으로 이어집니다. (제안 중인 제도)"],
+  en:["Working Foreigner Fund","My account — 100% refund ★proposal","Each month your 4% and the employer's 2–4% go into an account in your name. You get it all back when you leave Korea; if you switch to long-term stay it transfers to the National Pension. (Proposed)"],
+  vi:["Quỹ tương trợ LĐ nước ngoài","Tài khoản của tôi — hoàn 100% ★đề xuất","Mỗi tháng 4% của bạn và 2–4% của công ty vào tài khoản mang tên bạn. Khi rời Hàn Quốc nhận lại toàn bộ; nếu chuyển cư trú dài hạn, chuyển sang Quỹ hưu trí quốc gia. (Đang đề xuất)"],
+  ne:["श्रमिक पारस्परिक कोष","मेरो खाता — १००% फिर्ता ★प्रस्ताव","हरेक महिना तपाईंको ४% र कम्पनीको २–४% तपाईंकै नाममा जम्मा हुन्छ। कोरिया छोड्दा सबै फिर्ता; दीर्घ बसाइमा गए राष्ट्रिय पेन्सनमा सर्छ। (प्रस्तावित)"],
+  id:["Dana Pekerja Asing","Akun saya — 100% kembali ★usulan","Tiap bulan 4% Anda dan 2–4% perusahaan masuk ke akun atas nama Anda. Saat meninggalkan Korea semuanya kembali; jika pindah izin tinggal jangka panjang, dialihkan ke Pensiun Nasional. (Usulan)"]}},
+ chulguk:{st:"on",t:{
+  ko:["출국만기보험","퇴직금 — 회사가 8.3% 적립","회사가 매달 월급의 8.3%를 적립합니다. 출국할 때 퇴직금으로 받습니다(외국인고용법 제13조)."],
+  en:["Departure Guarantee Ins.","Severance — employer saves 8.3%","The employer sets aside 8.3% of your wage monthly. Paid as severance when you depart (Act §13)."],
+  vi:["BH mãn hạn xuất cảnh","Trợ cấp thôi việc — 8,3%","Công ty tích lũy 8,3% lương mỗi tháng. Nhận như trợ cấp thôi việc khi xuất cảnh (Luật §13)."],
+  ne:["प्रस्थान बीमा","सेवा सुविधा — ८.३%","कम्पनीले मासिक तलबको ८.३% जम्मा गर्छ। देश छोड्दा सेवा सुविधाका रूपमा पाइन्छ (ऐन §13)।"],
+  id:["Asuransi Kepulangan","Pesangon — 8,3%","Perusahaan menyisihkan 8,3% gaji tiap bulan. Dibayar sebagai pesangon saat Anda pulang (UU §13)."]}},
+ gwiguk:{st:"on",t:{
+  ko:["귀국비용보험","귀국 비행기값 — 내가 납입","근로계약 시작 3개월 안에 국가별 금액(40~60만 원)을 냅니다. 출국할 때 청구해 돌려받습니다. 출국일부터 3년이 지나면 휴면 처리됩니다(외국인고용법 제15조)."],
+  en:["Return Cost Ins.","Your trip home — you pay","Within 3 months of your contract you pay a set amount by country (KRW 400–600k). Claim it back when you depart. After 3 years from departure it becomes dormant (Act §15)."],
+  vi:["BH chi phí về nước","Vé về nước — bạn tự đóng","Trong 3 tháng đầu hợp đồng, bạn đóng một khoản theo quốc gia (400–600 nghìn won). Yêu cầu hoàn lại khi xuất cảnh. Quá 3 năm kể từ ngày xuất cảnh sẽ thành tiền ngủ quên (Luật §15)."],
+  ne:["फिर्ती खर्च बीमा","घर फर्किने खर्च — आफैं तिर्ने","सम्झौता सुरु भएको ३ महिनाभित्र देशअनुसार तोकिएको रकम (४–६ लाख वन) तिर्नुहुन्छ। देश छोड्दा दाबी गरेर फिर्ता पाउनुहुन्छ। प्रस्थानपछि ३ वर्ष नाघे निष्क्रिय हुन्छ (ऐन §15)।"],
+  id:["Asuransi Biaya Pulang","Ongkos pulang — Anda bayar","Dalam 3 bulan pertama kontrak Anda membayar jumlah tetap per negara (400–600 ribu won). Klaim kembali saat pulang. Lewat 3 tahun sejak keberangkatan menjadi dana tidur (UU §15)."]}},
+ nps_on:{st:"on",t:{
+  ko:["국민연금","가입 중 — 10년 요건으로 수급 사실상 불가","보험료를 내고 있지만 연금을 받으려면 10년 납부가 필요합니다. E-9 체류로는 채우기 어렵습니다. 출국하면 원금+이자(2.2%)만 돌려받습니다. 2026년 10월 법 개정으로 외국인의 추후납부(추납)·부양가족연금은 원칙적으로 배제됩니다(상호주의·시행령 예외)."],
+  en:["National Pension","Enrolled — but 10-yr rule blocks benefits","You pay premiums, but a pension requires 10 years of contributions — hard on an E-9 stay. On departure you get only principal + 2.2% interest. A law amended in Oct 2026 excludes foreigners from back-payments and dependent supplements in principle (exceptions: reciprocity, decree)."],
+  vi:["Hưu trí quốc gia","Đang đóng — khó hưởng vì quy định 10 năm","Bạn đang đóng phí nhưng lương hưu cần 10 năm đóng — khó đạt với visa E-9. Khi xuất cảnh chỉ nhận lại gốc + lãi 2,2%. Luật sửa đổi tháng 10/2026 về nguyên tắc loại người nước ngoài khỏi đóng bù và phụ cấp người phụ thuộc (ngoại lệ: có đi có lại, nghị định)."],
+  ne:["राष्ट्रिय पेन्सन","तिर्दै — तर १० वर्षे नियमले पाउन कठिन","शुल्क तिर्दै हुनुहुन्छ तर पेन्सनका लागि १० वर्ष चाहिन्छ — E-9 बसाइमा कठिन। फर्किंदा साँवा + २.२% ब्याज मात्र फिर्ता। अक्टोबर २०२६ को कानुन संशोधनले विदेशीलाई पछि-भुक्तानी र आश्रित भत्ताबाट सिद्धान्ततः बाहिर राख्छ (अपवाद: पारस्परिकता, नियमावली)."],
+  id:["Pensiun Nasional","Terdaftar — aturan 10 thn menghalangi","Anda membayar premi, tetapi pensiun butuh 10 tahun iuran — sulit dengan visa E-9. Saat pulang hanya pokok + bunga 2,2%. Amendemen UU Okt 2026 pada prinsipnya mengecualikan WNA dari pembayaran susulan dan tunjangan tanggungan (pengecualian: resiprositas, peraturan)."]}},
+ nps_off:{st:"x",t:{
+  ko:["국민연금","가입 제외(상호주의) — 노후 적립 없음","출신국과의 상호주의 때문에 국민연금에 가입되지 않습니다. 지금은 노후를 위한 적립이 전혀 없습니다. 공제회가 이 빈자리를 채우는 제안입니다. 2026년 10월 법 개정으로 외국인의 추후납부(추납)·부양가족연금은 원칙적으로 배제됩니다(상호주의·시행령 예외)."],
+  en:["National Pension","Excluded (reciprocity) — no retirement savings","Due to reciprocity rules with your home country, you are not enrolled. You currently have no retirement savings at all. The Fund proposal fills this gap. A law amended in Oct 2026 excludes foreigners from back-payments and dependent supplements in principle (exceptions: reciprocity, decree)."],
+  vi:["Hưu trí quốc gia","Bị loại trừ — không có tích lũy hưu trí","Do nguyên tắc có đi có lại với nước bạn, bạn không được tham gia. Hiện bạn không có khoản tích lũy hưu trí nào. Quỹ tương trợ được đề xuất để lấp chỗ trống này. Luật sửa đổi tháng 10/2026 về nguyên tắc loại người nước ngoài khỏi đóng bù và phụ cấp người phụ thuộc (ngoại lệ: có đi có lại, nghị định)."],
+  ne:["राष्ट्रिय पेन्सन","बहिष्कृत — बुढेसकालको बचत शून्य","आफ्नो देशसँगको पारस्परिकता नियमका कारण तपाईं सामेल हुनुहुन्न। अहिले बुढेसकालका लागि कुनै बचत छैन। यही खाली ठाउँ भर्न कोष प्रस्ताव गरिएको हो। अक्टोबर २०२६ को कानुन संशोधनले विदेशीलाई पछि-भुक्तानी र आश्रित भत्ताबाट सिद्धान्ततः बाहिर राख्छ (अपवाद: पारस्परिकता, नियमावली)."],
+  id:["Pensiun Nasional","Dikecualikan — tanpa tabungan pensiun","Karena aturan timbal balik dengan negara asal, Anda tidak terdaftar. Saat ini Anda tidak punya tabungan pensiun sama sekali. Dana ini diusulkan untuk mengisi kekosongan itu. Amendemen UU Okt 2026 pada prinsipnya mengecualikan WNA dari pembayaran susulan dan tunjangan tanggungan (pengecualian: resiprositas, peraturan)."]}},
+ janggi:{st:"x",t:{
+  ko:["장기요양보험","수급 가능성 없는 부과 — 제외 신청 가능","노인 돌봄을 위한 보험이지만 단기 체류자는 혜택받을 가능성이 없습니다. 가입제외를 신청할 수 있습니다('26.5. 시행령)."],
+  en:["Long-term Care Ins.","No realistic benefit — opt-out available","Insurance for elderly care, but short-term workers have no realistic chance of benefits. You may apply for exemption (2026.5 decree)."],
+  vi:["BH chăm sóc dài hạn","Khó hưởng — có thể xin miễn","Bảo hiểm chăm sóc người già, nhưng lao động ngắn hạn gần như không thể hưởng. Có thể xin miễn tham gia (nghị định 5/2026)."],
+  ne:["दीर्घ स्याहार बीमा","लाभको सम्भावना छैन — छुट माग्न सकिन्छ","वृद्ध स्याहारको बीमा हो तर छोटो बसाइकाले लाभ पाउने सम्भावना छैन। छुटका लागि निवेदन दिन सकिन्छ (२०२६.५)।"],
+  id:["Asuransi Perawatan Lansia","Hampir mustahil dinikmati — bisa minta pengecualian","Asuransi perawatan lansia, tetapi pekerja jangka pendek hampir tak mungkin menikmatinya. Bisa mengajukan pengecualian (dekret 5/2026)."]}}
+};
+const COV_ORDER=w=>({now:["sanjae","geonbo","goyong1","goyong2","sanghae"],
+ leave:["gongje","chulguk","gwiguk"],
+ gap:[w.nps?"nps_on":"nps_off","janggi"]});
+// ───────── 유틸 ─────────
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString("ko-KR");
+const won=n=>`<span class="won">₩</span>${fmt(n)}`;
+const BASE_Y=2026,BASE_M=9; // 최신 납입월(시연 기준)
+function ymOf(w,k){const t=BASE_Y*12+(BASE_M-1)-(w.months-k);return[Math.floor(t/12),t%12+1];}
+let state={role:"worker",workerId:"W001",lang:"ko",wtab:"acct",step:1,sec:false,nominee:null,simM:null,entered:false,covOpen:null,hideAmt:false};
+const W=()=>WORKERS.find(x=>x.id===state.workerId);
+const T=()=>STR[state.lang];
+// ───────── 온보딩 (A1) ─────────
+const LANGS=[["ko","한국어"],["en","English"],["vi","Tiếng Việt"],["ne","नेपाली"],["id","Bahasa Indonesia"]];
+function vOnboard(t){
+ return `<div class="onb">
+  <div class="logo"><b>공</b><span class="mini">확인</span></div>
+  <h1>일하는 외국인 공제회</h1>
+  <div class="promise">${t.promise}</div>
+  <div class="book" style="margin-bottom:18px">${LANGS.map(([c,n])=>
+    `<div class="langrow ${state.lang===c?"sel":""}" data-lang="${c}">${n}<span class="ck">✓</span></div>`).join("")}</div>
+  <div class="gh" style="margin:4px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">데모 근로자를 골라 들어가세요</div>
+  <div class="book" style="padding:2px 16px">${WORKERS.map(w=>`<div class="row" data-go="enterAs:${w.id}" style="cursor:pointer">
+     <div class="ava" style="width:38px;height:38px;font-size:15px;background:var(--g2);color:var(--g);border:0;flex:none">${w.name[0]}</div>
+     <div style="margin-left:12px"><div class="nm">${w.name}</div><div class="nt">${w.country} · ${w.visa} · ${w.months}개월</div><div class="nt" style="font-variant-numeric:tabular-nums">${t.idlabel} ${w.rid}</div></div>
+     <span class="chev" style="margin-left:auto;color:var(--mut)">›</span></div>`).join("")}</div>
+  <div class="note" style="text-align:center">실제 서비스에서는 본인 인증으로 로그인해 자기 계좌만 봅니다.</div>
+  <div class="demo">데모: <a data-enter-role="employer">사업주 포털</a>·<a data-enter-role="admin">관리자</a></div>
+ </div>`;}
+// ───────── 근로자 화면 ─────────
+function vAcct(w,t){const a=account(w);const[y,m]=ymOf(w,w.months);
+ const C=2*Math.PI*62, f1=a.me/a.total, f2=a.emp/a.total;
+ const seg=(off,frac,col)=>`<circle cx="74" cy="74" r="62" fill="none" stroke="${col}" stroke-width="13" stroke-linecap="round" stroke-dasharray="${(frac*C-4).toFixed(1)} ${(C-frac*C+4).toFixed(1)}" stroke-dashoffset="${(-off*C).toFixed(1)}"/>`;
+ const amt=n=>state.hideAmt?"••••••":fmt(n);
+ const eye=state.hideAmt?'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>':'<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+ return `
+ <div class="band"><div class="hello">
+   <div class="ava">${w.name[0]}</div>
+   <div><div class="hi">${t.hi}, ${w.name.split(" ")[0]}</div><div class="asof">${y}.${String(m).padStart(2,"0")}.30 ${t.asof} · ${w.visa}</div></div>
+   <div class="ic"><span data-go="eye">${eye}</span></div>
+ </div></div>
+ <div class="ringcard">
+   <div class="ring"><svg width="148" height="148" viewBox="0 0 148 148" style="width:188px;height:188px">
+     <circle cx="74" cy="74" r="62" fill="none" stroke="#F1F3F5" stroke-width="13"/>
+     ${seg(0,f1,"#0B50D0")}${seg(f1,f2,"#4C87F6")}${seg(f1+f2,1-f1-f2,"#0FB87D")}
+   </svg>
+   <div class="cen"><div class="l">${t.total}</div>
+     <div class="v count" data-v="${Math.round(a.total)}">${state.hideAmt?"••••••":won(a.total)}</div>
+     <div class="tagline"><span class="prog" style="margin:0">${w.months}/${PARAMS.maturity} ${t.months}</span></div></div>
+   </div>
+   <div class="legend">
+     <div><span class="dt c1"></span><span class="ll">${t.mine} 4%</span><div class="lv t1">${amt(a.me)}</div></div>
+     <div><span class="dt c2"></span><span class="ll">${t.boss} 2→4%</span><div class="lv t2">${amt(a.emp)}</div></div>
+     <div><span class="dt c3"></span><span class="ll">${t.gain}</span><div class="lv t3">${amt(a.gain)}</div></div>
+   </div>
+ </div>
+ <div class="book">
+   <div class="row"><div><div class="nm">${t.cur}</div><div class="nt">${t.boss} ${(PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]*100).toFixed(0)}% · ${Math.min(Math.floor((w.months-1)/24),2)===2?"49개월차~":Math.floor((w.months-1)/24)*24+1+"~"+(Math.floor((w.months-1)/24)+1)*24+"개월차"}</div></div>
+     <span class="leader"></span><span class="amt">${amt(w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]))}<span style="font-weight:400;font-size:11px;color:var(--mut)">/월</span></span></div>
+   <div class="row"><div><div class="nm">${y}.${String(m).padStart(2,"0")} ${t.paid}</div><div class="nt">4대보험 통합징수 자동 확인</div></div>
+     <div class="stamp" style="margin-left:auto"><span>공제회</span><b>${t.paid}</b><span>${m}月</span></div></div>
+ </div>
+${w.hiArr?`<div class="book" style="padding:12px 16px;background:#FDEFEC;border-color:#F5C9BF"><div style="display:flex;align-items:baseline;gap:8px"><div style="font-weight:800;font-size:14px">건강보험료 미납이 있어요</div><div style="margin-left:auto;font-weight:900;color:var(--red)">₩${fmt(w.hiArr)}</div></div>
+   <div class="nt" style="font-size:12.5px;margin:4px 0 10px;line-height:1.6">미납이 쌓이면 체류기간 연장이 제한될 수 있어요. 지금 내면 간단합니다. (예시 금액 · 건강보험공단 정보 연계 시 표시 · 공제회 소관이 아닌 안내)</div>
+   <a href="https://www.nhis.or.kr" target="_blank" rel="noopener" style="display:block;text-align:center;border-radius:10px;padding:11px;font-size:13.5px;font-weight:800;background:var(--red);color:#fff;text-decoration:none">건강보험공단에서 납부하기 ›</a></div>`:""}
+ <div class="book" style="padding:12px 16px;background:#FFF3DB;border-color:#F3DFAF"><div style="font-weight:800;font-size:14px">알아두세요: 장기요양보험료를 내고 있어요</div>
+   <div class="nt" style="font-size:12.5px;margin:4px 0 10px;line-height:1.6">노인 돌봄 보험이라 단기 체류 근로자는 이용 가능성이 낮습니다. 건강보험공단에 신청하면 제외할 수 있어요(제외하면 장기요양 서비스는 이용할 수 없습니다). 공제회 소관이 아닌 안내입니다.</div>
+   <a href="https://www.nhis.or.kr" target="_blank" rel="noopener" style="display:block;text-align:center;border-radius:10px;padding:11px;font-size:13.5px;font-weight:800;background:#8A5C00;color:#fff;text-decoration:none">건강보험공단에서 제외 신청하기 ›</a></div>
+ <button class="btn" data-go="sim">${t.simulate}</button>
+ <div style="margin-top:16px">
+   <div class="linkrow" data-go="bridge">${IC.home} 한국에 계속 산다면 — E-7-4 전환 미리보기<span class="chev">›</span></div>
+   <div class="linkrow" data-go="nominee">${IC.users} 수급권자(가족) 지정
+     <span class="st2 ${state.nominee?"ok2":"warn2"}">${state.nominee?("지정 완료 — "+state.nominee):"미지정"}</span></div>
+ </div>`;}
+function vLedger(w,t){const rows=[];let bal=0;const r=PARAMS.fund_return/12;
+ const pts=[];
+ for(let k=1;k<=w.months;k++){const er=PARAMS.employer_rate_steps[Math.min(Math.floor((k-1)/24),2)];
+  const me=w.wage*.04,emp=w.wage*er;bal=(bal+me+emp)*(1+r);
+  const[y,m]=ymOf(w,k);pts.push(bal);
+  rows.push({k,y,m,me,emp,bal,er});}
+ const max=bal,n=rows.length;
+ const poly=rows.map((p,i)=>`${(i/(n-1||1)*300).toFixed(1)},${(44-p.bal/max*40).toFixed(1)}`).join(" ");
+ let out=`<div class="profile"><h2>${t.tabLedger}</h2><span class="tag">${w.visa}</span><span class="prog">${w.months} ${t.months}</span></div>
+ <svg class="spark" width="100%" height="48" viewBox="0 0 300 48" preserveAspectRatio="none"><polyline points="${poly}" fill="none" stroke="#083891" stroke-width="1.6"/></svg>
+ <div class="book">`;
+ for(let i=rows.length-1;i>=0;i--){const p=rows[i];
+  if(p.k===49)out+=`<div class="divline">↑ 사업주 기여율 3% → 4%</div>`;
+  if(p.k===25)out+=`<div class="divline">↑ 사업주 기여율 2% → 3%</div>`;
+  if(p.m===12)out+=`<div class="divyear">${p.y}년 ${t.gain} 확정 +3.0%</div>`;
+  out+=`<div class="row"><div><div class="nm">${p.y}.${String(p.m).padStart(2,"0")}</div>
+    <div class="nt">${t.mine} ${fmt(p.me)} · ${t.boss} ${fmt(p.emp)} (${(p.er*100).toFixed(0)}%)</div></div>
+    <span class="amt">${fmt(p.bal)}</span>${p.k===1?'<div class="stamp" style="width:46px;height:46px;font-size:9px;margin-left:8px"><b style="font-size:10px">'+t.paid+'</b></div>':""}</div>`;}
+ return out+"</div>";}
+function vSim(w,t){const m=state.simM??w.months;const a=account(w,m);const ref=refundNow(w,m);
+ const pct=((m-1)/(PARAMS.maturity-1)*100).toFixed(1);
+ return `<button class="back" data-go="acct">${t.back}</button>
+ <div class="profile"><h2>${t.simulate}</h2></div>
+ <div class="hero"><div class="lbl">${m} ${t.months}</div><div class="big">${won(a.total)}</div></div>
+ <div class="jl"><input type="range" id="simr" min="1" max="${PARAMS.maturity}" value="${m}" style="background:linear-gradient(90deg,var(--g) ${pct}%,var(--rule) ${pct}%)">
+   <div class="jlbl"><span>입국</span><span>${t.today}(${w.months})</span><span>${t.mat} ${PARAMS.maturity}</span></div>
+ <div class="jump"><button data-go="simToday">${t.today}</button><button data-go="simMat">${t.mat}</button></div></div>
+ <div class="bars">
+   <div class="gh">공제회 (사업주 기여 포함)</div>
+   <div class="bar" style="width:100%">₩${fmt(a.total)}</div>
+   <div class="gh">현행 제도라면</div>
+   ${w.nps?`<div class="bar gray" style="width:${Math.max(ref/a.total*100,14).toFixed(1)}%">₩${fmt(ref)}</div><div class="note">국민연금 반환일시금 — 원금(노사 9%)+이자 2.2% 약식 예시 산정</div>`
+         :`<div class="bar gray" style="width:14%">₩0</div><div class="note">${w.country} 국적: 국민연금 당연적용 제외(상호주의) — 노후 적립 없음</div>`}
+ </div>
+ <div class="note">운용수익은 연 3% 보수 가정의 예시입니다</div>
+ <button class="btn" data-go="apply">${t.apply} →</button>`;}
+function vApply(w,t){const s=state.step;const tot=account(w).total;const arr=w.hiArr||0;const pay=arr&&state.payRef;const net=tot-(pay?arr:0);
+ const steps=`<div class="steps"><div class="${s>=1?"on":""}">1 신고</div><div class="${s>=2?"on":""}">2 확인</div><div class="${s>=3?"on":""}">3 계좌</div><div class="${s>=4?"on":""}">4 완료</div></div>`;
+ if(s===1)return `<button class="back" data-go="sim">${t.back}</button><div class="profile"><h2>${t.apply}</h2></div>${steps}
+  <div class="field"><label>출국 예정일 — 항공권 날짜만 있으면 됩니다. 서류는 필요 없습니다.</label><input type="date" value="2026-12-15"></div>
+  <button class="btn" data-go="step2">다음 →</button>`;
+ if(s===2)return `<button class="back" data-go="apply1">${t.back}</button><div class="profile"><h2>출국 전 확인</h2></div>${steps}
+  <div class="book">
+   <div class="row"><div><div class="nm">공제회 환급액</div><div class="nt">내 납부 + 사업주 기여 + 운용수익 — 전액 지급</div></div><span class="amt" style="color:var(--g);font-weight:900">₩${fmt(tot)}</span></div>
+   ${pay?`<div class="row"><div><div class="nm">본국 송금액</div><div class="nt">본인 선택: 건강보험 미납 ₩${fmt(arr)} 대신 납부 후</div></div><span class="amt">₩${fmt(net)}</span></div>`:""}
+  </div>
+  <div class="gh" style="margin:18px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">떠나기 전 함께 챙길 것 <span style="color:var(--mut);font-weight:500">· 다른 기관 소관</span></div>
+  <div class="book">
+   <div class="row"><div><div class="nm">건강보험료</div><div class="nt">${arr?"미납 내역이 있습니다 (예시) — 출국 전 납부하면 체납으로 남지 않습니다":"미납 없음 — 직장가입 기간은 사업주가 원천공제"}</div></div>${arr?`<span class="amt" style="color:var(--red)">₩${fmt(arr)}</span>`:`<span class="tag">확인</span>`}</div>
+   ${arr?`<div style="display:flex;gap:8px;padding:10px 0 12px">
+     <button data-go="payRef" style="flex:1;border:1.5px solid var(--g);border-radius:10px;padding:11px 6px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;background:${pay?"var(--g)":"var(--card)"};color:${pay?"#fff":"var(--g)"}">${pay?"✓ ":""}환급금에서 바로 납부</button>
+     <a href="https://www.nhis.or.kr" target="_blank" rel="noopener" style="flex:1;text-align:center;border:1.5px solid var(--rule);border-radius:10px;padding:11px 6px;font-size:13px;font-weight:800;color:var(--ink);text-decoration:none;background:var(--card)">직접 납부하기 ›</a></div>
+     ${pay?`<div class="note" style="margin:-4px 0 10px">본인 선택으로 환급금 중 ₩${fmt(arr)}을 건강보험공단에 대신 납부합니다. 다시 누르면 취소됩니다.</div>`:""}`:""}
+   <div class="row"><div><div class="nm">출국만기보험 (퇴직금)</div><div class="nt">사업주가 가입한 의무보험 — 출국 전에 신청해 두세요</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
+   <div class="row"><div><div class="nm">귀국비용보험</div><div class="nt">내가 낸 의무보험 — 출국 전에 신청해 두세요</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>
+   <div class="note" style="margin:2px 0 10px">두 보험은 출국일부터 3년 안에 본국에서도 청구할 수 있지만, 지나면 휴면보험금이 됩니다. 고용허가제 전용보험의 휴면보험금은 2026년 6월 323억 원입니다. <a href="https://www.eps.go.kr/eo/EmployPerSystem.eo?tabGb=06" target="_blank" rel="noopener" style="color:var(--g);font-weight:700">청구 안내 ›</a></div>
+   ${w.nps?`<div class="row"><div><div class="nm">국민연금 반환일시금</div><div class="nt">가입 이력이 있어 출국 시 별도 청구 대상</div></div><span class="tag" style="margin-left:auto;flex:none">청구</span></div>`:""}
+  </div>
+  <div class="note">공제회는 다른 기관의 미납을 이유로 환급을 보류하거나 차감하지 않습니다. 본인이 선택한 경우에만 환급금에서 대신 납부합니다.</div>
+  <button class="btn" data-go="step3">확인했어요 →</button>`;
+ if(s===3)return `<button class="back" data-go="step2">${t.back}</button><div class="profile"><h2>${t.apply}</h2></div>${steps}
+  <div class="field"><label>본국 수령 계좌</label><select><option>${w.bank}</option><option>다른 은행…</option></select></div>
+  <div class="field"><label>예상 송금액${pay?" (건강보험 대신 납부 후)":""}</label><input value="₩${fmt(net)}" disabled></div>
+  <button class="btn" data-go="sec">다음 →</button>
+  ${state.sec?`<div class="sheet"><div style="color:var(--g)">${IC.finger}</div><b>본인 확인</b><div class="note">고액 거래 보안 승인 — 지문을 대 주세요</div><button class="btn" data-go="step4">확인됨 → 접수</button></div>`:""}`;
+ return `<div class="profile"><h2>${t.apply}</h2></div>${steps}
+  <div class="stamp big"><span>공제회</span><b>접수 완료</b><span>${BASE_Y}.${BASE_M}</span></div>
+  <p style="text-align:center;font-weight:700">출국 확인 후 3일 내 지급됩니다</p>
+  ${arr?(pay?`<p class="note" style="text-align:center">건강보험 미납 ₩${fmt(arr)} 대신 납부 접수 — 출국 후 남는 체납이 없습니다</p>`:`<p class="note" style="text-align:center">잊지 마세요: 건강보험 미납 ₩${fmt(arr)} — 출국 전 납부</p>`):""}
+  <p class="note" style="text-align:center">출국만기·귀국비용보험 청구는 따로 하세요 — 출국일부터 3년 안</p>
+  <button class="btn ghost" data-go="acct">${t.tabAcct}</button>`;}
+function vBridge(w,t){const a=account(w);
+ return `<button class="back" data-go="acct">${t.back}</button>
+ <div class="profile"><h2>한국에 계속 살게 된다면</h2></div>
+ <div class="hero"><div class="lbl">현재 적립</div><div class="big">${won(a.total)}</div></div>
+ <div class="fork">
+   <div>${IC.plane}<div class="t">귀국</div><div class="d">100% 환급<br>출국 확인 후 3일 내 지급</div></div>
+   <div>${IC.home}<div class="t">E-7-4 전환</div><div class="d">국민연금으로 이체<br>가입기간 ${w.months}개월 합산 인정</div></div>
+ </div>
+ <div class="note">어느 쪽을 선택해도 적립금은 사라지지 않습니다 — 전환 시 공제회 적립액과 가입기간이 국민연금에 승계됩니다(포터빌리티 브리지, 제안)</div>
+ <div class="gh">전환하면 이렇게 흘러갑니다</div>
+ <div class="tl">
+   <div><b>E-7-4 전환</b>공제회 → 국민연금<br>이체·기간 합산</div>
+   <div><b>계속 납부</b>내국인과 동일<br>규칙 적용</div>
+   <div><b>10년 충족</b>연금 수급권 확보<br>(미만이면 반환일시금)</div>
+   <div><b>65세~</b>연금 수령 —<br>귀국해도 본국 계좌로</div>
+ </div>
+ <div class="note">핵심은 나이가 아니라 가입기간: 10년을 채우면 어디에 살든 65세부터 평생 연금이 나옵니다.</div>`;}
+function vNominee(w,t){
+ return `<button class="back" data-go="acct">${t.back}</button>
+ <div class="profile"><h2>수급권자 지정</h2>${state.nominee?'<span class="st2 ok2" style="margin-left:auto">지정 완료</span>':""}</div>
+ <p class="note">만약을 위해, 이 돈을 받을 본국 가족을 정해 두세요.</p>
+ <div class="field"><label>이름</label><input id="nmName" value="${state.nominee??""}" placeholder="예: Sita Gurung"></div>
+ <div class="field"><label>관계</label><select id="nmRel"><option>배우자</option><option>부모</option><option>자녀</option></select></div>
+ <div class="field"><label>연락처</label><input placeholder="+977 …"></div>
+ <div class="field"><label>신분증 촬영 (e-KYC)</label><div style="border:1.5px dashed var(--rule);border-radius:11px;padding:26px;text-align:center;color:var(--mut)">${IC.cam} 촬영하기</div></div>
+ <button class="btn" data-go="saveNom">지정하기</button>`;}
+function vCover(w,t){const o=COV_ORDER(w),L=state.lang;
+ const row=k=>{const e=COV[k],[nm,line,det]=e.t[L]||e.t.ko;const open=state.covOpen===k;
+  return `<div class="row tap" data-cov="${k}"><div><div class="nm">${nm}</div><div class="nt">${line}</div></div><span class="st ${e.st}">${t["st_"+e.st]}</span></div>`
+   +(open?`<div class="cdetail">${det}</div>`:"");};
+ const grp=(k,keys)=>`<div class="gh">${t[k]}</div><div class="book">`+keys.map(row).join("")+`</div>`;
+ return `<div class="profile"><h2>${w.name}</h2><span class="tag">${w.visa} · ${w.cc}</span></div>`
+  +grp("now",o.now)+grp("leave",o.leave)+grp("gap",o.gap);}
+// ───────── 사업주 ─────────
+function vEmployer(){
+ const monthPay=w=>w.wage*(.04+PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)]);
+ const empPay=w=>w.wage*PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)];
+ const tot=WORKERS.reduce((s,w)=>s+empPay(w),0);
+ const save=WORKERS.filter(w=>w.nps).reduce((s,w)=>s+w.wage*.0475-empPay(w),0)*12;
+ const nps=[4.75,5,5.25,5.5,5.75,6,6.25,6.5],flat=[2,2,3,3,4,4,4,4];
+ const pl=a=>a.map((v,i)=>`${i/(a.length-1)*300},${44-(v-1.5)/5.2*40}`).join(" ");
+ return `<div class="profile"><h2>(주)대한금속</h2><span class="tag">E-9·H-2 ${WORKERS.length}명</span></div>
+ <div class="kpis" style="margin-top:14px">
+   <div><div class="l">이번 달 사업주 납부</div><div class="v">₩${fmt(tot)}</div></div>
+   <div><div class="l">연간 절감(국민연금 대비·적용국 ${WORKERS.filter(w=>w.nps).length}명)</div><div class="v">₩${fmt(save)}</div></div>
+   <div><div class="l">재직 근로자</div><div class="v">${WORKERS.length}명</div></div>
+ </div>
+ <div class="book"><div class="row"><div><div class="nm">절감 근거 (월 261만 원 기준)</div>
+   <div class="nt">국민연금 1인당 연 1,487,700원(4.75%) → 공제회 1년차 626,400원(2%) = 연 861,300원 절감</div></div></div>
+   <div style="padding:10px 0"><svg class="spark" width="100%" height="48" viewBox="0 0 300 48" preserveAspectRatio="none">
+     <polyline points="${pl(nps)}" fill="none" stroke="#B1B8BE" stroke-width="1.6"/>
+     <polyline points="${pl(flat)}" fill="none" stroke="#083891" stroke-width="2"/></svg>
+   <div class="jlbl"><span>'26</span><span style="color:#6D7882">회색: 국민연금 4.75→6.5% · 파랑: 공제회 2→4%</span><span>'33</span></div></div>
+ </div>
+ <table><tr><th>이름</th><th>비자</th><th class="num">재직</th><th class="num">당월 기여</th><th class="num">누적 기여</th><th class="num">요율</th></tr>
+ ${WORKERS.map(w=>{const a=account(w);const er=PARAMS.employer_rate_steps[Math.min(Math.floor((w.months-1)/24),2)];
+  return `<tr><td><b>${w.name}</b></td><td>${w.visa}</td><td class="num">${w.months}개월</td><td class="num">${fmt(empPay(w))}</td><td class="num">${fmt(a.emp)}</td><td class="num">${(er*100).toFixed(0)}%</td></tr>`;}).join("")}
+ </table>
+ 
+ <div class="gh" style="margin:22px 2px 8px;font-size:13px;font-weight:800;color:var(--g)">신규 채용 — 공제회 자동 등록 <span style="color:var(--mut);font-weight:500">· 취득신고 결과 수신(제안)</span></div>
+ <div class="book" style="padding:12px 16px">
+  <div class="field" style="margin-bottom:10px"><label>외국인등록번호</label><input value="${WORKERS.find(x=>x.id===(state.hire||"W001")).rid}" disabled></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">${WORKERS.map(h=>`<button data-go="hire:${h.id}" style="border:1.5px solid ${(state.hire||"W001")===h.id?"var(--g)":"var(--rule)"};background:${(state.hire||"W001")===h.id?"var(--g2)":"var(--card)"};color:${(state.hire||"W001")===h.id?"var(--g)":"var(--ink)"};border-radius:8px;padding:6px 10px;font:inherit;font-size:12px;font-weight:700;cursor:pointer">${h.name.split(" ")[0]} · ${h.cc}</button>`).join("")}</div>
+  ${(()=>{const h=WORKERS.find(x=>x.id===(state.hire||"W001"));const wg=h.wage;
+   const r=(nm,nt,tag,c)=>`<div class="row"><div><div class="nm">${nm}</div><div class="nt">${nt}</div></div><span class="tag" style="margin-left:auto;flex:none;${c||""}">${tag}</span></div>`;
+   return r("산재보험","체류자격 무관 자동 적용","자동")
+    + r("건강보험 + 장기요양","직장가입자 즉시 취득 · 장기요양보험료 함께 부과 — 근로자 신청 시 장기요양 가입 제외 가능","자동")
+    + r("고용보험","고용안정·직업능력개발 당연적용 · 실업급여는 근로자 신청 시","자동")
+    + `<div class="row" style="background:var(--g2);margin:0 -16px;padding:12px 16px"><div><div class="nm">국민연금 칸 → <b style="color:var(--g)">공제회 자동 취득</b></div>
+       <div class="nt">근로자 4% ₩${fmt(wg*.04)} · 사업주 2% ₩${fmt(wg*.02)} (1~24개월차) — 국적 무관 동일</div>
+       <div class="nt" style="margin-top:4px">현행이라면: ${h.nps?`국민연금 가입 — 근로자 4.75% ₩${fmt(wg*.0475)} · 사업주 4.75% ₩${fmt(wg*.0475)}`:`${h.country} 국적 — 국민연금 적용 제외(상호주의), 노후 적립 없음`}</div></div>
+       <span class="tag" style="margin-left:auto;flex:none;background:var(--g);color:#fff">대체</span></div>`
+    + r("외국인 전용보험 4종","출국만기·임금체불보증·귀국비용·상해 — 현재 별도 창구, 취득신고 정보로 일괄 연계(제안)","연계",'background:#FFF3DB;color:#8A5C00');})()}
+  <div class="note" style="margin-top:10px"><b>총무 추가 입력 0</b> — 신고는 지금처럼 포인슈어·각 공단 EDI·서면 등 어느 창구로든 한 번. 판정은 창구가 아니라 모든 신고가 모이는 국민연금 자격관리 단계에서, 징수는 건강보험공단 통합징수 고지서 1행으로. 공제회 앱은 신고를 처리하지 않고 결과만 받아 계좌를 자동 개설합니다. 요율은 근로자 4%, 사업주 2→3→4%(24개월 단위 단계 인상).</div>
+ </div>
+<div class="feed">
+   <div class="row"><span class="chk">✓</span><div><div class="nm">9월분 통합징수 납부 확인</div><div class="nt">4대보험 고지서에 공제회 1행 포함 — 추가 신고 없음</div></div></div>
+   <div class="row"><span class="chk">✓</span><div><div class="nm">신규 고용 — 공제회 자동 가입 완료</div><div class="nt">Ramesh Gurung · 고용허가 연계 자동 등록</div></div></div>
+ </div>`;}
+// ───────── 관리자 ─────────
+function vAdmin(){
+ const tot=WORKERS.reduce((s,w)=>s+account(w).total,0);
+ const by=WORKERS.map(w=>({c:w.country,v:account(w).total})).sort((a,b)=>b.v-a.v);
+ const mx=by[0].v;
+ return `<div class="wm">시연 데이터</div>
+ <div class="profile"><h2>기금 현황</h2></div>
+ <div class="kpis" style="margin-top:14px">
+   <div><div class="l">가입자</div><div class="v">${WORKERS.length}명</div></div>
+   <div><div class="l">적립 총액</div><div class="v">₩${fmt(tot)}</div></div>
+   <div><div class="l">당월 환급</div><div class="v">0건</div></div>
+   <div><div class="l">E-7-4 전환</div><div class="v">0건</div></div>
+ </div>
+ <div class="gh">국적별 적립 구성</div>
+ <div class="book" style="padding:12px 18px">
+ ${by.map(b=>`<div style="display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12px">
+   <span style="width:76px">${b.c}</span>
+   <div class="bar" style="flex:none;width:${(b.v/mx*62).toFixed(1)}%;height:18px;margin:0">​</div>
+   <span style="font-variant-numeric:tabular-nums;color:var(--mut)">₩${fmt(b.v)}</span></div>`).join("")}
+ </div>
+ <div class="book" style="margin-top:14px"><div class="row"><div><div class="nm">재정 시뮬레이터 (몬테카를로)</div>
+   <div class="nt">30년 기금 추이·고갈 확률 — docs/ref_fund-simulator.jsx 이식 예정 (D5)</div></div><span class="st x">예정</span></div></div>`;}
+// ───────── 렌더 ─────────
+function render(){
+ const w=W(),t=T();
+ document.querySelector("nav").style.display=state.entered?"flex":"none";
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.r===state.role));
+ const v=$("#view");
+ if(!state.entered){v.className="mobile";v.innerHTML=vOnboard(t);return;}
+ if(state.role==="employer"){v.className="";v.innerHTML=vEmployer();return;}
+ if(state.role==="admin"){v.className="";v.innerHTML=vAdmin();return;}
+ v.className="mobile";
+ const inTab=["acct","ledger","cover"].includes(state.wtab);
+ const dock=`<div class="dock">
+  <button data-w="acct" class="${state.wtab==="acct"?"on":""}">${IC.book}${t.tabAcct}</button>
+  <button data-w="ledger" class="${state.wtab==="ledger"?"on":""}">${IC.list}${t.tabLedger}</button>
+  <button data-w="cover" class="${state.wtab==="cover"?"on":""}">${IC.shield}${t.tabCover}</button></div>`;
+ const body={acct:vAcct,ledger:vLedger,cover:vCover,sim:vSim,apply:vApply,bridge:vBridge,nominee:vNominee}[state.wtab](w,t);
+ v.innerHTML=body+(inTab?dock:"");
+ const cEl=v.querySelector(".count");
+ if(cEl&&!cEl.dataset.done&&!state.hideAmt){cEl.dataset.done=1;const tgt=+cEl.dataset.v,t0=performance.now();
+  const tick=n=>{const p=Math.min((n-t0)/700,1),e=1-Math.pow(1-p,3);
+   cEl.innerHTML=`<span class="won">₩</span>${Math.round(tgt*e).toLocaleString("ko-KR")}`;
+   if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
+ const r=$("#simr");
+ if(r)r.addEventListener("input",e=>{state.simM=+e.target.value;render();});
+}
+document.addEventListener("click",e=>{
+ const el=e.target.closest("[data-r],[data-w],[data-go],[data-lang],[data-enter-role],[data-cov]");if(!el)return;
+ if(el.dataset.lang){state.lang=el.dataset.lang;$("#lang").value=state.lang;render();return;}
+ if(el.dataset.cov){state.covOpen=state.covOpen===el.dataset.cov?null:el.dataset.cov;render();return;}
+ if(el.dataset.enterRole){state.entered=true;state.role=el.dataset.enterRole;render();return;}
+ if(el.dataset.r){state.role=el.dataset.r;state.wtab="acct";render();return;}
+ if(el.dataset.w){state.wtab=el.dataset.w;state.simM=null;render();return;}
+ const g=el.dataset.go;
+ if(g==="enter"){state.entered=true;state.role="worker";state.wtab="acct";}
+ else if(g.startsWith("enterAs:")){state.workerId=g.slice(8);$("#who").value=state.workerId;state.entered=true;state.role="worker";state.wtab="acct";state.simM=null;}
+ else if(g==="sim"){state.wtab="sim";state.simM=W().months;}
+ else if(g==="eye"){state.hideAmt=!state.hideAmt;}
+ else if(g==="simToday"){state.simM=W().months;}
+ else if(g==="simMat"){state.simM=PARAMS.maturity;}
+ else if(g==="apply"){state.wtab="apply";state.step=1;state.sec=false;state.payRef=false;}
+ else if(g==="payRef"){state.payRef=!state.payRef;}
+ else if(g.startsWith("hire:")){state.hire=g.slice(5);}
+ else if(g==="apply1"){state.step=1;state.sec=false;}
+ else if(g==="step2"){state.step=2;state.sec=false;}
+ else if(g==="sec"){state.sec=true;}
+ else if(g==="step3"){state.step=3;state.sec=false;}
+ else if(g==="step4"){state.step=4;state.sec=false;}
+ else if(g==="saveNom"){const n=$("#nmName").value.trim();if(n){state.nominee=n;state.wtab="acct";}}
+ else{state.wtab=g;}
+ render();
+});
+$("#lang").addEventListener("change",e=>{state.lang=e.target.value;render();});
+$("#who").addEventListener("change",e=>{state.workerId=e.target.value;state.wtab="acct";state.simM=null;render();}); // 언어는 셀렉터로만 변경(기본 한국어)
+$("#who").innerHTML=WORKERS.map(w=>`<option value="${w.id}">${w.name}</option>`).join("");
+render();
+</script></body></html>
