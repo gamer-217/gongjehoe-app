@@ -2,7 +2,7 @@
   "_meta": {
     "lang": "en",
     "name": "English",
-    "_review": "machine"
+    "_review": "ai-reviewed"
   },
   "common": {
     "appName": "Migrant Workers' Mutual Fund",
@@ -26,7 +26,7 @@
     "example": "Example",
     "proposal": "(Proposal)",
     "reviewing": "(Under review)",
-    "demoDividend": "Demo dividend (assumed)",
+    "demoDividend": "Demo earnings (assumed)",
     "percent": "{{value}}%",
     "edit": "Change",
     "done": "Done",
@@ -47,14 +47,14 @@
     "me": "My info"
   },
   "onboard": {
-    "promise": "Your own account: it grows as you work, and you get it all back when you leave",
+    "promise": "Your own account. It grows as you work. You get it all back when you leave.",
     "chooseLang": "Choose a language",
     "start": "Start"
   },
   "home": {
     "hello": "Hello, {{name}}",
     "total": "Total saved",
-    "ringLabel": "Month {{months}} of membership. Full term is {{maturity}} months.",
+    "ringLabel": "Month {{months}} in the Fund. Full term is {{maturity}} months.",
     "ringSmall": "/ {{maturity}} months",
     "ringMatured": "Full term",
     "matured": "Full term reached · Still saving",
@@ -68,22 +68,22 @@
     },
     "pay": {
       "title": "Payment for {{ym}}",
-      "PAID": "Paid",
+      "PAID": "Payment received",
       "PENDING": "Not checked yet",
-      "OVERDUE": "Not paid",
+      "OVERDUE": "Unpaid",
       "paidDesc": "Arrived on {{date}}. Your money {{worker}} + company {{employer}}",
       "pendingDesc": "Due date is {{date}}.",
-      "overdueDesc": "The due date {{date}} has passed. Please ask your company."
+      "overdueDesc": "Your company has not paid. The due date {{date}} has passed. Please ask your company."
     },
     "alerts": {
       "label": "Notices",
       "hiArrearsTitle": "Unpaid health insurance {{amount}}",
       "hiArrearsBody": "This is from the National Health Insurance Service, not the Fund. Please contact the National Health Insurance Service.",
-      "nomineeTitle": "You have not chosen family (beneficiaries) yet",
+      "nomineeTitle": "You have not chosen your beneficiaries (family) yet",
       "nomineeBody": "Choose the family who will get your savings if something happens to you.",
       "nomineeAction": "Choose now",
       "dividendTitle": "Earnings for {{year}} are confirmed",
-      "dividendBody": "{{amount}} was added. This is a demo dividend (assumed).",
+      "dividendBody": "{{amount}} was added. These are demo earnings (assumed).",
       "claimTitle": "Refund request in progress",
       "claimBody": "Current step: {{status}}",
       "claimAction": "See request status",
@@ -108,11 +108,11 @@
     "cumulative": "Total",
     "rowParts": "Your money {{worker}} · Company {{employer}}",
     "dividendRow": "Earnings for {{year}}",
-    "proRata": "Earnings for that year (by days)",
+    "proRata": "Earnings for that year (counted by days)",
     "payout": "Refund paid",
-    "rateChange": "Company share went up to {{rate}}%",
+    "rateChange": "Company contribution went up to {{rate}}%",
     "employerChange": "Workplace: {{name}}",
-    "gap": "No payment for {{ym}} (changing workplace)",
+    "gap": "No payment for {{ym}} (between workplaces)",
     "empty": "Your first payment will show after the due date.",
     "statement": "Get statement"
   },
@@ -126,7 +126,7 @@
     "member": "Member number",
     "month": "Month",
     "worker": "Your money",
-    "employer": "Company share",
+    "employer": "Company contribution",
     "dividend": "Earnings",
     "sum": "Total",
     "yearEnd": "Savings at end of {{year}}",
@@ -135,13 +135,13 @@
   "receive": {
     "title": "Get money",
     "simulate": "Money when you go home",
-    "simulateDesc": "See how much you get, by when you leave",
+    "simulateDesc": "See how much you get for each leaving date",
     "apply": "Request refund",
     "applyDesc": "Request in the app before you leave",
     "status": "Request status",
     "statusDesc": "See how far your request has gone",
     "convert": "What if I stay longer?",
-    "convertDesc": "Preview moving to the National Pension"
+    "convertDesc": "Preview moving your savings to the National Pension"
   },
   "sim": {
     "title": "Money when you go home",
@@ -153,19 +153,20 @@
     "result": "If you go home in {{ym}}",
     "confirmed": "Money you have now",
     "expected": "Money still to come",
-    "expectedNote": "Example · Same pay, {{rate}}% earnings a year",
+    "expectedNote": "Example · If your pay stays the same and earnings are {{rate}}% a year",
     "total": "You get (example)",
     "totalNow": "You get",
-    "compare": "Compare with National Pension now",
-    "ours": "Fund",
-    "nps": "National Pension lump-sum refund (simple)",
+    "compare": "Compare with the current National Pension",
+    "ours": "The Fund",
+    "nps": "National Pension lump-sum refund (simple estimate)",
     "npsNote": "Simple example: payments only, no interest.",
     "npsNone": "Under the current system, workers from this country get no retirement savings.",
     "how": "How is this calculated?",
     "how1": "Money you have now is the total that has really arrived in your account.",
-    "how2": "Money still to come assumes your pay stays the same. It adds your share {{worker}}% and the company share ({{steps}}, by time in the Fund). It is an example.",
-    "how3": "Earnings are assumed at {{rate}}% a year. Real earnings are set once a year.",
-    "how4": "The National Pension comparison is a simple sum of payments on the same pay."
+    "how2": "Money still to come is an example. It assumes your pay stays the same. It adds your contribution ({{worker}}%) and the company contribution ({{steps}}, based on your time in the Fund).",
+    "how3": "We assume earnings of {{rate}}% a year. Real earnings are confirmed once a year.",
+    "how4": "The National Pension comparison only adds up the payments made on the same pay, with no interest.",
+    "how5": "With the National Pension, you and your company each pay {{nps}}%, so the total is bigger. With the Fund, you pay {{worker}}% and your company pays {{steps}}."
   },
   "apply": {
     "title": "Request refund",
@@ -183,13 +184,13 @@
     "prevMonth": "Previous month",
     "nextMonth": "Next month",
     "noDocs": "No documents needed. The Fund checks your departure record itself.",
-    "accountQ": "Account for the money",
+    "accountQ": "Account to receive money",
     "addAccount": "Add account",
     "noAccount": "No account yet. Please add an account first.",
     "summary": "Request details",
     "amount": "Savings now",
-    "amountNote": "You will get the full balance on the payment day, plus that year's earnings (by days).",
-    "account": "Account for the money",
+    "amountNote": "On the payment day, you get your full balance plus that year's earnings (counted by days).",
+    "account": "Account to receive money",
     "date": "Leaving date",
     "agree": "The details are correct. I request a refund after I leave.",
     "submit": "Send request",
@@ -209,7 +210,7 @@
     "goApply": "Request refund",
     "timeline": "Steps",
     "s": {
-      "DRAFT": "Writing",
+      "DRAFT": "Draft",
       "SUBMITTED": "Received",
       "VERIFIED": "Departure checked",
       "PAYING": "Payment approved",
@@ -220,7 +221,7 @@
     "state": {
       "done": "Done",
       "current": "In progress",
-      "todo": "Coming",
+      "todo": "Upcoming",
       "bad": "Stopped"
     },
     "d": {
@@ -249,11 +250,11 @@
   "convert": {
     "title": "What if I stay longer?",
     "proposal": "(Proposal) This needs a change in the law.",
-    "lead": "If you change to skilled worker (E-7-4), one of two things happens.",
+    "lead": "If you can change to a skilled worker visa (E-7-4), there are two paths.",
     "home": "Go home",
     "homeDesc": "You get all your savings back.",
     "stay": "Change to E-7-4",
-    "stayDesc": "Your savings and {{months}} months of membership move to the National Pension.",
+    "stayDesc": "Your savings and your {{months}} months in the Fund move to the National Pension and are added together.",
     "amountNow": "Money to move (as of now)",
     "why": "You must pay into the National Pension for a long time to get a pension. Adding your time in the Fund makes this easier.",
     "notice": "This is only a preview. You can apply after the system starts."
@@ -270,16 +271,16 @@
     "st": {
       "ACTIVE": "Saving",
       "DEPARTING": "Getting ready to leave",
-      "CLOSED": "Refund done",
+      "CLOSED": "Refund complete",
       "CONVERTED": "Moved to National Pension"
     },
     "menu": "Menu",
     "nominees": "Beneficiaries (family)",
     "nomineesDesc": "{{count}} chosen",
     "nomineesNone": "None yet",
-    "accounts": "Accounts for money",
+    "accounts": "Bank accounts",
     "coverage": "My coverage map",
-    "coverageDesc": "Insurance, special insurance and Fund at a glance",
+    "coverageDesc": "Social insurance, foreign worker insurance and the Fund at a glance",
     "language": "Language",
     "help": "Help & phone support"
   },
@@ -306,7 +307,7 @@
     "equal": "Split equally",
     "sum": "Total {{sum}}%",
     "sumOk": "Total is 100%.",
-    "kyc": "ID checks happen in the real service.",
+    "kyc": "ID checks are done in the real service.",
     "kycStatus": {
       "PENDING": "ID not checked",
       "VERIFIED": "ID checked"
@@ -329,7 +330,7 @@
     }
   },
   "account": {
-    "title": "Accounts for money",
+    "title": "Bank accounts",
     "inUse": "In use",
     "use": "Use this account",
     "unverified": "Not checked",
@@ -341,7 +342,7 @@
     "number": "Account number",
     "numberHint": "Spaces or - are OK.",
     "numberErr": "Please enter 6 to 20 digits.",
-    "cleaned": "Cleaned number: {{number}}",
+    "cleaned": "Number we will use: {{number}}",
     "holder": "Account holder",
     "holderHint": "English name as on passport",
     "holderCheck": "Check holder",
@@ -390,8 +391,8 @@
         "where": "No need to apply."
       },
       "goyong2": {
-        "name": "Employment insurance (job loss)",
-        "line": "Join if you apply · Pay if you lose your job",
+        "name": "Employment insurance (unemployment benefits)",
+        "line": "Join if you apply · Money if you lose your job",
         "detail": "Apply if you want to join. Then you pay a fee, and you can get job-seeking pay if you lose your job. If you do not apply, you cannot get it.",
         "payer": "You and your company pay together.",
         "where": "Employment Center"
@@ -406,7 +407,7 @@
       "gongje": {
         "name": "Migrant Workers' Mutual Fund",
         "line": "Account in your name · Get it all back when you leave",
-        "detail": "Each month your share {{worker}}% and the company share {{employer}} go into an account in your name. You get it all back when you leave Korea. If you stay longer, it moves to the National Pension. This system is still a proposal.",
+        "detail": "Each month your contribution ({{worker}}%) and the company contribution ({{employer}}) go into an account in your name. You get it all back when you leave Korea. If you change to a long-term stay, it moves to the National Pension. This system is still a proposal.",
         "payer": "You and your company pay together.",
         "where": "This app"
       },
@@ -427,9 +428,9 @@
       "nps_on": {
         "name": "National Pension",
         "line": "Joined · Hard to get a pension",
-        "detail": "You pay into it, but you must pay for over {{years}} years to get a pension. That is hard on your visa, so many people get their payments back at once when they leave.",
+        "detail": "You pay into it, but you must pay for over {{years}} years to get a pension. That is hard on your visa, so many people get their payments back at once when they leave (lump-sum refund).",
         "payer": "You and your company pay half each.",
-        "where": "National Pension Service (claim lump-sum refund when leaving)"
+        "where": "National Pension Service (claim the lump-sum refund when you leave)"
       },
       "nps_off": {
         "name": "National Pension",
@@ -465,9 +466,9 @@
     "q2": "Is the money my company added mine too?",
     "a2": "Yes. Money your company added goes into your account, and you get it when you leave.",
     "q3": "What if I change companies?",
-    "a3": "Your account stays the same. Your time in the Fund keeps counting, so the company share does not go down.",
+    "a3": "Your account stays the same. Your time in the Fund keeps counting, so the company contribution does not go down.",
     "q4": "When do I get the money?",
-    "a4": "Request in the app before you leave. After your departure is checked, we send it to your chosen account."
+    "a4": "Request in the app before you leave. After we check your departure, we send the money to your chosen account."
   },
   "cal": {
     "dow": [
@@ -482,8 +483,8 @@
     "month": "{{ym}}"
   },
   "portal": {
-    "brand": "Fund for Employers",
-    "adminBrand": "Fund Admin",
+    "brand": "Fund Employer Portal",
+    "adminBrand": "Fund Admin Portal",
     "demoData": "Demo data",
     "nav": {
       "dashboard": "Dashboard",
@@ -495,72 +496,72 @@
     },
     "e10": {
       "title": "{{name}} dashboard",
-      "thisMonth": "Fund payment for {{ym}} (company share)",
-      "thisMonthNote": "Billed together with the social insurance notice. No extra input.",
-      "saving": "Difference vs National Pension this year",
-      "savingNote": "Only {{count}} workers from National Pension countries counted",
+      "thisMonth": "Fund payment for {{ym}} (company contribution)",
+      "thisMonthNote": "Billed together with the social insurance notice. No extra input needed.",
+      "saving": "This year's difference vs. National Pension",
+      "savingNote": "Counts only the {{count}} workers from countries covered by the National Pension",
       "newCost": "New cost {{amount}}",
-      "newCostNote": "For {{count}} workers who did not pay National Pension · Not a saving",
+      "newCostNote": "For {{count}} workers who did not pay into the National Pension · Not a saving",
       "headcount": "Workers employed",
       "headcountValue": "{{count}}",
-      "compare": "Company cost rate (2026-2033)",
+      "compare": "Company contribution rate comparison (2026–2033)",
       "compareNps": "National Pension employer share",
-      "compareOurs": "Fund company share (by membership time)",
-      "compareNote": "The Fund company share rises with the worker's membership time. With a new worker it may start again at a low step. The chart shows one worker who keeps working.",
+      "compareOurs": "Fund company contribution (by membership period)",
+      "compareNote": "The Fund company contribution rises with each worker's membership period. When a worker is replaced, it may start again from a lower step. The chart assumes one worker who keeps working.",
       "workers": "Workers",
       "colName": "Name",
       "colVisa": "Visa",
-      "colMonths": "Months joined",
+      "colMonths": "Months in Fund",
       "colStep": "Company rate",
       "colThis": "This month",
       "colTotal": "Total saved (worker's account)",
       "feed": "Notices",
-      "feedPaid": "{{ym}}: {{count}} workers paid",
-      "feedMove": "{{name}} joined on {{date}} and kept their Fund account.",
+      "feedPaid": "{{ym}}: payment complete for {{count}} workers",
+      "feedMove": "{{name}} joined on {{date}} and carried over their Fund account.",
       "feedStep": "{{name}}'s company rate is now {{rate}}%.",
       "feedClaim": "{{name}} requested a departure refund.",
-      "zeroInput": "Zero extra admin input: just file social insurance and the Fund is calculated automatically.",
+      "zeroInput": "Zero extra admin input: just file social insurance as usual and the Fund is calculated automatically.",
       "feedUnpaid": "Unpaid for {{ym}}: {{names}} — due date {{date}} has passed. Please pay with the social insurance bill."
     },
     "e20": {
       "title": "{{name}} billing and payments",
-      "back": "To dashboard",
+      "back": "Back to dashboard",
       "info": "{{months}} months at this workplace · {{seq}} months in Fund",
       "colYm": "Month",
-      "colWage": "Monthly pay",
-      "colSeq": "Months joined",
+      "colWage": "Monthly insured wage",
+      "colSeq": "Months in Fund",
       "colRate": "Company rate",
-      "colWorker": "Worker share",
-      "colEmployer": "Company share",
+      "colWorker": "Worker contribution",
+      "colEmployer": "Company contribution",
       "colStatus": "Status",
       "colPaid": "Paid on",
       "otherEmployer": "{{count}} months at other workplaces are not shown."
     },
     "e30": {
-      "title": "{{ym}} social insurance combined bill (mock)",
+      "title": "Combined social insurance bill for {{ym}} (mock-up)",
       "lead": "The Fund adds one line to the existing bill. No extra filing.",
       "item": "Item",
       "amount": "Amount",
       "existing": "Existing social insurance (pension, health, employment, injury)",
       "existingNote": "Same amount as billed by the National Health Insurance Service",
       "gongje": "Migrant Workers' Mutual Fund",
-      "gongjeNote": "Worker share {{worker}} + company share {{employer}}",
+      "gongjeNote": "Worker contribution {{worker}} + company contribution {{employer}}",
       "due": "Due {{date}}",
       "status": "Status",
       "noExtra": "No extra filing",
-      "unknown": "Not shown on mock screen",
+      "unknown": "Not shown on this mock-up",
       "overdue": "{{count}} unpaid"
     },
     "e40": {
       "title": "Auto-enrollment for new hires",
       "lead": "When you hire a foreign worker and file the social insurance enrollment, a Fund account opens automatically.",
       "pick": "Worker to hire (demo)",
-      "step1": "Enrollment filed",
+      "step1": "Enrollment report received",
       "step1d": "Same social insurance filing as now",
       "step2": "Fund membership checked",
-      "step2d": "Existing account carried over · Starts from month {{seq}}",
+      "step2d": "Existing account carried over, if any · Counting from month {{seq}}",
       "step3": "First bill",
-      "step3d": "Company share {{rate}}% · On next month's social insurance bill",
+      "step3d": "Company contribution {{rate}}% · Included in next month's social insurance bill",
       "result": "Nothing else to do"
     },
     "a10": {
@@ -570,21 +571,21 @@
       "total": "Total savings",
       "refundMonth": "Refunds this month",
       "refundValue": "{{count}} · {{amount}}",
-      "conversions": "Conversions",
+      "conversions": "Conversions to National Pension",
       "conversionsValue": "{{count}}",
       "byCountry": "Savings by nationality",
       "statusMix": "Member status",
-      "dividends": "Dividends declared (demo, assumed)",
+      "dividends": "Earnings declared (demo, assumed)",
       "colYear": "Year",
-      "colRate": "Rate",
+      "colRate": "Earnings rate",
       "colDeclared": "Declared on",
       "versions": "Policy versions (POLICY_VERSION)",
       "versionsLead": "Every bill ({{count}} total) records the policy version used to calculate it. When rates change, add a new version; it applies to bills from its effective month.",
       "colVersion": "Version",
       "colFrom": "Effective from",
       "colWorker": "Worker rate",
-      "colSteps": "Employer rate steps",
-      "colBills": "Bills",
+      "colSteps": "Company rate steps",
+      "colBills": "Bills applied",
       "step": "{{rate}}% from month {{from}}"
     },
     "a20": {
@@ -598,10 +599,10 @@
       "colAction": "Action",
       "verify": "Check departure",
       "approve": "Approve",
-      "pay": "Pay",
+      "pay": "Mark as paid",
       "reject": "Reject",
       "rejectReason": "Reason for rejection",
-      "done": "Done."
+      "done": "Processed."
     },
     "a30": {
       "title": "Finance simulator",
@@ -609,12 +610,12 @@
       "assumption": "Assumption",
       "inputs": "Inputs (assumed)",
       "fund": "Fund reserves (trillion won)",
-      "ocb": "Paper Table 4 baseline",
+      "ocb": "Baseline (paper, Table 4)",
       "fundEnd": "Reserves after {{years}} years",
       "breakeven": "Turns net positive",
       "breakevenValue": "Year {{year}}",
       "none": "None",
-      "worstNet": "Largest net loss (100M won)",
+      "worstNet": "Largest net decrease (100M won)",
       "residents": "Members after {{years}} years (10k people)",
       "unit": {
         "만명": "10k people",
@@ -627,7 +628,7 @@
         "D": "Average stay",
         "exitRate": "Departure rate (refunds)",
         "wRate": "Worker contribution rate",
-        "eRate": "Employer contribution rate",
+        "eRate": "Company contribution rate",
         "govRate": "Government matching (Under review)",
         "ret": "Fund return rate",
         "admin": "Admin cost rate",
@@ -644,7 +645,7 @@
     "launcher": "Start screen (launcher)",
     "reset": "Reset demo",
     "resetDone": "Demo data was reset.",
-    "next": "Next request step",
+    "next": "Move request to next step",
     "nextDone": "Moved to the next step.",
     "nextNone": "No request in progress."
   }

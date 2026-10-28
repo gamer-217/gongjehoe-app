@@ -2,7 +2,7 @@
   "_meta": {
     "lang": "id",
     "name": "Bahasa Indonesia",
-    "_review": "machine"
+    "_review": "ai-reviewed"
   },
   "common": {
     "appName": "Dana Bersama Pekerja Asing",
@@ -26,14 +26,14 @@
     "example": "Contoh",
     "proposal": "(Usulan)",
     "reviewing": "(Sedang ditinjau)",
-    "demoDividend": "Bagi hasil contoh (demo)",
+    "demoDividend": "Hasil investasi contoh (demo)",
     "percent": "{{value}}%",
     "edit": "Ubah",
     "done": "Selesai",
-    "optional": "Pilihan",
+    "optional": "Opsional",
     "secure": {
       "title": "Apakah ini Anda?",
-      "body": "Cek dengan sidik jari atau wajah. Tidak ada batas waktu.",
+      "body": "Silakan cek dengan sidik jari atau wajah. Tidak ada batas waktu.",
       "demoNote": "Di demo, cek dengan tombol di bawah.",
       "ok": "Ya, ini saya",
       "checking": "Sedang dicek"
@@ -47,43 +47,43 @@
     "me": "Data saya"
   },
   "onboard": {
-    "promise": "Rekening saya: makin banyak kerja, makin banyak tabungan. Semua kembali saat pulang.",
+    "promise": "Rekening atas nama Anda: tabungan bertambah selama Anda bekerja, dan semuanya kembali saat pulang.",
     "chooseLang": "Pilih bahasa",
     "start": "Mulai"
   },
   "home": {
     "hello": "Halo, {{name}}",
     "total": "Total tabungan",
-    "ringLabel": "Bulan ke-{{months}} ikut. Jatuh tempo di bulan {{maturity}}.",
+    "ringLabel": "Bulan ke-{{months}} sejak ikut. Jatuh tempo setelah {{maturity}} bulan.",
     "ringSmall": "/ {{maturity}} bulan",
     "ringMatured": "Jatuh tempo",
-    "matured": "Lewat jatuh tempo · tetap menabung",
-    "toMaturity": "{{count}} bulan lagi jatuh tempo",
+    "matured": "Sudah jatuh tempo · tabungan tetap bertambah",
+    "toMaturity": "Jatuh tempo {{count}} bulan lagi",
     "parts": {
-      "label": "Isi tabungan",
+      "label": "Rincian tabungan",
       "worker": "Uang saya",
       "employer": "Uang dari perusahaan",
-      "dividend": "Hasil investasi",
+      "dividend": "Hasil investasi (sudah pasti)",
       "note": "Uang dari perusahaan juga milik Anda. Semua kembali saat Anda pulang."
     },
     "pay": {
       "title": "Setoran {{ym}}",
       "PAID": "Sudah masuk",
-      "PENDING": "Belum dicek",
+      "PENDING": "Menunggu",
       "OVERDUE": "Belum dibayar",
       "paidDesc": "Masuk {{date}}. Uang saya {{worker}} + perusahaan {{employer}}",
-      "pendingDesc": "Batas bayar {{date}}.",
+      "pendingDesc": "Batas bayar: {{date}}.",
       "overdueDesc": "Batas bayar {{date}} sudah lewat. Tanyakan ke perusahaan."
     },
     "alerts": {
       "label": "Pemberitahuan",
-      "hiArrearsTitle": "Iuran asuransi kesehatan belum dibayar {{amount}}",
-      "hiArrearsBody": "Ini info dari NHIS, bukan dari Dana Bersama. Tanyakan ke Badan Asuransi Kesehatan Nasional (NHIS).",
+      "hiArrearsTitle": "Iuran asuransi kesehatan belum dibayar: {{amount}}",
+      "hiArrearsBody": "Ini info dari NHIS (asuransi kesehatan Korea), bukan dari Dana Bersama. Silakan tanya ke NHIS.",
       "nomineeTitle": "Ahli waris (keluarga) belum dipilih",
       "nomineeBody": "Pilih keluarga yang menerima tabungan jika terjadi sesuatu pada Anda.",
       "nomineeAction": "Pilih sekarang",
-      "dividendTitle": "Hasil investasi {{year}} sudah tetap",
-      "dividendBody": "{{amount}} sudah masuk. Ini bagi hasil contoh (demo).",
+      "dividendTitle": "Hasil investasi {{year}} sudah ditetapkan",
+      "dividendBody": "{{amount}} sudah masuk. Ini hasil investasi contoh (demo).",
       "claimTitle": "Pengajuan pencairan sedang diproses",
       "claimBody": "Tahap sekarang: {{status}}",
       "claimAction": "Lihat status",
@@ -93,28 +93,28 @@
     },
     "quick": {
       "label": "Pintasan",
-      "simulate": "Berapa saat pulang?",
+      "simulate": "Dapat berapa saat pulang?",
       "coverage": "Peta perlindungan saya"
     }
   },
   "history": {
     "title": "Riwayat",
-    "filter": "Lihat",
+    "filter": "Tampilkan",
     "all": "Semua",
     "paid": "Setoran",
-    "dividend": "Bagi hasil",
+    "dividend": "Hasil investasi",
     "chart": "Perubahan total tabungan",
     "current": "Tabungan sekarang",
     "cumulative": "Total",
     "rowParts": "Uang saya {{worker}} · perusahaan {{employer}}",
     "dividendRow": "Hasil investasi {{year}}",
-    "proRata": "Hasil investasi tahun itu (per hari)",
-    "payout": "Pencairan dibayar",
+    "proRata": "Hasil investasi tahun itu (dihitung per hari)",
+    "payout": "Pencairan dibayarkan",
     "rateChange": "Bagian perusahaan naik jadi {{rate}}%",
     "employerChange": "Tempat kerja: {{name}}",
     "gap": "{{ym}} tidak ada setoran (masa pindah kerja)",
-    "empty": "Setoran pertama muncul setelah batas bayar lewat.",
-    "statement": "Ambil laporan"
+    "empty": "Setoran pertama akan tampil setelah batas bayar lewat.",
+    "statement": "Lihat laporan"
   },
   "statement": {
     "title": "Laporan",
@@ -128,20 +128,20 @@
     "worker": "Uang saya",
     "employer": "Bagian perusahaan",
     "dividend": "Hasil investasi",
-    "sum": "Jumlah",
+    "sum": "Total",
     "yearEnd": "Tabungan akhir {{year}}",
     "note": "Laporan ini dari data demo. Bukan dokumen asli."
   },
   "receive": {
     "title": "Terima",
     "simulate": "Uang saat pulang",
-    "simulateDesc": "Lihat berapa jika pulang kapan",
+    "simulateDesc": "Lihat jumlahnya sesuai waktu pulang",
     "apply": "Ajukan pencairan",
     "applyDesc": "Ajukan di aplikasi sebelum pulang",
     "status": "Status pengajuan",
-    "statusDesc": "Lihat sampai mana pengajuan Anda",
-    "convert": "Jika tinggal lebih lama?",
-    "convertDesc": "Lihat cara pindah ke Pensiun Nasional"
+    "statusDesc": "Lihat proses pengajuan Anda",
+    "convert": "Jika ganti ke visa jangka panjang?",
+    "convertDesc": "Lihat dulu cara pindah ke Pensiun Nasional"
   },
   "sim": {
     "title": "Uang saat pulang",
@@ -153,19 +153,20 @@
     "result": "Jika pulang {{ym}}",
     "confirmed": "Uang yang sudah pasti",
     "expected": "Uang yang akan bertambah",
-    "expectedNote": "Contoh · gaji sama, hasil {{rate}}% per tahun",
-    "total": "Uang diterima (contoh)",
-    "totalNow": "Uang diterima",
-    "compare": "Dibanding Pensiun Nasional sekarang",
+    "expectedNote": "Contoh · jika gaji sama dan hasil {{rate}}% per tahun",
+    "total": "Uang yang diterima (contoh)",
+    "totalNow": "Uang yang diterima",
+    "compare": "Dibandingkan aturan Pensiun Nasional sekarang",
     "ours": "Dana Bersama",
-    "nps": "Uang kembali Pensiun Nasional (kira-kira)",
-    "npsNote": "Contoh kira-kira, hanya uang pokok tanpa bunga.",
-    "npsNone": "Di aturan sekarang, pekerja dari negara ini tidak punya tabungan hari tua.",
-    "how": "Bagaimana cara hitungnya?",
+    "nps": "Pengembalian sekaligus Pensiun Nasional (hitungan sederhana)",
+    "npsNote": "Contoh hitungan sederhana: hanya iuran pokok, tanpa bunga.",
+    "npsNone": "Menurut aturan sekarang, pekerja dari negara ini tidak punya tabungan hari tua.",
+    "how": "Bagaimana cara menghitungnya?",
     "how1": "Uang yang sudah pasti adalah jumlah uang yang benar-benar masuk ke rekening Anda.",
     "how2": "Uang yang akan bertambah adalah contoh jika gaji tetap sama: bagian Anda {{worker}}% ditambah bagian perusahaan ({{steps}}, sesuai lama ikut).",
-    "how3": "Hasil investasi dianggap {{rate}}% per tahun. Hasil asli ditetapkan sekali setahun.",
-    "how4": "Perbandingan Pensiun Nasional hanya menjumlah iuran pokok dengan gaji yang sama."
+    "how3": "Hasil investasi dimisalkan {{rate}}% per tahun. Hasil sebenarnya ditetapkan sekali setahun.",
+    "how4": "Perbandingan Pensiun Nasional adalah hitungan sederhana: hanya menjumlah iuran pokok dengan gaji yang sama.",
+    "how5": "Di Pensiun Nasional, Anda dan perusahaan masing-masing membayar {{nps}}%, jadi jumlah pokoknya lebih besar. Di Dana Bersama, Anda membayar {{worker}}% dan perusahaan {{steps}}."
   },
   "apply": {
     "title": "Ajukan pencairan",
@@ -173,31 +174,31 @@
     "step1": "1/4 · Pilih tanggal pulang",
     "step2": "2/4 · Pilih rekening penerima",
     "step3": "3/4 · Cek isi pengajuan",
-    "step4": "4/4 · Cek identitas",
+    "step4": "4/4 · Konfirmasi identitas",
     "dateQ": "Rencana tanggal pulang",
     "in2w": "2 minggu lagi",
     "in1m": "1 bulan lagi",
     "pick": "Pilih sendiri",
     "windowNote": "Hanya bisa pilih tanggal dalam {{days}} hari dari hari ini.",
     "selected": "Tanggal dipilih: {{date}}",
-    "prevMonth": "Bulan lalu",
-    "nextMonth": "Bulan depan",
-    "noDocs": "Tidak perlu unggah dokumen. Dana Bersama mengecek data keluar negeri sendiri.",
+    "prevMonth": "Bulan sebelumnya",
+    "nextMonth": "Bulan berikutnya",
+    "noDocs": "Tidak perlu unggah dokumen. Dana Bersama mengecek sendiri data imigrasi Anda.",
     "accountQ": "Rekening penerima",
     "addAccount": "Tambah rekening",
     "noAccount": "Belum ada rekening. Tambahkan rekening dulu.",
     "summary": "Isi pengajuan",
     "amount": "Tabungan sekarang",
-    "amountNote": "Anda akan terima semua saldo pada hari transfer, ditambah hasil investasi tahun itu (per hari).",
+    "amountNote": "Yang Anda terima: semua saldo pada hari transfer, ditambah hasil investasi tahun itu (dihitung per hari).",
     "account": "Rekening penerima",
     "date": "Rencana tanggal pulang",
-    "agree": "Data ini benar. Saya ajukan pencairan setelah pulang.",
+    "agree": "Data ini benar. Saya mengajukan pencairan yang dibayar setelah saya pulang.",
     "submit": "Ajukan",
     "doneTitle": "Pengajuan diterima",
     "doneLead": "Langkah berikutnya:",
     "done1": "Cek kepulangan: Dana Bersama mengecek data imigrasi.",
     "done2": "Disetujui: Dana Bersama menyetujui pembayaran.",
-    "done3": "Transfer: target dalam {{days}} hari kerja setelah kepulangan dicek.",
+    "done3": "Transfer: targetnya dalam {{days}} hari kerja setelah kepulangan dicek.",
     "goStatus": "Lihat status",
     "openExists": "Sudah ada pengajuan yang sedang diproses.",
     "closed": "Pencairan sudah diterima.",
@@ -220,13 +221,13 @@
     "state": {
       "done": "Selesai",
       "current": "Diproses",
-      "todo": "Nanti",
+      "todo": "Berikutnya",
       "bad": "Berhenti"
     },
     "d": {
       "SUBMITTED": "Pengajuan sudah diterima.",
       "VERIFIED": "Data kepulangan sudah dicek.",
-      "PAYING": "Pembayaran disetujui. Segera ditransfer.",
+      "PAYING": "Pembayaran disetujui. Uang segera ditransfer.",
       "PAID": "{{amount}} sudah dikirim."
     },
     "at": "{{date}}",
@@ -234,7 +235,7 @@
     "snapshot": "Tabungan saat mengajukan {{amount}}",
     "cancel": "Batalkan pengajuan",
     "cancelQ": "Batalkan pengajuan?",
-    "cancelBody": "Jika dibatalkan, tabungan lanjut seperti biasa. Anda bisa mengajukan lagi nanti.",
+    "cancelBody": "Jika dibatalkan, status kembali ke menabung. Anda bisa mengajukan lagi nanti.",
     "cancelYes": "Ya, batalkan",
     "cancelled": "Pengajuan dibatalkan.",
     "cantCancel": "Hanya bisa dibatalkan di tahap Diterima.",
@@ -244,10 +245,10 @@
       "ACCOUNT_MISMATCH": "Nama pemilik rekening bukan Anda.",
       "DUPLICATE": "Pengajuan yang sama sudah ada."
     },
-    "history": "Pengajuan lama"
+    "history": "Pengajuan sebelumnya"
   },
   "convert": {
-    "title": "Jika tinggal lebih lama?",
+    "title": "Jika ganti ke visa jangka panjang?",
     "proposal": "(Usulan) Ini perlu perubahan undang-undang.",
     "lead": "Jika pindah ke visa pekerja terampil (E-7-4), ada dua pilihan.",
     "home": "Pulang",
@@ -255,13 +256,13 @@
     "stay": "Pindah ke E-7-4",
     "stayDesc": "Tabungan dan masa ikut {{months}} bulan dipindah ke Pensiun Nasional.",
     "amountNow": "Uang yang dipindah (saat ini)",
-    "why": "Pensiun Nasional baru bisa diterima jika bayar lama. Masa ikut Dana Bersama ikut dihitung, jadi lebih mudah dipenuhi.",
-    "notice": "Ini hanya pratinjau. Pengajuan asli bisa dilakukan setelah aturannya ada."
+    "why": "Pensiun Nasional baru bisa diterima jika sudah bayar iuran cukup lama. Jika masa ikut Dana Bersama digabung, syarat itu lebih mudah dipenuhi.",
+    "notice": "Ini hanya pratinjau. Pengajuan sebenarnya baru bisa setelah aturannya berlaku."
   },
   "me": {
     "title": "Data saya",
     "name": "Nama",
-    "nationality": "Negara",
+    "nationality": "Kewarganegaraan",
     "visa": "Jenis visa",
     "joined": "Bulan ikut",
     "employer": "Tempat kerja",
@@ -269,19 +270,19 @@
     "status": "Status",
     "st": {
       "ACTIVE": "Menabung",
-      "DEPARTING": "Siap pulang",
+      "DEPARTING": "Persiapan pulang",
       "CLOSED": "Sudah dicairkan",
-      "CONVERTED": "Pindah ke Pensiun Nasional"
+      "CONVERTED": "Sudah pindah ke Pensiun Nasional"
     },
     "menu": "Menu",
     "nominees": "Ahli waris (keluarga)",
-    "nomineesDesc": "{{count}} orang",
+    "nomineesDesc": "{{count}} orang dipilih",
     "nomineesNone": "Belum ada",
     "accounts": "Rekening penerima",
     "coverage": "Peta perlindungan saya",
-    "coverageDesc": "Semua asuransi dan Dana Bersama",
+    "coverageDesc": "Asuransi wajib, asuransi khusus, dan Dana Bersama",
     "language": "Bahasa",
-    "help": "Bantuan · telepon"
+    "help": "Bantuan · telepon konsultasi"
   },
   "country": {
     "NP": "Nepal",
@@ -293,7 +294,7 @@
   "nominee": {
     "title": "Ahli waris (keluarga)",
     "intro": "Keluarga yang menerima tabungan jika terjadi sesuatu pada Anda. Maksimal {{max}} orang.",
-    "empty": "Belum ada keluarga dipilih.",
+    "empty": "Belum ada keluarga yang dipilih.",
     "add": "Tambah keluarga",
     "person": "Keluarga ke-{{n}}",
     "name": "Nama",
@@ -306,12 +307,12 @@
     "equal": "Bagi rata",
     "sum": "Jumlah {{sum}}%",
     "sumOk": "Jumlahnya 100%.",
-    "kyc": "Cek kartu identitas dilakukan di layanan asli.",
+    "kyc": "Cek kartu identitas dilakukan di layanan sebenarnya (bukan demo).",
     "kycStatus": {
-      "PENDING": "Belum dicek",
-      "VERIFIED": "Sudah dicek"
+      "PENDING": "Identitas belum dicek",
+      "VERIFIED": "Identitas sudah dicek"
     },
-    "saved": "Keluarga disimpan.",
+    "saved": "Data keluarga disimpan.",
     "err": {
       "EMPTY": "Tambahkan minimal satu orang.",
       "TOO_MANY": "Maksimal {{max}} orang.",
@@ -324,7 +325,7 @@
       "CHILD": "Anak",
       "MOTHER": "Ibu",
       "FATHER": "Ayah",
-      "SIBLING": "Saudara",
+      "SIBLING": "Saudara kandung",
       "OTHER": "Keluarga lain"
     }
   },
@@ -342,9 +343,9 @@
     "numberHint": "Boleh pakai spasi atau tanda -.",
     "numberErr": "Masukkan 6-20 angka.",
     "cleaned": "Nomor dirapikan: {{number}}",
-    "holder": "Nama pemilik",
+    "holder": "Nama pemilik rekening",
     "holderHint": "Nama sesuai paspor (huruf Latin)",
-    "holderCheck": "Cek pemilik",
+    "holderCheck": "Cek nama pemilik",
     "holderOk": "Nama pemilik cocok (demo).",
     "holderNeed": "Cek nama pemilik dulu.",
     "save": "Simpan rekening",
@@ -361,8 +362,8 @@
     },
     "st": {
       "on": "Berlaku",
-      "opt": "Pilihan",
-      "x": "Tidak",
+      "opt": "Opsional",
+      "x": "Tidak ikut",
       "new": "Usulan"
     },
     "payer": "Siapa yang bayar?",
@@ -370,7 +371,7 @@
     "items": {
       "sanjae": {
         "name": "Asuransi kecelakaan kerja",
-        "line": "Berobat dan ganti rugi jika celaka kerja",
+        "line": "Biaya berobat dan ganti rugi jika celaka saat kerja",
         "detail": "Jika celaka atau sakit karena kerja, Anda dapat biaya berobat dan ganti rugi. Semua pekerja otomatis ikut, apa pun visanya.",
         "payer": "Perusahaan bayar semua.",
         "where": "Badan Kesejahteraan Pekerja (COMWEL)"
@@ -390,14 +391,14 @@
         "where": "Tidak perlu daftar."
       },
       "goyong2": {
-        "name": "Asuransi kerja (pengangguran)",
-        "line": "Ikut jika daftar · uang saat kehilangan kerja",
+        "name": "Asuransi kerja (uang saat menganggur)",
+        "line": "Ikut jika mendaftar · dapat uang saat kehilangan kerja",
         "detail": "Daftar jika mau. Jika ikut, Anda bayar iuran dan bisa dapat uang saat kehilangan kerja. Jika tidak daftar, tidak dapat.",
         "payer": "Saya dan perusahaan bayar bersama.",
         "where": "Pusat Ketenagakerjaan"
       },
       "sanghae": {
-        "name": "Asuransi cedera (khusus asing)",
+        "name": "Asuransi kecelakaan (khusus pekerja asing)",
         "line": "Celaka atau sakit di luar kerja",
         "detail": "Untuk kecelakaan, sakit, atau meninggal di luar kerja. Pekerja asing wajib ikut.",
         "payer": "Saya bayar.",
@@ -406,7 +407,7 @@
       "gongje": {
         "name": "Dana Bersama Pekerja Asing",
         "line": "Rekening atas nama saya · semua kembali saat pulang",
-        "detail": "Tiap bulan bagian Anda {{worker}}% dan bagian perusahaan {{employer}} masuk ke rekening atas nama Anda. Semua kembali saat pulang. Jika tinggal lebih lama, pindah ke Pensiun Nasional. Ini masih usulan.",
+        "detail": "Tiap bulan bagian Anda {{worker}}% dan bagian perusahaan {{employer}} masuk ke rekening atas nama Anda. Semua kembali saat Anda pulang. Jika ganti ke visa jangka panjang, tabungan pindah ke Pensiun Nasional. Ini masih usulan.",
         "payer": "Saya dan perusahaan bayar bersama.",
         "where": "Aplikasi ini"
       },
@@ -426,15 +427,15 @@
       },
       "nps_on": {
         "name": "Pensiun Nasional",
-        "line": "Ikut · sulit dapat pensiun",
-        "detail": "Anda bayar iuran, tapi pensiun baru didapat jika bayar lebih dari {{years}} tahun. Dengan visa ini sulit, jadi banyak yang ambil uangnya sekaligus saat pulang.",
+        "line": "Ikut · pensiun sulit didapat",
+        "detail": "Anda bayar iuran, tapi pensiun baru didapat jika bayar lebih dari {{years}} tahun. Dengan visa ini sulit, jadi banyak yang mengambil pengembalian sekaligus saat pulang.",
         "payer": "Saya dan perusahaan bayar separuh-separuh.",
-        "where": "Badan Pensiun Nasional (NPS) (klaim uang kembali saat pulang)"
+        "where": "Badan Pensiun Nasional (NPS) · klaim pengembalian sekaligus saat pulang"
       },
       "nps_off": {
         "name": "Pensiun Nasional",
         "line": "Tidak ikut · tidak ada tabungan hari tua",
-        "detail": "Warga negara Anda tidak bisa ikut Pensiun Nasional. Jadi sekarang tidak ada tabungan hari tua. Dana Bersama adalah usulan untuk mengisi kekosongan ini.",
+        "detail": "Warga negara Anda tidak termasuk peserta Pensiun Nasional. Jadi sekarang tidak ada tabungan hari tua. Dana Bersama adalah usulan untuk mengisi kekosongan ini.",
         "payer": "Tidak ada",
         "where": "Tidak ada"
       },
@@ -442,8 +443,8 @@
         "name": "Asuransi perawatan lansia",
         "line": "Hampir tidak terpakai · bisa minta keluar",
         "detail": "Asuransi ini untuk merawat orang tua, jadi pekerja yang tinggal sebentar sulit dapat manfaat. Bisa minta keluar.",
-        "payer": "Saya dan perusahaan bayar bersama iuran kesehatan.",
-        "where": "Badan Asuransi Kesehatan Nasional (NHIS) (minta keluar)"
+        "payer": "Saya dan perusahaan bayar bersama iuran asuransi kesehatan.",
+        "where": "Badan Asuransi Kesehatan Nasional (NHIS) · ajukan keluar"
       }
     }
   },
@@ -456,7 +457,7 @@
     "title": "Bantuan",
     "calls": "Telepon bantuan",
     "call": "Telepon {{number}}",
-    "nps": "Layanan Badan Pensiun Nasional (NPS)",
+    "nps": "Layanan telepon Badan Pensiun Nasional (NPS)",
     "foreign": "Pusat Informasi Orang Asing",
     "eps": "Pusat Konsultasi Tenaga Kerja Asing",
     "faq": "Pertanyaan umum",
@@ -484,8 +485,8 @@
   "demo": {
     "chip": "Demo",
     "menu": "Menu demo",
-    "launcher": "Layar awal (peluncur)",
-    "reset": "Ulang demo",
+    "launcher": "Layar awal (launcher)",
+    "reset": "Reset demo",
     "resetDone": "Data demo kembali ke awal.",
     "next": "Ke tahap pengajuan berikutnya",
     "nextDone": "Sudah ke tahap berikutnya.",

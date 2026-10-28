@@ -247,7 +247,7 @@ a.ui-card {
 }
 .ui-btn--danger {
   background: var(--color-danger-weak);
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 .ui-btn--block {
   width: 100%;
@@ -272,15 +272,15 @@ a.ui-card {
 }
 .ui-badge--success {
   background: var(--color-success-weak);
-  color: #0a5f43;
+  color: var(--color-success-text);
 }
 .ui-badge--warning {
   background: var(--color-warning-weak);
-  color: #6e4a00;
+  color: var(--color-warning-text);
 }
 .ui-badge--danger {
   background: var(--color-danger-weak);
-  color: #a11f1f;
+  color: var(--color-danger-text);
 }
 .ui-badge--info {
   background: var(--color-primary-weak);
@@ -513,15 +513,15 @@ a.ui-listrow:hover {
 }
 .ui-banner--warning {
   background: var(--color-warning-weak);
-  color: #6e4a00;
+  color: var(--color-warning-text);
 }
 .ui-banner--danger {
   background: var(--color-danger-weak);
-  color: #a11f1f;
+  color: var(--color-danger-text);
 }
 .ui-banner--success {
   background: var(--color-success-weak);
-  color: #0c5c42;
+  color: var(--color-success-text);
 }
 .ui-banner a {
   color: inherit;
@@ -703,7 +703,7 @@ a.ui-listrow:hover {
   padding: 6px 12px;
   border-radius: var(--radius-chip);
   background: var(--color-warning-weak);
-  color: #6e4a00;
+  color: var(--color-warning-text);
   font-weight: 700;
   font-size: var(--font-min);
   pointer-events: none;
@@ -806,7 +806,7 @@ a.ui-listrow:hover {
 }
 .ui-field__error {
   font-size: var(--font-min);
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   font-weight: 600;
 }
 .ui-check {
@@ -946,7 +946,7 @@ a.ui-listrow:hover {
   color: var(--color-primary-strong);
 }
 .ui-divider-label--move {
-  color: #6e4a00;
+  color: var(--color-warning-text);
 }
 .ui-ledger-row {
   display: grid;

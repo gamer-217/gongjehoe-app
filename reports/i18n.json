@@ -1,7 +1,7 @@
 {
   "ko": {
-    "keys": 520,
-    "required": 520,
+    "keys": 521,
+    "required": 521,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -12,52 +12,52 @@
     "review": "source"
   },
   "en": {
-    "keys": 520,
-    "required": 520,
+    "keys": 521,
+    "required": 521,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 520,
-    "review": "machine"
+    "machineTranslated": 0,
+    "review": "ai-reviewed"
   },
   "vi": {
-    "keys": 385,
-    "required": 385,
+    "keys": 386,
+    "required": 386,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 385,
-    "review": "machine"
+    "machineTranslated": 0,
+    "review": "ai-reviewed"
   },
   "ne": {
-    "keys": 385,
-    "required": 385,
+    "keys": 386,
+    "required": 386,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 385,
-    "review": "machine"
+    "machineTranslated": 0,
+    "review": "ai-reviewed"
   },
   "id": {
-    "keys": 385,
-    "required": 385,
+    "keys": 386,
+    "required": 386,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 385,
-    "review": "machine"
+    "machineTranslated": 0,
+    "review": "ai-reviewed"
   },
   "code": {
     "hangulInApps": 0,

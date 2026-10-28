@@ -25,6 +25,6 @@ KLM(Keystroke-Level Model, Card·Moran·Newell 1980) 연산자 표준값: **P** 
 **8단계 · 키 입력 0 · 서류 업로드 0 · 예상 15.8초**(4M + 8P + 8B)
 
 ## 비교 기준
-- EPF i-Akaun의 Akaun Fleksibel 인출은 설계서 v2 §11.3이 공개 매뉴얼 기준 **11단계**로 적어 두었다. 이 수치는 이번 환경에서 원문을 다시 열어 확인하지 못했다([확인필요], `docs/확인필요.md`).
+- EPF i-Akaun의 Akaun Fleksibel 인출: 설계서 v2 §11.3은 공개 매뉴얼 기준 11단계로 적었으나, 2026-10-28 재확인에서 공식 Quick Guide(kwsp.gov.my akaun-fleksibel-withdrawal_quick-guide_en) 원문을 열지 못해 **단계 수를 확정하지 못했다**. 2차 안내서들은 로그인 → 인출 메뉴 → Akaun Fleksibel → 금액 입력 → 계좌 선택 → 선언 동의 → i-Akaun Secure 승인의 약 6~8단계로 설명한다. 이 앱과 달리 **금액을 직접 입력**하고 승인 제한 시간이 있다. 논문에는 공식 가이드를 직접 세어 넣을 것.
 - EPF 출국 인출(Leaving Country Withdrawal)은 앱으로 신청할 수 없다. 지점 방문 또는 우편, 공증 사본 등이 필요하다(설계서 §2.1, kwsp.gov.my).
 - 이 앱은 출국 환급을 앱 안에서 8번의 누름으로 끝내며 숫자·문자 입력이 없다(§10.2 숫자 입력 최소화).
