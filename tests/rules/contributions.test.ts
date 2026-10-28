@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { assignMonthSeq, billFor, dueDateFor, employerRateFor, maturityProgress, payStateOf, policy, rateStepFor } from '../../src/domain';
+import { assignMonthSeq, billFor, currentPolicyVersion, policyVersionFor, type PolicyVersion, dueDateFor, employerRateFor, maturityProgress, payStateOf, policy, rateStepFor } from '../../src/domain';
 
 const emp = { employment_id: 'EMP1' };
 
@@ -82,5 +82,24 @@ describe('BR-21 납부 기한 = 다음 달 10일', () => {
     expect(payStateOf({ due_date: '2026-10-10' }, true, '2026-10-15')).toBe('PAID');
     expect(payStateOf({ due_date: '2026-10-10' }, false, '2026-10-10')).toBe('PENDING');
     expect(payStateOf({ due_date: '2026-10-10' }, false, '2026-10-11')).toBe('OVERDUE');
+  });
+});
+
+describe('§5.2-4 요율은 버전으로 관리한다(POLICY_VERSION)', () => {
+  const v1 = currentPolicyVersion(policy);
+  const v2: PolicyVersion = { ...v1, version_id: 'TEST-v2', effective_from: '2027-01', params: { worker_rate: 0.05, employer_rate_steps: [{ from_month: 1, rate: 0.03 }] } };
+  test('현행 버전은 policy/params.json 값과 같다', () => {
+    expect(v1.version_id).toBe(policy.version_id);
+    expect(v1.params.worker_rate).toBe(policy.params.worker_rate.value);
+  });
+  test.each([['2026-12', 'POL-2026.10'], ['2027-01', 'TEST-v2'], ['2030-05', 'TEST-v2']])('%s → %s', (ym, id) => {
+    expect(policyVersionFor(ym, [v2, v1]).version_id).toBe(id);
+  });
+  test('시행 전 년월은 오류', () => {
+    expect(() => policyVersionFor('2019-12', [v1])).toThrow();
+  });
+  test('버전의 요율로 부과액 계산', () => {
+    const b = billFor(emp, 2_000_000, 30, policy, v2);
+    expect([b.worker_amt, b.employer_amt]).toEqual([100_000, 60_000]);
   });
 });

@@ -1,7 +1,7 @@
 {
   "ko": {
-    "keys": 509,
-    "required": 509,
+    "keys": 520,
+    "required": 520,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -12,51 +12,51 @@
     "review": "source"
   },
   "en": {
-    "keys": 509,
-    "required": 509,
+    "keys": 520,
+    "required": 520,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 509,
+    "machineTranslated": 520,
     "review": "machine"
   },
   "vi": {
-    "keys": 384,
-    "required": 384,
+    "keys": 385,
+    "required": 385,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 384,
+    "machineTranslated": 385,
     "review": "machine"
   },
   "ne": {
-    "keys": 384,
-    "required": 384,
+    "keys": 385,
+    "required": 385,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 384,
+    "machineTranslated": 385,
     "review": "machine"
   },
   "id": {
-    "keys": 384,
-    "required": 384,
+    "keys": 385,
+    "required": 385,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
     "labelMissing": 0,
     "hangulLeaks": 0,
     "devanagariDigits": 0,
-    "machineTranslated": 384,
+    "machineTranslated": 385,
     "review": "machine"
   },
   "code": {

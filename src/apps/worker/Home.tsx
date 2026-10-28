@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calculator, ShieldCheck } from 'lucide-react';
 import { clock, formatDate, formatYM, policy } from '../../domain';
 import { displayName } from '../../data/selectors';
+import { useRepo } from '../../data/context';
 import { Banner, Card, CardLink, HideAmountButton, ProgressRing, StatusBadge, type Tone } from '../../ui';
 import { Money, won } from '../shared/Money';
 import { useMember } from './WorkerApp';
@@ -14,6 +15,7 @@ const payTone: Record<string, Tone> = { PAID: 'success', PENDING: 'neutral', OVE
 export function HomeScreen() {
   const { t, i18n } = useTranslation();
   const { view, s, base, hidden, setHidden } = useMember();
+  const repo = useRepo();
   const maturity = policy.params.maturity_months.value;
   const latest = s.latestBill;
   const pay = latest && view.payments.find((p) => p.bill_id === latest.bill_id);
@@ -51,6 +53,9 @@ export function HomeScreen() {
     alerts.push(
       <Banner key="div" tone="info" title={t('home.alerts.dividendTitle', { year: div.payload.year })}>
         <p>{t('home.alerts.dividendBody', { amount: won(Number(div.payload.amount)) })}</p>
+        <button type="button" className="ui-linkbtn" onClick={() => repo.markNotificationRead(div.id)}>
+          {t('home.alerts.dismiss')}
+        </button>
       </Banner>,
     );
 

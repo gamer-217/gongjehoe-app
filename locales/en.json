@@ -88,7 +88,8 @@
       "claimBody": "Current step: {{status}}",
       "claimAction": "See request status",
       "closedTitle": "Your refund is complete",
-      "closedBody": "You received all your savings. Thank you for your hard work."
+      "closedBody": "You received all your savings. Thank you for your hard work.",
+      "dismiss": "Got it"
     },
     "quick": {
       "label": "Shortcuts",
@@ -518,7 +519,8 @@
       "feedMove": "{{name}} joined on {{date}} and kept their Fund account.",
       "feedStep": "{{name}}'s company rate is now {{rate}}%.",
       "feedClaim": "{{name}} requested a departure refund.",
-      "zeroInput": "Zero extra admin input: just file social insurance and the Fund is calculated automatically."
+      "zeroInput": "Zero extra admin input: just file social insurance and the Fund is calculated automatically.",
+      "feedUnpaid": "Unpaid for {{ym}}: {{names}} — due date {{date}} has passed. Please pay with the social insurance bill."
     },
     "e20": {
       "title": "{{name}} billing and payments",
@@ -546,7 +548,8 @@
       "due": "Due {{date}}",
       "status": "Status",
       "noExtra": "No extra filing",
-      "unknown": "Not shown on mock screen"
+      "unknown": "Not shown on mock screen",
+      "overdue": "{{count}} unpaid"
     },
     "e40": {
       "title": "Auto-enrollment for new hires",
@@ -574,7 +577,15 @@
       "dividends": "Dividends declared (demo, assumed)",
       "colYear": "Year",
       "colRate": "Rate",
-      "colDeclared": "Declared on"
+      "colDeclared": "Declared on",
+      "versions": "Policy versions (POLICY_VERSION)",
+      "versionsLead": "Every bill ({{count}} total) records the policy version used to calculate it. When rates change, add a new version; it applies to bills from its effective month.",
+      "colVersion": "Version",
+      "colFrom": "Effective from",
+      "colWorker": "Worker rate",
+      "colSteps": "Employer rate steps",
+      "colBills": "Bills",
+      "step": "{{rate}}% from month {{from}}"
     },
     "a20": {
       "title": "Refund inbox",

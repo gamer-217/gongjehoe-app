@@ -1,11 +1,11 @@
 {
-  "total": 113,
-  "passed": 113,
+  "total": 122,
+  "passed": 122,
   "failed": 0,
   "rules": {
     "§5.2": {
-      "cases": 11,
-      "passed": 11,
+      "cases": 20,
+      "passed": 20,
       "failed": 0
     },
     "§5.3": {
@@ -34,8 +34,8 @@
       "failed": 0
     },
     "BR-03": {
-      "cases": 5,
-      "passed": 5,
+      "cases": 6,
+      "passed": 6,
       "failed": 0
     },
     "BR-04": {
