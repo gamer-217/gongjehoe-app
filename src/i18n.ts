@@ -1,11 +1,11 @@
 // 다국어(§10.1) — 모든 문구는 locales/*.json에서만
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import ko from '../locales/ko.json';
-import en from '../locales/en.json';
-import vi from '../locales/vi.json';
-import ne from '../locales/ne.json';
-import id from '../locales/id.json';
+import ko from '../locales/ko.json' with { type: 'json' };
+import en from '../locales/en.json' with { type: 'json' };
+import vi from '../locales/vi.json' with { type: 'json' };
+import ne from '../locales/ne.json' with { type: 'json' };
+import id from '../locales/id.json' with { type: 'json' };
 import type { Lang } from './domain';
 
 export const LANGS: { code: Lang; native: string }[] = [

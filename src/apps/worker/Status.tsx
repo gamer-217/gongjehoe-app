@@ -30,9 +30,9 @@ function ClaimCard(props: { claim: Claim }) {
   const items: TimelineItem[] = FLOW.map((s, i) => {
     const state: TimelineItem['state'] = ended
       ? i <= lastDone ? 'done' : i === lastDone + 1 ? 'bad' : 'todo'
-      : i < idx || (i === idx && s === 'PAID') ? 'done' : i === idx ? 'current' : 'todo';
+      : i <= idx ? 'done' : i === idx + 1 ? 'current' : 'todo';
     const when = at(s);
-    const desc = state === 'done' || state === 'current'
+    const desc = state === 'done'
       ? [when ? formatDate(when) : null, s === 'PAID' && payout ? t('status.d.PAID', { amount: won(-payout.amount) }) : t(`status.d.${s}`)].filter(Boolean).join(' · ')
       : undefined;
     return { key: s, title: state === 'bad' ? t(`status.s.${c.status}`) : t(`status.s.${s}`), desc, state, stateLabel: t(`status.state.${state}`) };

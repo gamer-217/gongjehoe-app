@@ -122,3 +122,14 @@ describe('NFR-06 정책 값에는 모두 출처가 있다', () => {
     }
   });
 });
+
+describe('A-30 재정 시뮬레이터 이식', () => {
+  test('기본값으로 30년 계산, 적립금은 양수', async () => {
+    const { simulateFund, defaultFundParams, ocbAt } = await import('../../src/domain');
+    const r = simulateFund(defaultFundParams());
+    expect(r.rows).toHaveLength(30);
+    expect(r.rows.at(-1)!.fund).toBeGreaterThan(0);
+    expect(ocbAt(4)).toBe(2.25);
+    expect(ocbAt(15)).toBeCloseTo(11.7, 1);
+  });
+});

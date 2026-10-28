@@ -1,5 +1,5 @@
 // SVG 직접 구현 차트(§14.2-4: 차트 라이브러리 금지)
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 export interface Series {
   name: string;
@@ -19,7 +19,15 @@ export function LineChart(props: {
   area?: boolean;
   minY?: number;
 }) {
-  const W = 320;
+  const ref = useRef<HTMLElement>(null);
+  const [W, setW] = useState(320);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(([e]) => setW(Math.max(200, Math.round(e.contentRect.width))));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const H = props.height ?? 120;
   const padL = props.yFormat ? 40 : 4;
   const padR = 8;
@@ -33,8 +41,8 @@ export function LineChart(props: {
   const y = (v: number) => padT + (1 - (v - min) / (max - min || 1)) * (H - padT - padB);
   const ticks = n > 2 ? [0, Math.floor((n - 1) / 2), n - 1] : [0, n - 1];
   return (
-    <figure style={{ margin: 0 }}>
-      <svg className="ui-chart" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={props.label}>
+    <figure className="ui-figure" ref={ref}>
+      <svg className="ui-chart" width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={props.label}>
         {props.yFormat &&
           [min, (min + max) / 2, max].map((v) => (
             <g key={v}>

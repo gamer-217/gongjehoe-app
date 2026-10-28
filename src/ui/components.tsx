@@ -76,13 +76,15 @@ export function AmountDisplay(props: {
   const text = (props.sign && v > 0 ? '+' : v < 0 ? '−' : '') + formatKrw(Math.abs(v));
   if (props.hidden) {
     return (
-      <span className={cx('ui-amount', `ui-amount--${props.size ?? 'md'}`, props.className)} aria-label={props.hiddenLabel}>
+      <span className={cx('ui-amount', `ui-amount--${props.size ?? 'md'}`, props.className)}>
+        <span className="sr-only">{props.hiddenLabel}</span>
         <span aria-hidden>••••••</span>
       </span>
     );
   }
   return (
-    <span className={cx('ui-amount', `ui-amount--${props.size ?? 'md'}`, props.className)} role="text" aria-label={props.srLabel}>
+    <span className={cx('ui-amount', `ui-amount--${props.size ?? 'md'}`, props.className)}>
+      <span className="sr-only">{props.srLabel}</span>
       <span className="ui-amount__cur" aria-hidden>
         ₩
       </span>

@@ -711,8 +711,12 @@ a.ui-listrow:hover {
 }
 
 /* ── Charts ────────────────────────── */
+.ui-figure {
+  margin: 0;
+  min-width: 0;
+}
 .ui-chart {
-  width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
   overflow: visible;
@@ -855,24 +859,24 @@ a.ui-listrow:hover {
 /* ── Demo chip ─────────────────────── */
 .ui-demo-chip {
   position: fixed;
-  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 8px);
-  left: max(8px, calc(50% - 240px + 8px));
+  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) - 14px);
+  right: max(8px, calc(50% - 240px + 8px));
   z-index: 45;
 }
 .ui-demo-chip > button {
-  min-height: 32px;
+  min-height: 28px;
   padding: 0 10px;
   border-radius: var(--radius-chip);
-  border: 1px dashed #9aa3ad;
-  background: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
+  border: 1px dashed #8a949e;
+  background: #fff;
+  font-size: var(--font-min);
   font-weight: 700;
   color: var(--color-text-sub);
 }
 .ui-demo-menu {
   position: absolute;
-  left: 0;
-  bottom: 38px;
+  right: 0;
+  bottom: 34px;
   background: var(--color-surface);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(17, 24, 39, 0.16);
@@ -1164,4 +1168,10 @@ a.ui-listrow:hover {
 @media print {
   .ui-tabbar, .ui-appbar, .ui-demo-chip, .ui-noprint { display: none !important; }
   body { background: #fff; }
+}
+
+.ui-plainlist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

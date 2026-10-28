@@ -1,9 +1,9 @@
 // policy/*.json을 타입이 있는 객체로 읽는다. 제도 수치는 여기서만 나온다(NFR-06).
-import paramsJson from '../../policy/params.json';
-import npsJson from '../../policy/nps_countries.json';
-import coverageJson from '../../policy/coverage.json';
-import minWageJson from '../../policy/min_wage.json';
-import demoJson from '../../policy/demo.json';
+import paramsJson from '../../policy/params.json' with { type: 'json' };
+import npsJson from '../../policy/nps_countries.json' with { type: 'json' };
+import coverageJson from '../../policy/coverage.json' with { type: 'json' };
+import minWageJson from '../../policy/min_wage.json' with { type: 'json' };
+import demoJson from '../../policy/demo.json' with { type: 'json' };
 
 export type Label = '법령' | '제안' | '가정' | '결정';
 

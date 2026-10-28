@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import data from '../../fixtures/demo.json';
+import data from '../../fixtures/demo.json' with { type: 'json' };
 import { balance, employerRateFor, policy, type Dataset } from '../../src/domain';
 
 const ds = data as unknown as Dataset;

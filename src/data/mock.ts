@@ -1,5 +1,5 @@
 // MockRepository — fixtures를 초기값으로, 변경분은 localStorage에 저장(실패하면 메모리만). §7.1
-import fixtures from '../../fixtures/demo.json';
+import fixtures from '../../fixtures/demo.json' with { type: 'json' };
 import {
   balance, claimTransition, clock, isDepartureDateAllowed, hasOpenClaim, maskAccount, memberStatusAfter, normalizeAccountNumber,
   policy, settlementEntries, validateNominees,

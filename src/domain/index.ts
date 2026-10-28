@@ -10,3 +10,4 @@ export * from './coverage';
 export * from './claims';
 export * from './nominees';
 export * from './accounts';
+export * from './fundsim';
