@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calculator, ClipboardList, Plane, Repeat } from 'lucide-react';
-import { addMonths, formatYM, horizonChips, npsLumpSumEstimate, policy, project } from '../../domain';
+import { addMonths, clock, formatYM, horizonChips, npsEmployerRate, yearOf, npsLumpSumEstimate, policy, project } from '../../domain';
 import { BarChart, Card, ChipGroup, Legend, List, ListRow, StatusBadge } from '../../ui';
 import { Money, pct, won } from '../shared/Money';
 import { useMember } from './WorkerApp';
@@ -45,7 +45,8 @@ export function SimulatorScreen() {
   // 국민연금 반환일시금 약식: 지금까지 월 보수 + 앞으로 같은 월급
   const lastYm = s.latestBill?.ym ?? view.member.joined_ym;
   const wages = [
-    ...view.bills.map((b) => ({ ym: b.ym, wage: b.wage_krw })),
+    // 비교는 같은 조건으로: 실제 수납된 달만(미납 달은 국민연금도 미납으로 본다)
+    ...view.bills.filter((b) => view.payments.some((p) => p.bill_id === b.bill_id)).map((b) => ({ ym: b.ym, wage: b.wage_krw })),
     ...Array.from({ length: months }, (_, i) => ({ ym: addMonths(lastYm, i + 1), wage: s.lastWage })),
   ];
   const nps = npsLumpSumEstimate({ nationality_iso2: view.person.nationality_iso2, wages }, policy);
@@ -122,6 +123,7 @@ export function SimulatorScreen() {
             <li>{t('sim.how2', { worker: pct(policy.params.worker_rate.value), steps })}</li>
             <li>{t('sim.how3', { rate: pct(rate) })}</li>
             {nps.applicable && <li>{t('sim.how4')}</li>}
+            {nps.applicable && <li>{t('sim.how5', { nps: pct(npsEmployerRate(yearOf(clock.today()), policy)), worker: pct(policy.params.worker_rate.value), steps })}</li>}
           </ul>
         </details>
       </div>

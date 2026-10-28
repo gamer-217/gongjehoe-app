@@ -1,25 +1,30 @@
-/* 디자인 토큰 — 설계서 §9.2 임시값.
-   기준: KRDS(대한민국 정부 디자인 시스템, https://www.krds.go.kr). 2026-10-28 이 환경에서 krds.go.kr 접속 불가 →
-   공개 토큰 확인 후 교체(docs/확인필요.md). 녹색(#0F5132)은 폐기, KRDS 파랑 계열 하나로 통일 */
+/* 디자인 토큰 — KRDS(대한민국 정부 디자인 시스템) 공식 토큰 값.
+   출처: npm krds-uiux@1.1.0(NIA, 2026-01-12) resources/css/token/krds_tokens.css · github.com/KRDS-uiux/krds-uiux, 2026-10-28 확인.
+   대응: primary=primary-60, text=gray-90, text-sub=gray-70, bg=gray-5, 상태 글자=각 색 -60, 상태 바탕=각 색 -5 */
 :root {
-  --color-primary: #0b50d0;
-  --color-primary-strong: #083891;
-  --color-primary-weak: #eaf1fd;
-  --color-text: #1e2124;
-  --color-text-sub: #464c53;
-  --color-text-weak: #6d7882;
-  --color-bg: #f4f5f6;
+  --color-primary: #0b50d0; /* primary-60 */
+  --color-primary-strong: #083891; /* primary-70 */
+  --color-primary-weak: #ecf2fe; /* primary-5 */
+  --color-text: #1e2124; /* gray-90 */
+  --color-text-sub: #464c53; /* gray-70 */
+  --color-text-weak: #6d7882; /* gray-50 */
+  --color-bg: #f4f5f6; /* gray-5 */
   --color-surface: #ffffff;
-  --color-line: #e3e6ea;
-  --color-success: #12805c;
-  --color-success-weak: #e6f4ee;
-  --color-warning: #9e6a00;
-  --color-warning-weak: #fff6e0;
-  --color-danger: #d02c2c;
-  --color-danger-weak: #fdeceb;
-  --color-neutral-weak: #eef0f2;
+  --color-line: #e6e8ea; /* gray-10 */
+  --color-success: #228738; /* success-50 */
+  --color-success-text: #267337; /* success-60 */
+  --color-success-weak: #eaf6ec; /* success-5 */
+  --color-warning: #9e6a00; /* warning-50 */
+  --color-warning-text: #8a5c00; /* warning-60 */
+  --color-warning-weak: #fff3db; /* warning-5 */
+  --color-danger: #de3412; /* danger-50 */
+  --color-danger-text: #bd2c0f; /* danger-60 */
+  --color-danger-weak: #fdefec; /* danger-5 */
+  --color-info: #0b78cb; /* information-50 */
+  --color-info-weak: #e7f4fe; /* information-5 */
+  --color-neutral-weak: #e6e8ea; /* gray-10 */
   --color-employer: #4f7fd8;
-  --color-dividend: #12805c;
+  --color-dividend: #228738;
 
   --radius-card: 16px;
   --radius-button: 12px;
