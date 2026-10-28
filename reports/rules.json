@@ -1,11 +1,16 @@
 {
-  "total": 100,
-  "passed": 100,
+  "total": 112,
+  "passed": 112,
   "failed": 0,
   "rules": {
     "§5.2": {
-      "cases": 3,
-      "passed": 3,
+      "cases": 11,
+      "passed": 11,
+      "failed": 0
+    },
+    "§5.3": {
+      "cases": 4,
+      "passed": 4,
       "failed": 0
     },
     "§6.1": {
@@ -29,8 +34,8 @@
       "failed": 0
     },
     "BR-03": {
-      "cases": 4,
-      "passed": 4,
+      "cases": 5,
+      "passed": 5,
       "failed": 0
     },
     "BR-04": {
@@ -39,8 +44,8 @@
       "failed": 0
     },
     "BR-05": {
-      "cases": 3,
-      "passed": 3,
+      "cases": 4,
+      "passed": 4,
       "failed": 0
     },
     "BR-06": {
@@ -101,6 +106,11 @@
     "BR-22": {
       "cases": 3,
       "passed": 3,
+      "failed": 0
+    },
+    "NFR-05": {
+      "cases": 1,
+      "passed": 1,
       "failed": 0
     },
     "NFR-06": {
