@@ -80,8 +80,8 @@ export function HomeScreen() {
             <ProgressRing
               ratio={s.maturity.ratio}
               full={s.maturity.matured}
-              big={s.maturity.matured ? t('home.ringMatured') : String(s.seq)}
-              small={s.maturity.matured ? t('common.months', { count: s.seq }) : t('home.ringSmall', { maturity })}
+              big={String(s.seq)}
+              small={`/ ${maturity}`}
               label={s.maturity.matured ? t('home.matured') : t('home.ringLabel', { months: s.seq, maturity })}
             />
           </div>
