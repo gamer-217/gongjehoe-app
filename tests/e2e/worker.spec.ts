@@ -126,3 +126,21 @@ test('?study=1이면 데모 칩이 숨겨진다', async ({ page }) => {
   await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
   await expect(page.getByRole('button', { name: '데모 메뉴' })).toHaveCount(0);
 });
+
+test('§5.2-7 미납 시연: Nguyen 홈에 미납(빨강) 표시', async ({ page }) => {
+  await fresh(page);
+  await page.goto('./#/w/W002');
+  await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
+  await expect(page.getByText('미납', { exact: true })).toBeVisible();
+  await expect(page.getByText(/회사에 물어봐 주세요/)).toBeVisible();
+});
+
+test('알림 읽음: 배당 알림을 확인하면 다시 뜨지 않는다', async ({ page }) => {
+  await fresh(page);
+  await page.goto('./#/w/W004');
+  await expect(page.getByText('2025년 운용수익이 확정되었어요')).toBeVisible();
+  await page.getByRole('button', { name: '확인했어요' }).click();
+  await expect(page.getByText('2025년 운용수익이 확정되었어요')).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByText('2025년 운용수익이 확정되었어요')).toHaveCount(0);
+});

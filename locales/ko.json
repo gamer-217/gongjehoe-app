@@ -88,7 +88,8 @@
       "claimBody": "지금 단계: {{status}}",
       "claimAction": "신청 현황 보기",
       "closedTitle": "환급이 끝났어요",
-      "closedBody": "적립금을 모두 받았어요. 고생 많으셨어요."
+      "closedBody": "적립금을 모두 받았어요. 고생 많으셨어요.",
+      "dismiss": "확인했어요"
     },
     "quick": {
       "label": "바로가기",
@@ -518,7 +519,8 @@
       "feedMove": "{{name}} 님이 {{date}}에 입사하며 공제회 계좌를 이어받았어요.",
       "feedStep": "{{name}} 님 회사 요율이 {{rate}}%가 되었어요.",
       "feedClaim": "{{name}} 님이 출국 환급을 신청했어요.",
-      "zeroInput": "총무 추가 입력 0 — 4대보험 신고만 하면 공제회는 자동으로 계산돼요."
+      "zeroInput": "총무 추가 입력 0 — 4대보험 신고만 하면 공제회는 자동으로 계산돼요.",
+      "feedUnpaid": "{{ym}}분 미납: {{names}} — 납부 기한 {{date}}이 지났어요. 4대보험 고지서와 함께 내 주세요."
     },
     "e20": {
       "title": "{{name}} 부과·수납 내역",
@@ -546,7 +548,8 @@
       "due": "납부 기한 {{date}}",
       "status": "상태",
       "noExtra": "추가 신고 없음",
-      "unknown": "모의 화면이라 표시하지 않음"
+      "unknown": "모의 화면이라 표시하지 않음",
+      "overdue": "미납 {{count}}건"
     },
     "e40": {
       "title": "신규 채용 자동 가입",
@@ -574,7 +577,15 @@
       "dividends": "배당 선언(시연용 가정)",
       "colYear": "연도",
       "colRate": "배당률",
-      "colDeclared": "선언일"
+      "colDeclared": "선언일",
+      "versions": "정책 버전(POLICY_VERSION)",
+      "versionsLead": "모든 고지서({{count}}건)는 계산에 쓴 정책 버전을 기록해요. 요율이 바뀌면 새 버전을 추가하고, 시행 년월부터 새 고지서에 적용돼요.",
+      "colVersion": "버전",
+      "colFrom": "시행 년월",
+      "colWorker": "근로자 요율",
+      "colSteps": "사업주 요율 단계",
+      "colBills": "적용 고지서",
+      "step": "{{from}}개월째부터 {{rate}}%"
     },
     "a20": {
       "title": "환급 처리함",

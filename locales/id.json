@@ -88,7 +88,8 @@
       "claimBody": "Tahap sekarang: {{status}}",
       "claimAction": "Lihat status",
       "closedTitle": "Pencairan selesai",
-      "closedBody": "Semua tabungan sudah diterima. Terima kasih atas kerja keras Anda."
+      "closedBody": "Semua tabungan sudah diterima. Terima kasih atas kerja keras Anda.",
+      "dismiss": "Mengerti"
     },
     "quick": {
       "label": "Pintasan",

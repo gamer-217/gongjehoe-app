@@ -94,6 +94,15 @@ export interface LedgerEntry {
   ref_id: string;
 }
 
+/** POLICY_VERSION(§5.1) — BILL마다 어느 요율로 계산했는지 남긴다(§5.2-4) */
+export interface PolicyVersion {
+  version_id: string;
+  /** 이 버전을 적용하기 시작하는 부과 년월 */
+  effective_from: YM;
+  params: { worker_rate: number; employer_rate_steps: { from_month: number; rate: number }[] };
+  source: string;
+}
+
 export interface DividendDeclaration {
   year: number;
   rate: number;
@@ -202,6 +211,7 @@ export interface Dataset {
   payments: Payment[];
   ledger: LedgerEntry[];
   dividends: DividendDeclaration[];
+  policy_versions: PolicyVersion[];
   claims: Claim[];
   claim_events: ClaimEvent[];
   payouts: Payout[];

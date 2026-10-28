@@ -2,7 +2,7 @@
 // 실행: npm run gen:fixtures  → fixtures/demo.json (직접 수정 금지)
 import { writeFileSync } from 'node:fs';
 import {
-  addMonths, assignMonthSeq, billFor, declareDividend, dueDateFor, monthEnd, policy, ymIndex, yearOf,
+  addMonths, assignMonthSeq, billFor, currentPolicyVersion, declareDividend, policyVersionFor, dueDateFor, monthEnd, policy, ymIndex, yearOf,
   type BankAccount, type ContributionBill, type Dataset, type Employment, type LedgerEntry, type Nominee,
   type Notification, type Payment, type WageReport, type YM,
 } from '../src/domain';
@@ -23,6 +23,8 @@ interface Seed {
   bank: Omit<BankAccount, 'id' | 'member_id' | 'verified' | 'active'>;
   nominees: Omit<Nominee, 'id' | 'member_id'>[];
   hiArrears?: number;
+  /** 미납 시연(§5.2-7: 부분 납부 없음, 전액 미납만) — 이 년월 BILL은 수납·원장 없이 OVERDUE */
+  unpaidYms?: YM[];
 }
 
 const LATEST: YM = policy.demo.latest_paid_ym;
@@ -47,6 +49,7 @@ const seeds: Seed[] = [
     ],
     bank: { country_iso2: 'VN', bank_name: 'Vietcombank', account_masked: '••••••••7754', holder_name: 'NGUYEN VAN AN', currency: 'VND' },
     nominees: [],
+    unpaidYms: [LATEST],
   },
   {
     member_id: 'W003',
@@ -81,7 +84,7 @@ const ds: Dataset = {
     { employer_id: 'EMP01', name: '한빛정밀(주)', name_latin: 'Hanbit Precision Co., Ltd.', biz_no_masked: '123-45-•••••' },
     { employer_id: 'EMP02', name: '대성농산', name_latin: 'Daesung Farm', biz_no_masked: '214-87-•••••' },
   ],
-  employments: [], wage_reports: [], bills: [], payments: [], ledger: [], dividends: [],
+  employments: [], wage_reports: [], bills: [], payments: [], ledger: [], dividends: [], policy_versions: [currentPolicyVersion(policy)],
   claims: [], claim_events: [], payouts: [], bank_accounts: [], nominees: [], consents: [], notifications: [],
   user_accounts: [
     { id: 'U-EMP01', role: 'EMPLOYER', member_id: null, employer_id: 'EMP01' },
@@ -127,18 +130,21 @@ for (const s of seeds) {
   for (const { emp, ym } of months) {
     const wage = wageFor(s, ym);
     const seq = seqOf.get(ym)!;
-    const amt = billFor(emp, wage, seq, policy);
+    const version = policyVersionFor(ym, ds.policy_versions);
+    const amt = billFor(emp, wage, seq, policy, version);
+    const unpaid = s.unpaidYms?.includes(ym) ?? false;
     const billId = `B-${emp.employment_id}-${ym}`;
     const due = dueDateFor(ym, policy);
     const paidAt = due; // 통합징수 납기일 수납
     const wr: WageReport = { id: `WR-${emp.employment_id}-${ym}`, employment_id: emp.employment_id, ym, wage_krw: wage };
     const bill: ContributionBill = {
       bill_id: billId, employment_id: emp.employment_id, ym, member_month_seq: seq, wage_krw: wage, ...amt,
-      policy_version_id: policy.version_id, due_date: due, status: 'PAID',
+      policy_version_id: version.version_id, due_date: due, status: unpaid ? (policy.demo.today > due ? 'OVERDUE' : 'ISSUED') : 'PAID',
     };
     const pay: Payment = { payment_id: `PM-${billId}`, bill_id: billId, paid_at: paidAt, amount: amt.worker_amt + amt.employer_amt, channel: '통합징수' };
     ds.wage_reports.push(wr);
     ds.bills.push(bill);
+    if (unpaid) continue; // 미납이면 원장에 들어가지 않는다(§5.2-3)
     ds.payments.push(pay);
     entries.push(
       { entry_id: `L-${billId}-W`, member_id: s.member_id, posted_at: paidAt, ym, kind: 'WORKER', amount: amt.worker_amt, ref_type: 'BILL', ref_id: billId },
@@ -158,10 +164,12 @@ for (const s of seeds) {
 
   const latestBill = ds.bills.filter((b) => b.employment_id.startsWith(s.member_id)).at(-1)!;
   const notes: Notification[] = [
-    { id: `NT-${s.member_id}-PAID`, member_id: s.member_id, kind: 'PAID', payload: { ym: latestBill.ym }, at: latestBill.due_date, read: false },
+    latestBill.status === 'PAID'
+      ? { id: `NT-${s.member_id}-PAID`, member_id: s.member_id, kind: 'PAID', payload: { ym: latestBill.ym }, at: latestBill.due_date, read: false }
+      : { id: `NT-${s.member_id}-UNPAID`, member_id: s.member_id, kind: 'UNPAID', payload: { ym: latestBill.ym, due: latestBill.due_date }, at: latestBill.due_date, read: false },
   ];
   const lastDiv = entries.filter((e) => e.kind === 'DIVIDEND').at(-1);
-  if (lastDiv) notes.push({ id: `NT-${s.member_id}-DIV`, member_id: s.member_id, kind: 'DIVIDEND', payload: { year: Number(lastDiv.ref_id), amount: lastDiv.amount }, at: lastDiv.posted_at, read: true });
+  if (lastDiv) notes.push({ id: `NT-${s.member_id}-DIV`, member_id: s.member_id, kind: 'DIVIDEND', payload: { year: Number(lastDiv.ref_id), amount: lastDiv.amount }, at: lastDiv.posted_at, read: false });
   if (s.hiArrears) notes.push({ id: `NT-${s.member_id}-HI`, member_id: s.member_id, kind: 'HI_ARREARS', payload: { amount: s.hiArrears, source: 'NHIS' }, at: '2026-10-01', read: false });
   ds.notifications.push(...notes);
 }

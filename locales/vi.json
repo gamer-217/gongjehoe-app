@@ -88,7 +88,8 @@
       "claimBody": "Bước hiện tại: {{status}}",
       "claimAction": "Xem tình trạng",
       "closedTitle": "Đã nhận tiền xong",
-      "closedBody": "Bạn đã nhận hết tiền. Cảm ơn bạn đã vất vả."
+      "closedBody": "Bạn đã nhận hết tiền. Cảm ơn bạn đã vất vả.",
+      "dismiss": "Đã xem"
     },
     "quick": {
       "label": "Đi nhanh",

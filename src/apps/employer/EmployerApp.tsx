@@ -4,7 +4,7 @@ import { Link, Route, Routes, useParams } from 'react-router-dom';
 import type { TFunction } from 'i18next';
 import { CheckCircle2 } from 'lucide-react';
 import {
-  balance, clock, employerRateFor, formatDate, formatYM, npsApplicable, npsEmployerRate, policy, rateStepFor, yearOf,
+  balance, clock, employerRateFor, formatDate, formatYM, npsApplicable, npsEmployerRate, policy, payStateOf, rateStepFor, yearOf,
   type ContributionBill,
 } from '../../domain';
 import { useQuery } from '../../data/context';
@@ -88,6 +88,8 @@ function Dashboard(props: { ev: EmployerView; t: TFunction }) {
   const feed: string[] = [];
   const paidCount = active.filter((r) => r.latest?.ym === latestYm && r.v.payments.some((p) => p.bill_id === r.latest!.bill_id)).length;
   feed.push(t('portal.e10.feedPaid', { ym: formatYM(latestYm), count: paidCount }));
+  const unpaid = active.filter((r) => r.latest?.ym === latestYm && payStateOf(r.latest, r.v.payments.some((p) => p.bill_id === r.latest!.bill_id), clock.today()) === 'OVERDUE');
+  if (unpaid.length) feed.unshift(t('portal.e10.feedUnpaid', { ym: formatYM(latestYm), names: unpaid.map((r) => displayName(r.v)).join(', '), date: formatDate(unpaid[0].latest!.due_date) }));
   for (const r of rows) {
     if (r.v.claims.some((c) => c.status !== "CANCELLED")) feed.push(t('portal.e10.feedClaim', { name: displayName(r.v) }));
     const first = r.bills[0];
@@ -198,8 +200,8 @@ function WorkerDetail(props: { ev: EmployerView; t: TFunction }) {
             key: 'st',
             header: t('portal.e20.colStatus'),
             render: (b) => {
-              const paid = r.v.payments.some((p) => p.bill_id === b.bill_id);
-              return <StatusBadge tone={paid ? 'success' : 'neutral'}>{t(`home.pay.${paid ? 'PAID' : 'PENDING'}`)}</StatusBadge>;
+              const st = payStateOf(b, r.v.payments.some((p) => p.bill_id === b.bill_id), clock.today());
+              return <StatusBadge tone={st === 'PAID' ? 'success' : st === 'OVERDUE' ? 'danger' : 'neutral'}>{t(`home.pay.${st}`)}</StatusBadge>;
             },
           },
           { key: 'pd', header: t('portal.e20.colPaid'), render: (b) => formatDate(r.v.payments.find((p) => p.bill_id === b.bill_id)?.paid_at ?? b.due_date) },
@@ -219,6 +221,8 @@ function Bill(props: { ev: EmployerView; t: TFunction }) {
   const w = bills.reduce((s, b) => s + b.worker_amt, 0);
   const e = bills.reduce((s, b) => s + b.employer_amt, 0);
   const due = bills[0]?.due_date;
+  const paidIds = new Set(rowsOf(props.ev).flatMap((r) => r.v.payments.map((p) => p.bill_id)));
+  const overdue = bills.filter((b) => payStateOf(b, paidIds.has(b.bill_id), clock.today()) === 'OVERDUE');
   return (
     <>
       <h1 className="ui-title-lg">{t('portal.e30.title', { ym: formatYM(ym) })}</h1>
@@ -253,7 +257,11 @@ function Bill(props: { ev: EmployerView; t: TFunction }) {
               </td>
               <td className="ui-num ui-strong">{won(w + e)}</td>
               <td>
-                <StatusBadge tone="success">{t('home.pay.PAID')}</StatusBadge>
+                {overdue.length ? (
+                  <StatusBadge tone="danger">{t('portal.e30.overdue', { count: overdue.length })}</StatusBadge>
+                ) : (
+                  <StatusBadge tone="success">{t('home.pay.PAID')}</StatusBadge>
+                )}
               </td>
             </tr>
           </tbody>

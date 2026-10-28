@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import type { TFunction } from 'i18next';
 import {
-  availableActions, balance, clock, defaultFundParams, formatDate, fundSimConfig, ocbAt, simulateFund,
+  availableActions, balance, clock, defaultFundParams, formatDate, formatYM, fundSimConfig, ocbAt, simulateFund,
   type Claim, type ClaimAction, type FundParamKey, type RejectReason,
 } from '../../domain';
 import { useQuery, useRepo } from '../../data/context';
@@ -52,6 +52,8 @@ function Fund(props: { t: TFunction }) {
         const status = new Map<string, number>();
         for (const v of members) status.set(v.member.status, (status.get(v.member.status) ?? 0) + 1);
         const divs = members[0]?.dividends ?? [];
+        const versions = members[0]?.policyVersions ?? [];
+        const billCount = members.reduce((n, v) => n + v.bills.length, 0);
         return (
           <>
             <div className="ui-row ui-row--wrap">
@@ -95,6 +97,24 @@ function Fund(props: { t: TFunction }) {
                 { key: 'y', header: t('portal.a10.colYear'), render: (d) => d.year },
                 { key: 'r', header: t('portal.a10.colRate'), numeric: true, render: (d) => `${pct(d.rate)}% (${t('common.demoDividend')})` },
                 { key: 'd', header: t('portal.a10.colDeclared'), render: (d) => formatDate(d.declared_at) },
+              ]}
+            />
+            <h2 className="ui-title">{t('portal.a10.versions')}</h2>
+            <p className="ui-sub">{t('portal.a10.versionsLead', { count: billCount })}</p>
+            <DataTable
+              caption={t('portal.a10.versions')}
+              rowKey={(v) => v.version_id}
+              rows={versions}
+              columns={[
+                { key: 'id', header: t('portal.a10.colVersion'), render: (v) => <span className="num">{v.version_id}</span> },
+                { key: 'f', header: t('portal.a10.colFrom'), render: (v) => formatYM(v.effective_from) },
+                { key: 'w', header: t('portal.a10.colWorker'), numeric: true, render: (v) => `${pct(v.params.worker_rate)}%` },
+                {
+                  key: 'e',
+                  header: t('portal.a10.colSteps'),
+                  render: (v) => v.params.employer_rate_steps.map((x) => t('portal.a10.step', { from: x.from_month, rate: pct(x.rate) })).join(' → '),
+                },
+                { key: 'n', header: t('portal.a10.colBills'), numeric: true, render: (v) => members.reduce((n, m) => n + m.bills.filter((b) => b.policy_version_id === v.version_id).length, 0) },
               ]}
             />
           </>

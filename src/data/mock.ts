@@ -94,6 +94,7 @@ export class MockRepository implements Repository {
       payments: ds.payments.filter((p) => billIds.has(p.bill_id) && p.paid_at <= today),
       ledger: ds.ledger.filter((e) => e.member_id === memberId && e.posted_at <= today),
       dividends: ds.dividends,
+      policyVersions: ds.policy_versions,
       nominees: ds.nominees.filter((n) => n.member_id === memberId),
       bankAccounts: ds.bank_accounts.filter((a) => a.member_id === memberId),
       claims,
@@ -236,6 +237,15 @@ export class MockRepository implements Repository {
     this.ds.bank_accounts.push(acct);
     this.commit();
     return tick(acct);
+  }
+
+  async markNotificationRead(notificationId: string) {
+    await this.ready;
+    const n = this.ds.notifications.find((x) => x.id === notificationId);
+    if (n && !n.read) {
+      n.read = true;
+      this.commit();
+    }
   }
 
   async setActiveBankAccount(memberId: string, accountId: string) {

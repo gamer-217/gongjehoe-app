@@ -1,7 +1,7 @@
 // 저장소 인터페이스(§7.1) — 백엔드 교체 지점은 여기 하나. MockRepository → 나중에 HttpRepository
 import type {
   Actor, BankAccount, Claim, ClaimAction, ClaimEvent, ContributionBill, Dataset, DividendDeclaration, Employer, Employment,
-  ISODate, LedgerEntry, Member, Nominee, Notification, Payment, Person, RejectReason, VisaStatus,
+  ISODate, LedgerEntry, Member, Nominee, Notification, Payment, Person, PolicyVersion, RejectReason, VisaStatus,
 } from '../domain';
 
 export interface MemberView {
@@ -13,6 +13,7 @@ export interface MemberView {
   payments: Payment[];
   ledger: LedgerEntry[];
   dividends: DividendDeclaration[];
+  policyVersions: PolicyVersion[];
   nominees: Nominee[];
   bankAccounts: BankAccount[];
   claims: Claim[];
@@ -50,6 +51,7 @@ export interface Repository {
   submitClaim(input: { memberId: string; departure_date: ISODate; bank_account_id: string }): Promise<Claim>;
   transitionClaim(claimId: string, action: ClaimAction, actor: Actor, reason?: RejectReason): Promise<Claim>;
   saveNominees(memberId: string, list: NewNominee[]): Promise<Nominee[]>;
+  markNotificationRead(notificationId: string): Promise<void>;
   addBankAccount(memberId: string, input: NewBankAccount): Promise<BankAccount>;
   setActiveBankAccount(memberId: string, accountId: string): Promise<void>;
   reset(): Promise<void>;

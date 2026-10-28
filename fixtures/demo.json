@@ -1963,7 +1963,7 @@
    "employer_amt": 52200,
    "policy_version_id": "POL-2026.10",
    "due_date": "2026-10-10",
-   "status": "PAID"
+   "status": "OVERDUE"
   },
   {
    "bill_id": "B-W003-E1-2022-06",
@@ -4047,13 +4047,6 @@
    "channel": "통합징수"
   },
   {
-   "payment_id": "PM-B-W002-E2-2026-09",
-   "bill_id": "B-W002-E2-2026-09",
-   "paid_at": "2026-10-10",
-   "amount": 156600,
-   "channel": "통합징수"
-  },
-  {
    "payment_id": "PM-B-W003-E1-2022-06",
    "bill_id": "B-W003-E1-2022-06",
    "paid_at": "2022-07-10",
@@ -6008,26 +6001,6 @@
    "amount": 104400,
    "ref_type": "BILL",
    "ref_id": "B-W002-E2-2026-08"
-  },
-  {
-   "entry_id": "L-B-W002-E2-2026-09-E",
-   "member_id": "W002",
-   "posted_at": "2026-10-10",
-   "ym": "2026-09",
-   "kind": "EMPLOYER",
-   "amount": 52200,
-   "ref_type": "BILL",
-   "ref_id": "B-W002-E2-2026-09"
-  },
-  {
-   "entry_id": "L-B-W002-E2-2026-09-W",
-   "member_id": "W002",
-   "posted_at": "2026-10-10",
-   "ym": "2026-09",
-   "kind": "WORKER",
-   "amount": 104400,
-   "ref_type": "BILL",
-   "ref_id": "B-W002-E2-2026-09"
   },
   {
    "entry_id": "L-B-W003-E1-2022-06-E",
@@ -8598,6 +8571,30 @@
    "demo": true
   }
  ],
+ "policy_versions": [
+  {
+   "version_id": "POL-2026.10",
+   "effective_from": "2020-01",
+   "params": {
+    "worker_rate": 0.04,
+    "employer_rate_steps": [
+     {
+      "from_month": 1,
+      "rate": 0.02
+     },
+     {
+      "from_month": 25,
+      "rate": 0.03
+     },
+     {
+      "from_month": 49,
+      "rate": 0.04
+     }
+    ]
+   },
+   "source": "이성옥·김태희(2025), 다문화콘텐츠연구 54집 89-119; 정책제안서(2026.10) / 이성옥·김태희(2025); 정책제안서(2026.10)"
+  }
+ ],
  "claims": [],
  "claim_events": [],
  "payouts": [],
@@ -8745,14 +8742,15 @@
     "amount": 85951
    },
    "at": "2026-01-31",
-   "read": true
+   "read": false
   },
   {
-   "id": "NT-W002-PAID",
+   "id": "NT-W002-UNPAID",
    "member_id": "W002",
-   "kind": "PAID",
+   "kind": "UNPAID",
    "payload": {
-    "ym": "2026-09"
+    "ym": "2026-09",
+    "due": "2026-10-10"
    },
    "at": "2026-10-10",
    "read": false
@@ -8766,7 +8764,7 @@
     "amount": 17122
    },
    "at": "2026-01-31",
-   "read": true
+   "read": false
   },
   {
    "id": "NT-W003-PAID",
@@ -8787,7 +8785,7 @@
     "amount": 167863
    },
    "at": "2026-01-31",
-   "read": true
+   "read": false
   },
   {
    "id": "NT-W003-HI",
@@ -8819,7 +8817,7 @@
     "amount": 293598
    },
    "at": "2026-01-31",
-   "read": true
+   "read": false
   }
  ],
  "user_accounts": [
