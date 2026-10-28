@@ -12,7 +12,7 @@ import { WAppBar } from './parts';
 const payTone: Record<string, Tone> = { PAID: 'success', PENDING: 'neutral', OVERDUE: 'danger' };
 
 export function HomeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { view, s, base, hidden, setHidden } = useMember();
   const maturity = policy.params.maturity_months.value;
   const latest = s.latestBill;
@@ -54,7 +54,7 @@ export function HomeScreen() {
       </Banner>,
     );
 
-  const name = displayName(view);
+  const name = displayName(view, i18n.language);
   return (
     <>
       <WAppBar title={t('common.appName')} />

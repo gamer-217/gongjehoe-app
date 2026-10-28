@@ -50,5 +50,7 @@ export function summarize(v: MemberView): AccountSummary {
   };
 }
 
-/** 표시 이름: 한국어 사용자는 원어 이름, 나머지는 로마자 */
-export const displayName = (v: MemberView) => (v.member.lang === 'ko' ? v.person.name_native : v.person.name_latin);
+const HANGUL = /[\uAC00-\uD7A3]/;
+/** 표시 이름: 한국어 화면이면 한글 원어 이름, 그 밖에는 로마자(비한국어 화면에 한글 0자, §14.1 P10) */
+export const displayName = (v: MemberView, uiLang = 'ko') => (uiLang === 'ko' && HANGUL.test(v.person.name_native) ? v.person.name_native : v.person.name_latin);
+export const employerName = (e: { name: string; name_latin: string }, uiLang = 'ko') => (uiLang === 'ko' ? e.name : e.name_latin);

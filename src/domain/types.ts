@@ -36,6 +36,7 @@ export interface Member {
 export interface Employer {
   employer_id: string;
   name: string;
+  name_latin: string;
   biz_no_masked: string;
 }
 

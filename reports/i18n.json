@@ -1,0 +1,66 @@
+{
+  "ko": {
+    "keys": 509,
+    "required": 509,
+    "missing": 0,
+    "extra": 0,
+    "placeholderMismatch": 0,
+    "labelMissing": 0,
+    "hangulLeaks": 0,
+    "devanagariDigits": 0,
+    "machineTranslated": 0,
+    "review": "source"
+  },
+  "en": {
+    "keys": 509,
+    "required": 509,
+    "missing": 0,
+    "extra": 0,
+    "placeholderMismatch": 0,
+    "labelMissing": 0,
+    "hangulLeaks": 0,
+    "devanagariDigits": 0,
+    "machineTranslated": 509,
+    "review": "machine"
+  },
+  "vi": {
+    "keys": 384,
+    "required": 384,
+    "missing": 0,
+    "extra": 0,
+    "placeholderMismatch": 0,
+    "labelMissing": 0,
+    "hangulLeaks": 0,
+    "devanagariDigits": 0,
+    "machineTranslated": 384,
+    "review": "machine"
+  },
+  "ne": {
+    "keys": 384,
+    "required": 384,
+    "missing": 0,
+    "extra": 0,
+    "placeholderMismatch": 0,
+    "labelMissing": 0,
+    "hangulLeaks": 0,
+    "devanagariDigits": 0,
+    "machineTranslated": 384,
+    "review": "machine"
+  },
+  "id": {
+    "keys": 384,
+    "required": 384,
+    "missing": 0,
+    "extra": 0,
+    "placeholderMismatch": 0,
+    "labelMissing": 0,
+    "hangulLeaks": 0,
+    "devanagariDigits": 0,
+    "machineTranslated": 384,
+    "review": "machine"
+  },
+  "code": {
+    "hangulInApps": 0,
+    "inlineStyleInApps": 0
+  }
+}

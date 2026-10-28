@@ -98,11 +98,13 @@
   {
    "employer_id": "EMP01",
    "name": "한빛정밀(주)",
+   "name_latin": "Hanbit Precision Co., Ltd.",
    "biz_no_masked": "123-45-•••••"
   },
   {
    "employer_id": "EMP02",
    "name": "대성농산",
+   "name_latin": "Daesung Farm",
    "biz_no_masked": "214-87-•••••"
   }
  ],
@@ -8658,7 +8660,7 @@
   {
    "id": "N-W004-1",
    "member_id": "W004",
-   "name": "김민",
+   "name": "Jin Min",
    "relation": "CHILD",
    "share_pct": 100,
    "contact": "+86 ••• •••• 2290",

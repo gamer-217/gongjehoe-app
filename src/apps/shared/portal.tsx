@@ -1,7 +1,7 @@
 // 사업주·운영자 공통 틀 — 데스크톱, 한국어 기본·영어 전환(portal.* 키는 ko·en만)
 import { useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import i18n from '../../i18n';
+import i18n, { LANGS } from '../../i18n';
 import type { TFunction } from 'i18next';
 
 const KEY = 'gongjehoe.portalLang';
@@ -55,7 +55,7 @@ export function PortalFrame(props: {
           <div className="ui-chips" role="radiogroup" aria-label="Language">
             {(['ko', 'en'] as const).map((l) => (
               <button key={l} type="button" role="radio" className="ui-chip" aria-checked={props.lang === l} onClick={() => props.setLang(l)} lang={l}>
-                {l === 'ko' ? '한국어' : 'English'}
+                {LANGS.find((x) => x.code === l)?.native}
               </button>
             ))}
           </div>

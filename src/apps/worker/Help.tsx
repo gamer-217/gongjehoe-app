@@ -22,7 +22,7 @@ export function HelpScreen() {
         <h2 className="ui-section-title">{t('help.calls')}</h2>
         <List>
           {lines.map((l) => (
-            <a key={l.key} className="ui-listrow" href={`tel:${l.p.value.replace(/-/g, '')}`} aria-label={`${t(`help.${l.key}`)} — ${t('help.call', { number: l.p.value })}`}>
+            <a key={l.key} className="ui-listrow" href={`tel:${l.p.value.replace(/-/g, '')}`}>
               <span className="ui-listrow__icon" aria-hidden>
                 <Phone size={22} />
               </span>

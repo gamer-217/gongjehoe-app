@@ -13,7 +13,8 @@
     "gen:fixtures": "tsx scripts/gen-fixtures.ts",
     "check:i18n": "tsx scripts/check-i18n.ts",
     "e2e": "playwright test",
-    "report:rules": "tsx scripts/report-rules.ts"
+    "report:rules": "tsx scripts/report-rules.ts",
+    "test:screens": "playwright test tests/a11y; tsx scripts/report-screens.ts"
   },
   "dependencies": {
     "@fontsource/noto-sans-devanagari": "^5.3.0",

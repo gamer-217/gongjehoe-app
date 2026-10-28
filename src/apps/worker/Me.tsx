@@ -2,7 +2,7 @@
 import { useTranslation } from 'react-i18next';
 import { CircleHelp, Globe, Landmark, ShieldCheck, Users } from 'lucide-react';
 import { formatYM } from '../../domain';
-import { displayName } from '../../data/selectors';
+import { displayName, employerName } from '../../data/selectors';
 import { LANGS } from '../../i18n';
 import { Card, List, ListRow, StatusBadge } from '../../ui';
 import { useMember } from './WorkerApp';
@@ -18,7 +18,7 @@ export function MeScreen() {
       <div className="ui-page">
         <Card>
           <div className="ui-card__head">
-            <h2 className="ui-title">{displayName(view)}</h2>
+            <h2 className="ui-title">{displayName(view, i18n.language)}</h2>
             <StatusBadge tone={st === 'ACTIVE' ? 'success' : st === 'DEPARTING' ? 'info' : 'neutral'}>{t(`me.st.${st}`)}</StatusBadge>
           </div>
           <dl className="ui-kv">
@@ -31,7 +31,7 @@ export function MeScreen() {
             <dt>{t('me.joined')}</dt>
             <dd className="num">{formatYM(view.member.joined_ym)}</dd>
             <dt>{t('me.employer')}</dt>
-            <dd>{s.currentEmployer?.employer.name}</dd>
+            <dd>{s.currentEmployer && employerName(s.currentEmployer.employer, i18n.language)}</dd>
           </dl>
         </Card>
         <h2 className="ui-section-title">{t('me.menu')}</h2>

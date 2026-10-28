@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ArrowRightLeft, FileText, TrendingUp } from 'lucide-react';
 import { addMonths, balance, formatDate, formatYM, monthlyRows, ymIndex, yearOf, type LedgerEntry } from '../../domain';
-import { displayName } from '../../data/selectors';
+import { displayName, employerName } from '../../data/selectors';
 import { Button, Card, ChipGroup, EmptyState, LineChart, List, ListRow } from '../../ui';
 import { Money, pct } from '../shared/Money';
 import { useMember } from './WorkerApp';
@@ -45,7 +45,7 @@ function buildItems(ledger: LedgerEntry[], billInfo: Map<string, { employmentId:
 }
 
 export function HistoryScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { view, base, hidden } = useMember();
   const [filter, setFilter] = useState<'all' | 'paid' | 'dividend'>('all');
 
@@ -53,7 +53,10 @@ export function HistoryScreen() {
   const items = useMemo(() => buildItems(view.ledger, billInfo), [view.ledger, billInfo]);
   const rows = useMemo(() => monthlyRows(view.ledger), [view.ledger]);
   const total = balance(view.ledger).total;
-  const empName = (id: string) => view.employments.find((e) => e.employment_id === id)?.employer.name ?? '';
+  const empName = (id: string) => {
+    const e = view.employments.find((x) => x.employment_id === id)?.employer;
+    return e ? employerName(e, i18n.language) : '';
+  };;
 
   // 표시 목록(최신이 위). 사업장 구간 머리말, 요율 변경·공백 구분선을 끼운다
   const desc = [...items].reverse();
@@ -168,7 +171,7 @@ export function HistoryScreen() {
 }
 
 export function StatementScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { view, base } = useMember();
   const years = [...new Set(view.ledger.map((e) => yearOf(e.ym)))].sort((a, b) => b - a);
   const [year, setYear] = useState<number | null>(years[0] ?? null);
@@ -193,11 +196,11 @@ export function StatementScreen() {
             </h2>
             <dl className="ui-kv">
               <dt>{t('statement.name')}</dt>
-              <dd>{displayName(view)}</dd>
+              <dd>{displayName(view, i18n.language)}</dd>
               <dt>{t('statement.member')}</dt>
               <dd>{view.member.member_id}</dd>
             </dl>
-            <div className="ui-table-wrap">
+            <div className="ui-table-wrap" tabIndex={0} role="region" aria-labelledby="st-h">
               <table className="ui-table">
                 <thead>
                   <tr>

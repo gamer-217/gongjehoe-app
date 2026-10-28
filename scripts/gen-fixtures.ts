@@ -63,7 +63,7 @@ const seeds: Seed[] = [
     lang: 'ko', visa: 'H-2', wage2026: 2_800_000,
     stints: [{ employer_id: 'EMP01', from: '2020-12', to: LATEST }],
     bank: { country_iso2: 'CN', bank_name: '中国银行 Bank of China', account_masked: '••••••••8836', holder_name: 'JIN HAILAN', currency: 'CNY' },
-    nominees: [{ name: '김민', relation: 'CHILD', share_pct: 100, contact: '+86 ••• •••• 2290', kyc_status: 'VERIFIED' }],
+    nominees: [{ name: 'Jin Min', relation: 'CHILD', share_pct: 100, contact: '+86 ••• •••• 2290', kyc_status: 'VERIFIED' }],
   },
 ];
 
@@ -78,8 +78,8 @@ function wageFor(seed: Seed, ym: YM): number {
 const ds: Dataset = {
   generated_from: `scripts/gen-fixtures.ts · policy ${policy.version_id} · 기준 ${policy.demo.today}`,
   persons: [], visa_statuses: [], members: [], employers: [
-    { employer_id: 'EMP01', name: '한빛정밀(주)', biz_no_masked: '123-45-•••••' },
-    { employer_id: 'EMP02', name: '대성농산', biz_no_masked: '214-87-•••••' },
+    { employer_id: 'EMP01', name: '한빛정밀(주)', name_latin: 'Hanbit Precision Co., Ltd.', biz_no_masked: '123-45-•••••' },
+    { employer_id: 'EMP02', name: '대성농산', name_latin: 'Daesung Farm', biz_no_masked: '214-87-•••••' },
   ],
   employments: [], wage_reports: [], bills: [], payments: [], ledger: [], dividends: [],
   claims: [], claim_events: [], payouts: [], bank_accounts: [], nominees: [], consents: [], notifications: [],

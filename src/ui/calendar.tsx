@@ -44,10 +44,10 @@ export function Calendar(props: {
               type="button"
               disabled={d < props.min || d > props.max}
               aria-pressed={props.value === d}
-              aria-label={props.dayLabel(d)}
               onClick={() => props.onChange(d)}
             >
               {Number(d.slice(8))}
+              <span className="sr-only"> ({props.dayLabel(d)})</span>
             </button>
           ) : (
             <span key={`e${i}`} />
