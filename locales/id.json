@@ -488,7 +488,8 @@
     "q3": "Bagaimana jika pindah perusahaan?",
     "a3": "Rekening tetap lanjut. Masa ikut juga terus dihitung, jadi bagian perusahaan tidak berkurang.",
     "q4": "Kapan uangnya diterima?",
-    "a4": "Ajukan di aplikasi sebelum pulang. Setelah kepulangan dicek, uang dikirim ke rekening pilihan Anda."
+    "a4": "Ajukan di aplikasi sebelum pulang. Setelah kepulangan dicek, uang dikirim ke rekening pilihan Anda.",
+    "credits": "Referensi desain: iBank UI Kit oleh Seju (Figma Community) · CC BY 4.0 · sebagian warna dari KRDS (sistem desain pemerintah Korea)"
   },
   "cal": {
     "dow": [

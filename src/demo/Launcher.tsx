@@ -27,7 +27,7 @@ export function Launcher() {
             q.data.map((v) => {
               const s = summarize(v);
               return (
-                <Link key={v.member.member_id} to={`/w/${v.member.member_id}/start`} className="ui-card" onClick={() => {
+                <Link key={v.member.member_id} to={`/w/${v.member.member_id}`} className="ui-card" onClick={() => {
                     void setLang(v.member.lang);
                     session.set(v.member.member_id);
                   }}>

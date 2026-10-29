@@ -1323,20 +1323,25 @@ a.ui-listrow:hover {
   pointer-events: none;
 }
 .ui-card--hero::before {
+  /* 2026-10-29 위치 조정: 원이 글자(진행 링 숫자·배지 옆 제목) 밑으로 들어오지 않게 모서리 바깥으로 */
   width: 170px;
   height: 170px;
-  right: -60px;
-  top: -70px;
+  right: -100px;
+  top: -120px;
   background: var(--brand-blue);
   opacity: 0.85;
 }
 .ui-card--hero::after {
+  /* 아래 원은 카드 아래 여백 안에만 보이게(설명 문장과 겹치면 대비 2.4:1로 기준 미달) */
   width: 120px;
   height: 120px;
-  right: 60px;
-  bottom: -80px;
+  right: 40px;
+  bottom: -96px;
   background: var(--brand-red);
   opacity: 0.75;
+}
+.ui-mobile .ui-card--hero {
+  padding-bottom: calc(var(--space-5) + 12px);
 }
 .ui-card--hero > * {
   position: relative;
@@ -1546,9 +1551,9 @@ a.ui-listrow:hover {
 
 /* 로그인 아바타: 사람마다 색 */
 .ui-start .ui-list > :nth-child(5n + 1) .ui-avatar { background: var(--color-primary); color: #fff; }
-.ui-start .ui-list > :nth-child(5n + 2) .ui-avatar { background: var(--brand-blue); color: #fff; }
+.ui-start .ui-list > :nth-child(5n + 2) .ui-avatar { background: var(--brand-blue); color: #001a38; } /* 흰 글자는 3.3:1로 미달 → 5.3:1 */
 .ui-start .ui-list > :nth-child(5n + 3) .ui-avatar { background: var(--brand-amber); color: #3d2700; }
-.ui-start .ui-list > :nth-child(5n + 4) .ui-avatar { background: var(--brand-red); color: #fff; }
+.ui-start .ui-list > :nth-child(5n + 4) .ui-avatar { background: var(--brand-red); color: #3a000e; } /* 흰 글자는 3.4:1로 미달 → 5.3:1 */
 .ui-start .ui-list > :nth-child(5n + 5) .ui-avatar { background: var(--brand-mint); color: #0b4d3f; }
 .ui-start .ui-avatar {
   width: 44px;

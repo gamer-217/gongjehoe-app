@@ -10,7 +10,6 @@ import { TabBar, Toast } from '../../ui';
 import { Load } from '../shared/Load';
 import { DemoChip } from '../../demo/DemoChip';
 import { describeTarget, isStudy, logStudy } from '../shared/study';
-import { Onboard } from './Onboard';
 import { HomeScreen } from './Home';
 import { HistoryScreen, StatementScreen } from './History';
 import { ReceiveHub, SimulatorScreen } from './Receive';
@@ -86,7 +85,8 @@ export function WorkerApp() {
   const { memberId = '' } = useParams();
   return (
     <Routes>
-      <Route path="start" element={<Onboard memberId={memberId} />} />
+      {/* 옛 언어 선택 화면(/w/:id/start)은 새 시작 흐름(#/)과 겹쳐 없앰 — 옛 링크는 홈으로 */}
+      <Route path="start" element={<Navigate to={`/w/${memberId}`} replace />} />
       <Route
         path="*"
         element={

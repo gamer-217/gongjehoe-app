@@ -2,10 +2,10 @@
   {
     "url": "http://localhost:4174/gongjehoe-app/#/w/W001",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_43_59.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_43_59.report.json",
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_11.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_11.report.json",
     "summary": {
-      "performance": 0.91,
+      "performance": 0.84,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 0.9
@@ -14,20 +14,8 @@
   {
     "url": "http://localhost:4174/gongjehoe-app/#/w/W001",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_26.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_26.report.json",
-    "summary": {
-      "performance": 0.88,
-      "accessibility": 1,
-      "best-practices": 1,
-      "seo": 0.9
-    }
-  },
-  {
-    "url": "http://localhost:4174/gongjehoe-app/#/w/W001/receive/apply",
-    "isRepresentativeRun": false,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_50.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_50.report.json",
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_24.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_24.report.json",
     "summary": {
       "performance": 0.93,
       "accessibility": 1,
@@ -38,10 +26,22 @@
   {
     "url": "http://localhost:4174/gongjehoe-app/#/w/W001/receive/apply",
     "isRepresentativeRun": false,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_45_02.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_45_02.report.json",
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_59.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_59.report.json",
     "summary": {
-      "performance": 0.94,
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 0.9
+    }
+  },
+  {
+    "url": "http://localhost:4174/gongjehoe-app/#/w/W001/receive/apply",
+    "isRepresentativeRun": false,
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_50_11.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_50_11.report.json",
+    "summary": {
+      "performance": 0.97,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 0.9
@@ -50,10 +50,10 @@
   {
     "url": "http://localhost:4174/gongjehoe-app/#/w/W001",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_13.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_13.report.json",
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_36.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_36.report.json",
     "summary": {
-      "performance": 0.85,
+      "performance": 0.95,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 0.9
@@ -62,10 +62,10 @@
   {
     "url": "http://localhost:4174/gongjehoe-app/#/w/W001/receive/apply",
     "isRepresentativeRun": true,
-    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_38.report.html",
-    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_28_16_44_38.report.json",
+    "htmlPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_48.report.html",
+    "jsonPath": "/home/user/gongjehoe-app/reports/lighthouse/localhost-gongjehoe_app_-2026_10_29_15_49_48.report.json",
     "summary": {
-      "performance": 0.94,
+      "performance": 0.97,
       "accessibility": 1,
       "best-practices": 1,
       "seo": 0.9

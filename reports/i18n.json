@@ -1,7 +1,7 @@
 {
   "ko": {
-    "keys": 569,
-    "required": 569,
+    "keys": 570,
+    "required": 570,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -12,8 +12,8 @@
     "review": "source"
   },
   "en": {
-    "keys": 569,
-    "required": 569,
+    "keys": 570,
+    "required": 570,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -24,8 +24,8 @@
     "review": "ai-reviewed"
   },
   "vi": {
-    "keys": 430,
-    "required": 430,
+    "keys": 431,
+    "required": 431,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -36,8 +36,8 @@
     "review": "ai-reviewed"
   },
   "ne": {
-    "keys": 430,
-    "required": 430,
+    "keys": 431,
+    "required": 431,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,
@@ -48,8 +48,8 @@
     "review": "ai-reviewed"
   },
   "id": {
-    "keys": 430,
-    "required": 430,
+    "keys": 431,
+    "required": 431,
     "missing": 0,
     "extra": 0,
     "placeholderMismatch": 0,

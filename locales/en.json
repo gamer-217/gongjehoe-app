@@ -488,7 +488,8 @@
     "q3": "What if I change companies?",
     "a3": "Your account stays the same. Your time in the Fund keeps counting, so the company contribution does not go down.",
     "q4": "When do I get the money?",
-    "a4": "Request in the app before you leave. After we check your departure, we send the money to your chosen account."
+    "a4": "Request in the app before you leave. After we check your departure, we send the money to your chosen account.",
+    "credits": "Design reference: iBank UI Kit by Seju (Figma Community) · CC BY 4.0 · some colors from KRDS (Korea Design System)"
   },
   "cal": {
     "dow": [
