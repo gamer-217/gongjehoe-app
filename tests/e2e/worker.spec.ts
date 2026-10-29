@@ -8,10 +8,12 @@ const ds = data as unknown as Dataset;
 const totalOf = (m: string) => balance(ds.ledger.filter((e) => e.member_id === m)).total;
 
 test('T1 내 언어(베트남어)로 바꾸고 총 적립액 확인', async ({ page }) => {
-  await fresh(page);
-  await page.goto('./#/w/W002/start');
+  // 첫 실행: 언어 선택 → 소개 건너뛰기 → 로그인(Aung) → 홈
+  await page.goto('./');
   await page.getByRole('radio', { name: 'Tiếng Việt' }).click();
-  await page.getByRole('button').last().click();
+  await page.locator('main .ui-btn--primary').click();
+  await page.getByRole('button', { name: 'Bỏ qua' }).click();
+  await page.getByRole('button', { name: /Aung Ko Ko/ }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'vi');
   await expect(page.getByText(new RegExp(won(totalOf('W002')))).first()).toBeVisible();
 });

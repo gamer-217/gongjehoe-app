@@ -488,7 +488,8 @@
     "q3": "Đổi công ty thì sao?",
     "a3": "Tài khoản vẫn giữ nguyên. Thời gian tham gia được tính nối tiếp, nên phần công ty góp không bị giảm.",
     "q4": "Khi nào tôi nhận được tiền?",
-    "a4": "Hãy xin trên app trước khi về nước. Sau khi xác nhận bạn đã xuất cảnh, tiền được chuyển vào tài khoản bạn đã chọn."
+    "a4": "Hãy xin trên app trước khi về nước. Sau khi xác nhận bạn đã xuất cảnh, tiền được chuyển vào tài khoản bạn đã chọn.",
+    "credits": "Tham khảo thiết kế: iBank UI Kit của Seju (Figma Community) · CC BY 4.0 · một số màu theo KRDS (hệ thống thiết kế của chính phủ Hàn Quốc)"
   },
   "cal": {
     "dow": [

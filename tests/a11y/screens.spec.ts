@@ -29,7 +29,7 @@ const submitClaim: Step = async (p) => {
 
 export const WORKER: { name: string; route: string; step?: Step }[] = [
   { name: 'start-intro', route: '/', step: async (p) => { await p.waitForTimeout(1300); } },
-  { name: 'w01-language', route: '/w/W001/start' },
+  { name: 'w01-language', route: '/', step: async (p) => { await p.evaluate(() => localStorage.removeItem('gongjehoe.lang')); await p.reload(); await p.waitForTimeout(1300); } },
   { name: 'w10-home', route: '/w/W001' },
   { name: 'w10-home-siti', route: '/w/W003' },
   { name: 'w10-home-kim', route: '/w/W004' },

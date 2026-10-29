@@ -40,6 +40,8 @@ export function HelpScreen() {
             <p className="ui-sub">{t(`help.a${i}`)}</p>
           </details>
         ))}
+        {/* CC BY 4.0 원작자 표기 */}
+        <p className="ui-small">{t('help.credits')}</p>
       </div>
     </>
   );
