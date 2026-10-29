@@ -88,7 +88,7 @@ v2 값이 v0.5보다 낮은 이유는 두 가지입니다.
 2. **월급.** v0.5는 고정 월급 하나로 계산했습니다. v2는 2026년 월급을 기준으로 이전 연도를 최저임금 인상률만큼 낮춰 생성합니다(§5.3).
 
 ## 디자인
-- **브랜드 색·구성:** Figma 커뮤니티 「iBank - Banking & E-Money Management App」 UI 키트(Seju, 무료)를 참고했다. Figma 커뮤니티 무료 파일의 기본 라이선스는 CC BY 4.0이라 원작자 표기가 필요해서, README와 앱 도움말 화면 아래에 표기했다. 파일의 라이선스 배지는 Figma에서 직접 확인이 필요하다(`docs/확인필요.md`).
+- **브랜드 색·구성:** 디자인 참고: "iBank – Banking & E-Money Management App" by Seju ([Figma Community](https://www.figma.com/community/file/1322236579213422290)), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 색상·레이아웃을 참고해 수정함. 그림·컴포넌트 파일은 가져오지 않았다. 앱 도움말 화면 아래에도 같은 표기를 넣었다(2026-10-29 Figma 페이지에서 무료·CC BY 4.0 확인).
 - **상태 색·회색 글자:** 대비 기준(WCAG AA) 때문에 KRDS 공식 토큰(npm `krds-uiux@1.1.0`, NIA)을 그대로 쓴다. 파랑·민트·노랑은 글자색으로 쓰지 않고 바탕·장식에만 쓴다.
 - **글꼴:** Pretendard(font-display: swap).
 - **토큰 위치:** `src/ui/tokens.css`. 테마는 `src/ui/ui.css` 끝의 iBank 블록.
