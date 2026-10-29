@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import type { TFunction } from 'i18next';
 import {
-  availableActions, balance, clock, defaultFundParams, formatDate, formatYM, fundSimConfig, ocbAt, simulateFund,
+  availableActions, balance, clock, policy, trackFor, defaultFundParams, formatDate, formatYM, fundSimConfig, ocbAt, simulateFund,
   type Claim, type ClaimAction, type FundParamKey, type RejectReason,
 } from '../../domain';
 import { useQuery, useRepo } from '../../data/context';
@@ -43,7 +43,10 @@ function Fund(props: { t: TFunction }) {
   const q = useQuery((r) => r.listMembers(), []);
   return (
     <Load q={q}>
-      {(members) => {
+      {(all) => {
+        // BR-23: 기금 현황은 공제회 트랙(국민연금 비적용국) 가입자만
+        const members = all.filter((v) => trackFor(v.person.nationality_iso2, policy) === 'FUND');
+        const npsCount = all.length - members.length;
         const thisYm = clock.today().slice(0, 7);
         const total = members.reduce((s, v) => s + balance(v.ledger).total, 0);
         const payouts = members.flatMap((v) => v.ledger.filter((e) => e.kind === 'PAYOUT' && e.ym === thisYm));
@@ -58,10 +61,9 @@ function Fund(props: { t: TFunction }) {
           <>
             <div className="ui-row ui-row--wrap">
               <h1 className="ui-title-lg">{t('portal.a10.title')}</h1>
-              <StatusBadge tone="warning">{t('portal.demoData')}</StatusBadge>
             </div>
             <div className="ui-kpis">
-              <KPI label={t('portal.a10.members')} value={t('portal.a10.membersValue', { count: members.length })} />
+              <KPI label={t('portal.a10.members')} value={t('portal.a10.membersValue', { count: members.length })} note={npsCount ? t('portal.a10.npsExcluded', { count: npsCount }) : undefined} />
               <KPI label={t('portal.a10.total')} value={won(total)} />
               <KPI label={t('portal.a10.refundMonth')} value={t('portal.a10.refundValue', { count: payouts.length, amount: won(Math.abs(payouts.reduce((s, e) => s + e.amount, 0))) })} />
               <KPI label={t('portal.a10.conversions')} value={t('portal.a10.conversionsValue', { count: status.get('CONVERTED') ?? 0 })} />

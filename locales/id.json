@@ -289,7 +289,19 @@
     "VN": "Vietnam",
     "ID": "Indonesia",
     "CN": "Tiongkok",
-    "KR": "Korea"
+    "KR": "Korea",
+    "MM": "Myanmar",
+    "BD": "Bangladesh",
+    "KZ": "Kazakhstan",
+    "PK": "Pakistan",
+    "TL": "Timor Leste",
+    "BY": "Belarus",
+    "KH": "Kamboja",
+    "LK": "Sri Lanka",
+    "TH": "Thailand",
+    "LA": "Laos",
+    "RU": "Rusia",
+    "UA": "Ukraina"
   },
   "nominee": {
     "title": "Ahli waris (keluarga)",
@@ -445,6 +457,13 @@
         "detail": "Asuransi ini untuk merawat orang tua, jadi pekerja yang tinggal sebentar sulit dapat manfaat. Bisa minta keluar.",
         "payer": "Saya dan perusahaan bayar bersama iuran asuransi kesehatan.",
         "where": "Badan Asuransi Kesehatan Nasional (NHIS) · ajukan keluar"
+      },
+      "gongje_nps": {
+        "name": "Dana Bersama Pekerja Asing",
+        "line": "Tidak berlaku · Anda tetap ikut Pensiun Nasional",
+        "detail": "Dana Bersama untuk pekerja dari negara yang tidak ikut Pensiun Nasional. Pekerja dari negara Anda ikut Pensiun Nasional, jadi Anda menerima pengembalian sekaligus saat pulang.",
+        "payer": "Tidak ada",
+        "where": "Tidak berlaku"
       }
     }
   },
@@ -491,5 +510,19 @@
     "next": "Ke tahap pengajuan berikutnya",
     "nextDone": "Sudah ke tahap berikutnya.",
     "nextNone": "Tidak ada pengajuan yang diproses."
+  },
+  "nps": {
+    "badge": "Pensiun Nasional",
+    "homeTitle": "Anda menerima pengembalian sekaligus Pensiun Nasional",
+    "homeBody": "Pekerja dari negara Anda ikut Pensiun Nasional, jadi uang Anda ditabung di sana, bukan di Dana Bersama. Saat meninggalkan Korea, uang dikembalikan sekaligus.",
+    "estimate": "Iuran Pensiun Nasional sejauh ini (hitungan sederhana)",
+    "estimateNote": "Contoh sederhana: hanya uang pokok yang dibayar Anda dan perusahaan. Aslinya ditambah bunga.",
+    "howTitle": "Bagaimana cara menerimanya?",
+    "how": "Sebelum pulang, ajukan pengembalian sekaligus ke Badan Pensiun Nasional (NPS). Setelah keberangkatan dipastikan, uang dikirim ke rekening Anda.",
+    "call": "Telepon Badan Pensiun Nasional",
+    "notFund": "Anda tidak termasuk Dana Bersama",
+    "notFundBody": "Pekerja dari negara yang ikut Pensiun Nasional menerima pengembalian sekaligus Pensiun Nasional, bukan Dana Bersama.",
+    "simTitle": "Pensiun Nasional saat pulang",
+    "simNote": "Contoh jika gaji tetap sama."
   }
 }

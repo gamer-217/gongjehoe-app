@@ -8,6 +8,7 @@ import { Banner, BottomSheet, Button, ButtonLink, Card, EmptyState, StatusBadge,
 import { won } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { WAppBar } from './parts';
+import { NpsNotice } from './NpsTrack';
 
 const FLOW: ClaimStatus[] = ['SUBMITTED', 'VERIFIED', 'PAYING', 'PAID'];
 const tone: Record<ClaimStatus, Tone> = {
@@ -80,6 +81,13 @@ function ClaimCard(props: { claim: Claim }) {
 }
 
 export function StatusScreen() {
+  const { t } = useTranslation();
+  const { s, base } = useMember();
+  if (s.track !== 'FUND') return <NpsNotice title={t('status.title')} back={`${base}/receive`} />;
+  return <FundStatusScreen />;
+}
+
+function FundStatusScreen() {
   const { t } = useTranslation();
   const { view, base } = useMember();
   const claims = [...view.claims].reverse();

@@ -92,7 +92,7 @@ test('W-42 계좌번호 하이픈·공백 허용, 예금주 확인 후 저장', 
   await fresh(page);
   await page.goto('./#/w/W002/me/accounts');
   await page.getByRole('button', { name: '새 계좌 등록' }).click();
-  await page.getByLabel('은행').selectOption('BIDV');
+  await page.getByLabel('은행').selectOption('AYA Bank');
   await page.getByLabel('계좌번호').fill('0071 000-123 456');
   await expect(page.getByText('정리된 번호: 0071000123456')).toBeVisible();
   await page.getByRole('button', { name: '예금주 확인' }).click();
@@ -127,7 +127,7 @@ test('?study=1이면 데모 칩이 숨겨진다', async ({ page }) => {
   await expect(page.getByRole('button', { name: '데모 메뉴' })).toHaveCount(0);
 });
 
-test('§5.2-7 미납 시연: Nguyen 홈에 미납(빨강) 표시', async ({ page }) => {
+test('§5.2-7 미납 시연: Aung 홈에 미납(빨강) 표시', async ({ page }) => {
   await fresh(page);
   await page.goto('./#/w/W002');
   await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
@@ -143,4 +143,15 @@ test('알림 읽음: 배당 알림을 확인하면 다시 뜨지 않는다', asy
   await expect(page.getByText('2025년 운용수익이 확정되었어요')).toHaveCount(0);
   await page.reload();
   await expect(page.getByText('2025년 운용수익이 확정되었어요')).toHaveCount(0);
+});
+
+test('BR-23 국민연금 적용국 근로자(W005 베트남)는 공제회 대신 국민연금 안내', async ({ page }) => {
+  await fresh(page);
+  await page.goto('./#/w/W005');
+  await expect(page.getByRole('heading', { name: '국민연금 반환일시금을 그대로 받아요' })).toBeVisible();
+  await expect(page.getByText('총 적립액')).toHaveCount(0);
+  await page.goto('./#/w/W005/receive/apply');
+  await expect(page.getByText('공제회 적립 대상이 아니에요')).toBeVisible();
+  await page.goto('./#/w/W005/me/coverage');
+  await expect(page.getByText('해당 없음 · 국민연금을 그대로 받아요')).toBeVisible();
 });

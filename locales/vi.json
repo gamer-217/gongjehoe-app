@@ -289,7 +289,19 @@
     "VN": "Việt Nam",
     "ID": "Indonesia",
     "CN": "Trung Quốc",
-    "KR": "Hàn Quốc"
+    "KR": "Hàn Quốc",
+    "MM": "Myanmar",
+    "BD": "Bangladesh",
+    "KZ": "Kazakhstan",
+    "PK": "Pakistan",
+    "TL": "Đông Timor",
+    "BY": "Belarus",
+    "KH": "Campuchia",
+    "LK": "Sri Lanka",
+    "TH": "Thái Lan",
+    "LA": "Lào",
+    "RU": "Nga",
+    "UA": "Ukraina"
   },
   "nominee": {
     "title": "Người thân nhận tiền",
@@ -445,6 +457,13 @@
         "detail": "Bảo hiểm này dùng để chăm sóc người già, nên người lao động ở ngắn hạn khó được hưởng. Nếu làm đơn, bạn có thể không phải tham gia.",
         "payer": "Bạn và công ty đóng cùng với bảo hiểm y tế.",
         "where": "Cơ quan Bảo hiểm Y tế Quốc gia (NHIS) (xin không tham gia)"
+      },
+      "gongje_nps": {
+        "name": "Quỹ",
+        "line": "Không áp dụng · bạn vẫn nhận Hưu trí Quốc gia",
+        "detail": "Quỹ dành cho lao động từ những nước không tham gia Hưu trí Quốc gia. Lao động nước bạn đã tham gia Hưu trí Quốc gia, nên khi về nước bạn nhận lại tiền đó 1 lần.",
+        "payer": "Không có",
+        "where": "Không áp dụng"
       }
     }
   },
@@ -491,5 +510,19 @@
     "next": "Yêu cầu sang bước tiếp",
     "nextDone": "Đã sang bước tiếp theo.",
     "nextNone": "Không có yêu cầu đang xử lý."
+  },
+  "nps": {
+    "badge": "Hưu trí Quốc gia",
+    "homeTitle": "Bạn nhận lại tiền Hưu trí Quốc gia 1 lần",
+    "homeBody": "Lao động nước bạn thuộc diện tham gia Hưu trí Quốc gia, nên tiền được tích lũy ở đó thay vì ở Quỹ. Khi rời Hàn Quốc, bạn nhận lại 1 lần.",
+    "estimate": "Tiền Hưu trí Quốc gia đã đóng (tính đơn giản)",
+    "estimateNote": "Ví dụ đơn giản: chỉ cộng tiền gốc bạn và công ty đã đóng. Thực tế còn được cộng lãi.",
+    "howTitle": "Nhận như thế nào?",
+    "how": "Trước khi về nước, hãy xin nhận lại 1 lần tại Cơ quan Hưu trí Quốc gia (NPS). Sau khi xác nhận xuất cảnh, tiền được chuyển vào tài khoản của bạn.",
+    "call": "Gọi Cơ quan Hưu trí Quốc gia",
+    "notFund": "Bạn không thuộc diện tích lũy của Quỹ",
+    "notFundBody": "Lao động từ nước tham gia Hưu trí Quốc gia sẽ nhận lại tiền Hưu trí Quốc gia 1 lần, thay vì Quỹ.",
+    "simTitle": "Hưu trí Quốc gia khi về nước",
+    "simNote": "Ví dụ giả định lương không đổi."
   }
 }

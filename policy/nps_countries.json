@@ -1,11 +1,11 @@
 {
-  "_doc": "BR-17 국가별 국민연금 사업장 당연적용 여부. 적용 대상이면 E-9·H-2는 국적과 무관하게 출국 시 반환일시금(국민연금법 제126조). 현행 E-8(계절근로)은 대상 아님",
-  "source": "국민연금공단 「외국 연금제도 조사 내용」(2025.2.1, fund.nps.or.kr national_join_202502.pdf)·2026.3.19 목록. 확인 2026-10-28(검색 발췌 기준, 원문 열람은 docs/확인필요.md) · 2026.3.19 판(136개국) 재확인",
+  "_doc": "BR-17 국가별 국민연금 사업장 당연적용 여부. 적용 대상이면 E-9·H-2는 국적과 무관하게 출국 시 반환일시금(국민연금법 제126조). 현행 E-8(계절근로)은 대상 아님. 몽골·우즈베키스탄(E-9은 사회보장협정으로 면제 가능)·키르기스스탄·타지키스탄·투르크메니스탄은 자료 불충분으로 표에 넣지 않음 → 공제회 가입 판단 보류(UNKNOWN)",
+  "source": "국민연금공단 「외국 연금제도 조사 내용」(2025.2.1, fund.nps.or.kr national_join_202502.pdf)·2026.3.19 목록. 확인 2026-10-28(검색 발췌 기준, 원문 열람은 docs/확인필요.md) · 2026.3.19 판(136개국) 재확인 · 2026-10-29 국가 확대(docs/정책수치_검증3_국민연금적용국_2026-10-29.md)",
   "countries": {
     "NP": {
       "applicable": false,
       "verified": true,
-      "note": "사업장·지역 모두 적용 제외"
+      "note": "사업장·지역 적용제외(상호주의). 2025.2.1 목록에서 확인, 2026.3.19 판은 검색 발췌"
     },
     "VN": {
       "applicable": true,
@@ -21,6 +21,66 @@
       "applicable": true,
       "verified": true,
       "note": "사업장·지역 모두 당연적용"
+    },
+    "MM": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의). 2025.2.1 목록에서 확인, 2026.3.19 판은 검색 발췌"
+    },
+    "BD": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의). 2025.2.1 목록에서 확인, 2026.3.19 판은 검색 발췌"
+    },
+    "PK": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의)"
+    },
+    "TL": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의). 2025.2.1 목록에서 확인, 2026.3.19 판은 검색 발췌"
+    },
+    "KZ": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의)"
+    },
+    "BY": {
+      "applicable": false,
+      "verified": true,
+      "note": "사업장·지역 적용제외(상호주의)"
+    },
+    "KH": {
+      "applicable": true,
+      "verified": true,
+      "note": "2023.3.29부터 사업장 당연적용, 지역 적용제외"
+    },
+    "LK": {
+      "applicable": true,
+      "verified": true,
+      "note": "사업장 당연적용, 지역 적용제외"
+    },
+    "TH": {
+      "applicable": true,
+      "verified": true,
+      "note": "사업장 당연적용, 지역 적용제외"
+    },
+    "LA": {
+      "applicable": true,
+      "verified": true,
+      "note": "사업장 당연적용, 지역 적용제외"
+    },
+    "RU": {
+      "applicable": true,
+      "verified": true,
+      "note": "사업장·지역 당연적용"
+    },
+    "UA": {
+      "applicable": true,
+      "verified": true,
+      "note": "사업장·지역 당연적용"
     }
   }
 }

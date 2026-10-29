@@ -2,7 +2,7 @@
 // 실행: npm run gen:fixtures  → fixtures/demo.json (직접 수정 금지)
 import { writeFileSync } from 'node:fs';
 import {
-  addMonths, assignMonthSeq, billFor, currentPolicyVersion, declareDividend, policyVersionFor, dueDateFor, monthEnd, policy, ymIndex, yearOf,
+  addMonths, assignMonthSeq, billFor, currentPolicyVersion, trackFor, declareDividend, policyVersionFor, dueDateFor, monthEnd, policy, ymIndex, yearOf,
   type BankAccount, type ContributionBill, type Dataset, type Employment, type LedgerEntry, type Nominee,
   type Notification, type Payment, type WageReport, type YM,
 } from '../src/domain';
@@ -40,33 +40,43 @@ const seeds: Seed[] = [
   },
   {
     member_id: 'W002',
-    person: { person_id: 'P002', name_latin: 'Nguyen Van An', name_native: 'Nguyễn Văn An', nationality_iso2: 'VN', birth_date: '1998-08-03', rid_masked: '980803-5••••••' },
-    lang: 'vi', visa: 'E-9', wage2026: 2_610_000,
+    person: { person_id: 'P002', name_latin: 'Aung Ko Ko', name_native: 'အောင်ကိုကို', nationality_iso2: 'MM', birth_date: '1998-08-03', rid_masked: '980803-5••••••' },
+    lang: 'en', visa: 'E-9', wage2026: 2_610_000,
     // 13개월째 사업장 변경, 1개월 공백(2026-03) — 요율 연속성 시연(BR-03)
     stints: [
       { employer_id: 'EMP02', from: '2025-03', to: '2026-02' },
       { employer_id: 'EMP01', from: '2026-04', to: LATEST },
     ],
-    bank: { country_iso2: 'VN', bank_name: 'Vietcombank', account_masked: '••••••••7754', holder_name: 'NGUYEN VAN AN', currency: 'VND' },
+    bank: { country_iso2: 'MM', bank_name: 'KBZ Bank', account_masked: '••••••••7754', holder_name: 'AUNG KO KO', currency: 'MMK' },
     nominees: [],
     unpaidYms: [LATEST],
   },
   {
     member_id: 'W003',
-    person: { person_id: 'P003', name_latin: 'Siti Rahma', name_native: 'Siti Rahma', nationality_iso2: 'ID', birth_date: '1993-02-17', rid_masked: '930217-6••••••' },
-    lang: 'id', visa: 'E-9', wage2026: 2_500_000,
+    person: { person_id: 'P003', name_latin: 'Fatema Akter', name_native: 'ফাতেমা আক্তার', nationality_iso2: 'BD', birth_date: '1993-02-17', rid_masked: '930217-6••••••' },
+    lang: 'en', visa: 'E-9', wage2026: 2_500_000,
     stints: [{ employer_id: 'EMP01', from: '2022-06', to: LATEST }],
-    bank: { country_iso2: 'ID', bank_name: 'Bank Mandiri', account_masked: '••••••••5108', holder_name: 'SITI RAHMA', currency: 'IDR' },
-    nominees: [{ name: 'Ahmad Fauzi', relation: 'SPOUSE', share_pct: 100, contact: '+62 ••• •••• 4410', kyc_status: 'PENDING' }],
+    bank: { country_iso2: 'BD', bank_name: 'Sonali Bank', account_masked: '••••••••5108', holder_name: 'FATEMA AKTER', currency: 'BDT' },
+    nominees: [{ name: 'Rafiq Islam', relation: 'SPOUSE', share_pct: 100, contact: '+880 ••• •••• 4410', kyc_status: 'PENDING' }],
     hiArrears: 300_000,
   },
   {
     member_id: 'W004',
-    person: { person_id: 'P004', name_latin: 'Kim Hairan', name_native: '김해란', nationality_iso2: 'CN', birth_date: '1986-05-12', rid_masked: '860512-6••••••' },
+    // 카자흐스탄 고려인 동포(H-2) — 만기 초과·장기 체류 전환 시연
+    person: { person_id: 'P004', name_latin: 'Kim Viktor', name_native: '김빅토르', nationality_iso2: 'KZ', birth_date: '1986-05-12', rid_masked: '860512-5••••••' },
     lang: 'ko', visa: 'H-2', wage2026: 2_800_000,
     stints: [{ employer_id: 'EMP01', from: '2020-12', to: LATEST }],
-    bank: { country_iso2: 'CN', bank_name: '中国银行 Bank of China', account_masked: '••••••••8836', holder_name: 'JIN HAILAN', currency: 'CNY' },
-    nominees: [{ name: 'Jin Min', relation: 'CHILD', share_pct: 100, contact: '+86 ••• •••• 2290', kyc_status: 'VERIFIED' }],
+    bank: { country_iso2: 'KZ', bank_name: 'Halyk Bank', account_masked: '••••••••8836', holder_name: 'KIM VIKTOR', currency: 'KZT' },
+    nominees: [{ name: 'Kim Anna', relation: 'CHILD', share_pct: 100, contact: '+7 ••• •••• 2290', kyc_status: 'VERIFIED' }],
+  },
+  {
+    member_id: 'W005',
+    // BR-23(B안): 국민연금 적용국(베트남) — 공제회 적립 없음, 앱은 국민연금 반환일시금 안내
+    person: { person_id: 'P005', name_latin: 'Nguyen Van An', name_native: 'Nguyễn Văn An', nationality_iso2: 'VN', birth_date: '1997-11-20', rid_masked: '971120-5••••••' },
+    lang: 'vi', visa: 'E-9', wage2026: 2_610_000,
+    stints: [{ employer_id: 'EMP01', from: '2025-03', to: LATEST }],
+    bank: { country_iso2: 'VN', bank_name: 'Vietcombank', account_masked: '••••••••2207', holder_name: 'NGUYEN VAN AN', currency: 'VND' },
+    nominees: [],
   },
 ];
 
@@ -127,8 +137,14 @@ for (const s of seeds) {
   const seqOf = assignMonthSeq(months.map((m) => m.ym));
 
   const entries: LedgerEntry[] = [];
+  const fund = trackFor(s.person.nationality_iso2, policy) === 'FUND';
   for (const { emp, ym } of months) {
     const wage = wageFor(s, ym);
+    if (!fund) {
+      // BR-23: 국민연금 대상 — 보수 신고만 있고 공제회 부과·원장은 없다
+      ds.wage_reports.push({ id: `WR-${emp.employment_id}-${ym}`, employment_id: emp.employment_id, ym, wage_krw: wage });
+      continue;
+    }
     const seq = seqOf.get(ym)!;
     const version = policyVersionFor(ym, ds.policy_versions);
     const amt = billFor(emp, wage, seq, policy, version);
@@ -159,6 +175,7 @@ for (const s of seeds) {
   entries.sort((a, b) => (a.posted_at < b.posted_at ? -1 : a.posted_at > b.posted_at ? 1 : a.entry_id.localeCompare(b.entry_id)));
   ds.ledger.push(...entries);
 
+  if (!fund) continue;
   ds.bank_accounts.push({ id: `BA-${s.member_id}-1`, member_id: s.member_id, ...s.bank, verified: true, active: true });
   s.nominees.forEach((n, i) => ds.nominees.push({ id: `N-${s.member_id}-${i + 1}`, member_id: s.member_id, ...n }));
 
@@ -176,6 +193,10 @@ for (const s of seeds) {
 
 writeFileSync('fixtures/demo.json', JSON.stringify(ds, null, 1) + '\n');
 for (const s of seeds) {
+  if (trackFor(s.person.nationality_iso2, policy) !== 'FUND') {
+    console.log(`${s.member_id} ${s.person.name_latin.padEnd(14)} 국민연금 대상(공제회 적립 없음)`);
+    continue;
+  }
   const total = ds.ledger.filter((e) => e.member_id === s.member_id).reduce((a, e) => a + e.amount, 0);
   const seq = ds.bills.filter((b) => b.employment_id.startsWith(s.member_id)).at(-1)!.member_month_seq;
   console.log(`${s.member_id} ${s.person.name_latin.padEnd(14)} ${String(seq).padStart(2)}개월  총 ${total.toLocaleString('ko-KR')}원`);

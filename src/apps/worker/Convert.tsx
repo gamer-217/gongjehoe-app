@@ -5,8 +5,16 @@ import { Banner, Card } from '../../ui';
 import { Money } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { WAppBar } from './parts';
+import { NpsNotice } from './NpsTrack';
 
 export function ConvertScreen() {
+  const { t } = useTranslation();
+  const { s, base } = useMember();
+  if (s.track !== 'FUND') return <NpsNotice title={t('convert.title')} back={`${base}/receive`} />;
+  return <FundConvertScreen />;
+}
+
+function FundConvertScreen() {
   const { t } = useTranslation();
   const { s, base } = useMember();
   return (

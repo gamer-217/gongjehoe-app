@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 import {
   addDays, clock, coverageMap, diffDays, equalSplit, horizonChips, isValidAccountNumber, maskAccount, normalizeAccountNumber,
-  npsApplicable, npsEmployerRate, npsLumpSumEstimate, policy, project, validateNominees,
+  npsApplicable, npsEmployerRate, trackFor, npsLumpSumEstimate, policy, project, validateNominees,
 } from '../../src/domain';
 
 describe('BR-11 수급권자 지분', () => {
@@ -43,6 +43,24 @@ describe('BR-17 국가별 국민연금 적용 전체 표', () => {
     const r = npsLumpSumEstimate({ nationality_iso2: 'VN', wages: [{ ym: '2025-01', wage: 2_000_000 }, { ym: '2026-01', wage: 2_000_000 }] }, policy);
     expect(r.interestIncluded).toBe(policy.params.nps_lump_sum_interest.verified);
     expect(r.principal).toBe(180_000 + 190_000);
+  });
+});
+
+describe('BR-23 공제회는 국민연금 적용 제외국 근로자만(B안)', () => {
+  test.each([['NP', 'FUND'], ['MM', 'FUND'], ['BD', 'FUND'], ['KZ', 'FUND'], ['VN', 'NPS'], ['ID', 'NPS'], ['CN', 'NPS'], ['UZ', 'UNKNOWN'], ['ZZ', 'UNKNOWN']])('%s → %s', (cc, tr) => {
+    expect(trackFor(cc, policy)).toBe(tr);
+  });
+  test('보장 지도: 적용국은 공제회 해당 없음, 비적용국은 공제회(제안)', () => {
+    const vn = coverageMap({ nationality_iso2: 'VN' }, policy).leave.map((i) => i.key);
+    const np = coverageMap({ nationality_iso2: 'NP' }, policy).leave.map((i) => i.key);
+    expect(vn).toContain('gongje_nps');
+    expect(vn).not.toContain('gongje');
+    expect(np).toContain('gongje');
+  });
+  test('국가표에 없는 나라는 공제회·국민연금 항목을 단정하지 않는다', () => {
+    const m = coverageMap({ nationality_iso2: 'UZ' }, policy);
+    expect([...m.leave, ...m.gap].map((i) => i.key)).not.toContain('gongje');
+    expect([...m.leave, ...m.gap].map((i) => i.key)).not.toContain('nps_on');
   });
 });
 

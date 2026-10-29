@@ -289,7 +289,19 @@
     "VN": "Vietnam",
     "ID": "Indonesia",
     "CN": "China",
-    "KR": "Korea"
+    "KR": "Korea",
+    "MM": "Myanmar",
+    "BD": "Bangladesh",
+    "KZ": "Kazakhstan",
+    "PK": "Pakistan",
+    "TL": "Timor-Leste",
+    "BY": "Belarus",
+    "KH": "Cambodia",
+    "LK": "Sri Lanka",
+    "TH": "Thailand",
+    "LA": "Laos",
+    "RU": "Russia",
+    "UA": "Ukraine"
   },
   "nominee": {
     "title": "Beneficiaries (family)",
@@ -445,6 +457,13 @@
         "detail": "This is for elderly care, so short-stay workers rarely benefit. You can apply to opt out.",
         "payer": "You and your company pay it with health insurance.",
         "where": "National Health Insurance Service (opt-out request)"
+      },
+      "gongje_nps": {
+        "name": "Migrant Workers' Mutual Fund",
+        "line": "Not for you · you keep the National Pension",
+        "detail": "The Fund is for workers from countries not covered by the National Pension. Workers from your country are in the National Pension, so you get its lump-sum refund when you leave.",
+        "payer": "None",
+        "where": "Not applicable"
       }
     }
   },
@@ -498,16 +517,13 @@
       "title": "{{name}} dashboard",
       "thisMonth": "Fund payment for {{ym}} (company contribution)",
       "thisMonthNote": "Billed together with the social insurance notice. No extra input needed.",
-      "saving": "This year's difference vs. National Pension",
-      "savingNote": "Counts only the {{count}} workers from countries covered by the National Pension",
-      "newCost": "New cost {{amount}}",
-      "newCostNote": "For {{count}} workers who did not pay into the National Pension · Not a saving",
+      "newCostNote": "For {{count}} Fund members (workers from countries not covered by the National Pension). This is a new cost, since they paid no National Pension. The {{nps}} National Pension workers keep paying it as before.",
       "headcount": "Workers employed",
       "headcountValue": "{{count}}",
       "compare": "Company contribution rate comparison (2026–2033)",
       "compareNps": "National Pension employer share",
       "compareOurs": "Fund company contribution (by membership period)",
-      "compareNote": "The Fund company contribution rises with each worker's membership period. When a worker is replaced, it may start again from a lower step. The chart assumes one worker who keeps working.",
+      "compareNote": "Only workers from countries not covered by the National Pension join the Fund. The chart compares their company contribution rate with the National Pension employer rate, for reference. A new worker may start again from the lowest step.",
       "workers": "Workers",
       "colName": "Name",
       "colVisa": "Visa",
@@ -521,7 +537,11 @@
       "feedStep": "{{name}}'s company rate is now {{rate}}%.",
       "feedClaim": "{{name}} requested a departure refund.",
       "zeroInput": "Zero extra admin input: just file social insurance as usual and the Fund is calculated automatically.",
-      "feedUnpaid": "Unpaid for {{ym}}: {{names}} — due date {{date}} has passed. Please pay with the social insurance bill."
+      "feedUnpaid": "Unpaid for {{ym}}: {{names}} — due date {{date}} has passed. Please pay with the social insurance bill.",
+      "newCostLabel": "Fund cost for the company in {{year}}",
+      "colTrack": "Scheme",
+      "trackFund": "Fund",
+      "trackNps": "National Pension"
     },
     "e20": {
       "title": "{{name}} billing and payments",
@@ -562,7 +582,9 @@
       "step2d": "Existing account carried over, if any · Counting from month {{seq}}",
       "step3": "First bill",
       "step3d": "Company contribution {{rate}}% · Included in next month's social insurance bill",
-      "result": "Nothing else to do"
+      "result": "Nothing else to do",
+      "npsTitle": "National Pension worker",
+      "npsBody": "This worker is from a country covered by the National Pension, so no Fund account is opened. They join the National Pension through the usual social insurance report."
     },
     "a10": {
       "title": "Fund overview",
@@ -586,7 +608,8 @@
       "colWorker": "Worker rate",
       "colSteps": "Company rate steps",
       "colBills": "Bills applied",
-      "step": "{{rate}}% from month {{from}}"
+      "step": "{{rate}}% from month {{from}}",
+      "npsExcluded": "Excludes {{count}} National Pension workers"
     },
     "a20": {
       "title": "Refund inbox",
@@ -648,5 +671,19 @@
     "next": "Move request to next step",
     "nextDone": "Moved to the next step.",
     "nextNone": "No request in progress."
+  },
+  "nps": {
+    "badge": "National Pension",
+    "homeTitle": "You get the National Pension lump-sum refund",
+    "homeBody": "Workers from your country are covered by the National Pension, so your money goes there instead of the Fund. You get it back as a lump-sum refund when you leave Korea.",
+    "estimate": "National Pension paid so far (simple estimate)",
+    "estimateNote": "A simple example: only the money you and your company paid. The real refund also adds interest.",
+    "howTitle": "How do I get it?",
+    "how": "Before you leave, claim the lump-sum refund from the National Pension Service. After your departure is confirmed, it goes to your bank account.",
+    "call": "Call the National Pension Service",
+    "notFund": "You are not in the Fund",
+    "notFundBody": "Workers from countries covered by the National Pension get the National Pension lump-sum refund instead of the Fund.",
+    "simTitle": "National Pension when you go home",
+    "simNote": "Example that assumes your pay stays the same."
   }
 }

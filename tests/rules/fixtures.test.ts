@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import data from '../../fixtures/demo.json' with { type: 'json' };
-import { balance, employerRateFor, policy, type Dataset } from '../../src/domain';
+import { balance, employerRateFor, policy, trackFor, type Dataset } from '../../src/domain';
 
 const ds = data as unknown as Dataset;
 const ledgerOf = (m: string) => ds.ledger.filter((e) => e.member_id === m);
@@ -52,6 +52,18 @@ describe('§5.2 원장 무결성', () => {
     const ids = new Set(ds.policy_versions.map((v) => v.version_id));
     expect(ds.policy_versions.length).toBeGreaterThan(0);
     for (const b of ds.bills) expect(ids.has(b.policy_version_id)).toBe(true);
+  });
+  test('BR-23 국민연금 적용국(W005 베트남)은 공제회 부과·원장이 없고 보수 신고만 있다', () => {
+    expect(billsOf('W005')).toHaveLength(0);
+    expect(ledgerOf('W005')).toHaveLength(0);
+    const emp = ds.employments.filter((e) => e.member_id === 'W005').map((e) => e.employment_id);
+    expect(ds.wage_reports.filter((w) => emp.includes(w.employment_id)).length).toBeGreaterThan(0);
+  });
+  test('BR-23 공제회 가입자(부과가 있는 사람)는 모두 국민연금 비적용국', () => {
+    for (const m of ds.members) {
+      const p = ds.persons.find((x) => x.person_id === m.person_id)!;
+      if (billsOf(m.member_id).length) expect(trackFor(p.nationality_iso2, policy)).toBe('FUND');
+    }
   });
   test('BR-05 배당은 시연용 가정값으로 표시된다', () => {
     expect(ds.dividends.every((d) => d.demo)).toBe(true);

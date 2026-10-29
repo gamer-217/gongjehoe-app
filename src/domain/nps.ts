@@ -9,6 +9,17 @@ export function npsApplicable(nationalityIso2: string, policy: Policy): { applic
   return { applicable: c.applicable, verified: c.verified };
 }
 
+/**
+ * BR-23(B안): 공제회 적립 트랙은 국민연금 적용 제외국 근로자만.
+ * FUND = 공제회 가입, NPS = 국민연금 반환일시금 그대로(앱은 안내), UNKNOWN = 국가표에 없음(가입 보류)
+ */
+export type Track = 'FUND' | 'NPS' | 'UNKNOWN';
+export function trackFor(nationalityIso2: string, policy: Policy): Track {
+  const c = policy.nps.countries[nationalityIso2];
+  if (!c) return 'UNKNOWN';
+  return c.applicable ? 'NPS' : 'FUND';
+}
+
 export function npsTotalRate(year: number, policy: Policy): number {
   const table = policy.params.nps_total_rate_by_year.value;
   const years = Object.keys(table).map(Number).sort((a, b) => a - b);

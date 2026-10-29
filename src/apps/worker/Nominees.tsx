@@ -9,10 +9,18 @@ import type { NewNominee } from '../../data/repository';
 import { Banner, Button, Card, ChipGroup, StatusBadge } from '../../ui';
 import { useMember } from './WorkerApp';
 import { SecureSheet, WAppBar } from './parts';
+import { NpsNotice } from './NpsTrack';
 
 const RELATIONS: Relation[] = ['MOTHER', 'FATHER', 'SPOUSE', 'CHILD', 'SIBLING', 'OTHER'];
 
 export function NomineesScreen() {
+  const { t } = useTranslation();
+  const { s, base } = useMember();
+  if (s.track !== 'FUND') return <NpsNotice title={t('nominee.title')} back={`${base}/me`} />;
+  return <FundNomineesScreen />;
+}
+
+function FundNomineesScreen() {
   const { t } = useTranslation();
   const repo = useRepo();
   const nav = useNavigate();

@@ -48,6 +48,8 @@ export function PortalFrame(props: {
           <Link to={props.home} className="ui-topnav__brand">
             {props.brand}
           </Link>
+          {/* 시연 데이터 표시는 헤더 안에 고정(표·카드와 겹치지 않게) */}
+          <span className="ui-watermark">{props.t('portal.demoData')}</span>
           <nav aria-label={props.brand}>
             {props.nav.map((n) => (
               <NavLink key={n.to} to={n.to} end={n.end}>
@@ -69,9 +71,6 @@ export function PortalFrame(props: {
         </div>
       </header>
       <main className="ui-desktop">{props.children}</main>
-      <div className="ui-watermark" aria-hidden>
-        {props.t('portal.demoData')}
-      </div>
     </div>
   );
 }

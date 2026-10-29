@@ -3,7 +3,7 @@
     "mobile": 390,
     "desktop": 1280
   },
-  "screensChecked": 133,
+  "screensChecked": 153,
   "overflowScreens": 0,
   "hangulCharsInNonKo": 0,
   "byLang": {
@@ -84,6 +84,22 @@
       }
     },
     "en": {
+      "nps-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-notice": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-receive": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
       "receive-hub": {
         "overflow": false,
         "hangul": 0
@@ -178,6 +194,22 @@
       }
     },
     "id": {
+      "nps-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-notice": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-receive": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
       "receive-hub": {
         "overflow": false,
         "hangul": 0
@@ -272,6 +304,22 @@
       }
     },
     "ko": {
+      "nps-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-notice": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-receive": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
       "receive-hub": {
         "overflow": false,
         "hangul": 0
@@ -366,6 +414,22 @@
       }
     },
     "ne": {
+      "nps-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-notice": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-receive": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
       "receive-hub": {
         "overflow": false,
         "hangul": 0
@@ -460,6 +524,22 @@
       }
     },
     "vi": {
+      "nps-home": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-notice": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-receive": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "nps-simulate": {
+        "overflow": false,
+        "hangul": 0
+      },
       "receive-hub": {
         "overflow": false,
         "hangul": 0

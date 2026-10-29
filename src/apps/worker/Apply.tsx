@@ -9,10 +9,18 @@ import { Banner, Button, ButtonLink, Calendar, Card, ChipGroup, List, ListRow, S
 import { Money } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { SecureSheet, WAppBar } from './parts';
+import { NpsNotice } from './NpsTrack';
 
 type Step = 1 | 2 | 3 | 'done';
 
 export function ApplyScreen() {
+  const { t } = useTranslation();
+  const { s, base } = useMember();
+  if (s.track !== 'FUND') return <NpsNotice title={t('apply.title')} back={`${base}/receive`} />;
+  return <FundApplyScreen />;
+}
+
+function FundApplyScreen() {
   const { t } = useTranslation();
   const repo = useRepo();
   const nav = useNavigate();

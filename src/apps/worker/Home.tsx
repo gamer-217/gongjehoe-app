@@ -9,10 +9,17 @@ import { Banner, Card, CardLink, HideAmountButton, ProgressRing, StatusBadge, ty
 import { Money, won } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { WAppBar } from './parts';
+import { NpsHome } from './NpsTrack';
 
 const payTone: Record<string, Tone> = { PAID: 'success', PENDING: 'neutral', OVERDUE: 'danger' };
 
 export function HomeScreen() {
+  const { s } = useMember();
+  if (s.track !== 'FUND') return <NpsHome />;
+  return <FundHome />;
+}
+
+function FundHome() {
   const { t, i18n } = useTranslation();
   const { view, s, base, hidden, setHidden } = useMember();
   const repo = useRepo();

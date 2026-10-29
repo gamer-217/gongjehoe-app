@@ -31,7 +31,7 @@ export function Launcher() {
                   <p className="ui-small">
                     {v.person.nationality_iso2} · {v.visa.visa_type} · {v.member.lang} · 가입 {s.seq}개월
                   </p>
-                  <p className="ui-amount ui-amount--lg ui-mt">₩{formatKrw(s.total)}</p>
+                  <p className="ui-amount ui-amount--lg ui-mt">{s.track === 'FUND' ? `₩${formatKrw(s.total)}` : '국민연금 대상'}</p>
                   <p className="ui-small">{scenario[v.member.member_id]}</p>
                 </Link>
               );
@@ -88,7 +88,8 @@ export function Launcher() {
 
 const scenario: Record<string, string> = {
   W001: '기본 시나리오 · 사업장 1곳 · 국민연금 비적용국',
-  W002: '13개월째 사업장 변경(1개월 공백) — 요율 연속성',
-  W003: '건보 미납 알림 · 만기 임박',
-  W004: '만기 초과 · 장기 체류 전환',
+  W002: '미얀마 · 13개월째 사업장 변경(1개월 공백) — 요율 연속성 · 9월분 미납',
+  W003: '방글라데시 · 건보 미납 알림 · 만기 임박',
+  W004: '카자흐스탄 고려인(H-2) · 만기 초과 · 장기 체류 전환',
+  W005: '베트남(국민연금 적용국) · 공제회 대상 아님 → 국민연금 반환일시금 안내(B안)',
 };
