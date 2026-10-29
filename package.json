@@ -15,7 +15,8 @@
     "e2e": "playwright test",
     "report:rules": "tsx scripts/report-rules.ts",
     "test:screens": "playwright test tests/a11y; tsx scripts/report-screens.ts",
-    "lighthouse": "lhci autorun --config=lighthouserc.cjs && tsx scripts/report-lighthouse.ts"
+    "lighthouse": "lhci autorun --config=lighthouserc.cjs && tsx scripts/report-lighthouse.ts",
+    "build:single": "vite build --config vite.single.config.ts"
   },
   "dependencies": {
     "@fontsource/noto-sans-devanagari": "^5.3.0",
@@ -39,6 +40,7 @@
     "typescript": "^5.9.3",
     "vite": "^8.3.5",
     "vite-plugin-pwa": "^2.0.0",
+    "vite-plugin-singlefile": "^2.3.4",
     "vitest": "^5.0.5"
   }
 }

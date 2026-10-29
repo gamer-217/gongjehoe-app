@@ -22,6 +22,10 @@ npm run preview        # 빌드 결과 → http://localhost:4173/gongjehoe-app/
 | `npm run test:screens` | 5개 언어 × 근로자 전 화면 + 데스크톱: axe·가로 넘침·한글 검사, 스크린샷 → `reports/a11y.json`, `reports/screens.json`, `reports/screens/` |
 | `npm run lighthouse` | Lighthouse 모바일(@lhci/cli) → `reports/lighthouse/summary.json`. 크롬 경로가 필요하면 `CHROME_PATH=...` |
 
+### 파일 하나로 열기(설치 없이)
+
+`release/gongjehoe-app.html`을 더블클릭하면 크롬에서 바로 열립니다(인터넷 없어도 됨). 글꼴·번역·시연 데이터가 모두 파일 안에 있고, 입력한 내용은 그 브라우저에만 저장됩니다. 코드를 고친 뒤에는 `npm run build:single`로 다시 만듭니다. 이 판은 앱 설치(PWA)만 빠져 있습니다.
+
 ## 화면 주소(해시 라우터)
 
 | 주소 | 화면 |
