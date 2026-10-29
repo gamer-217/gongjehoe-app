@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Check, ChevronRight, HandCoins, PiggyBank, Plane, Repeat } from 'lucide-react';
+import { Check, ChevronRight, PiggyBank, Plane, Repeat } from 'lucide-react';
 import { policy, type Lang } from '../../domain';
 import { useQuery } from '../../data/context';
 import { displayName } from '../../data/selectors';
@@ -61,6 +61,7 @@ export function AppStart() {
 
   return (
     <div className="ui-mobile ui-start">
+      {step !== 'splash' && <StartHead />}
       {step === 'splash' && <Splash />}
       {step === 'lang' && <LangStep onDone={() => setStep(read(INTRO_SEEN) ? 'login' : 'intro')} />}
       {step === 'intro' && (
@@ -73,6 +74,19 @@ export function AppStart() {
       )}
       {step === 'login' && <Login onLogin={(id) => nav(`/w/${id}`, { replace: true })} />}
     </div>
+  );
+}
+
+// 언어·소개·로그인 화면 위 보라 머리: 앱 표시와 이름
+function StartHead() {
+  const { t } = useTranslation();
+  return (
+    <header className="ui-start__head">
+      <span className="ui-start__logo" aria-hidden>
+        <PiggyBank size={24} />
+      </span>
+      <span className="ui-start__name">{t('common.appName')}</span>
+    </header>
   );
 }
 
@@ -95,9 +109,6 @@ function LangStep(props: { onDone: () => void }) {
   return (
     <main className="ui-page ui-page--plain">
       <div className="ui-intro">
-        <span className="ui-splash__mark ui-splash__mark--sm" aria-hidden>
-          <PiggyBank size={28} />
-        </span>
         <h1 className="ui-title-lg">{t('onboard.chooseLang')}</h1>
       </div>
       <div className="ui-langlist" role="radiogroup" aria-label={t('onboard.chooseLang')}>
@@ -170,9 +181,6 @@ function Login(props: { onLogin: (memberId: string) => void }) {
   return (
     <main className="ui-page ui-page--plain">
       <div className="ui-intro">
-        <span className="ui-splash__mark ui-splash__mark--sm" aria-hidden>
-          <HandCoins size={28} />
-        </span>
         <h1 className="ui-title-lg">{t('login.title')}</h1>
         <p className="ui-sub">{t('login.lead')}</p>
       </div>
