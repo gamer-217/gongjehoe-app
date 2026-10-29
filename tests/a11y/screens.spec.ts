@@ -28,6 +28,7 @@ const submitClaim: Step = async (p) => {
 };
 
 export const WORKER: { name: string; route: string; step?: Step }[] = [
+  { name: 'start-intro', route: '/', step: async (p) => { await p.waitForTimeout(1300); } },
   { name: 'w01-language', route: '/w/W001/start' },
   { name: 'w10-home', route: '/w/W001' },
   { name: 'w10-home-siti', route: '/w/W003' },
@@ -74,12 +75,14 @@ const details: { lang: string; screen: string; id: string; impact: string | null
 const screens: Record<string, Record<string, { overflow: boolean; hangul: number }>> = {};
 
 async function prepare(page: Page, lang: string, portalLang = 'ko') {
-  await page.goto('./');
-  await page.evaluate(
+  // 첫 로드 전에 저장소를 채운다(해시만 바꾸는 이동은 앞 화면 로딩과 겹치면 무시될 수 있어 쓰지 않음)
+  await page.addInitScript(
     ([l, pl]) => {
+      if (sessionStorage.getItem('__prepared')) return;
       localStorage.clear();
       localStorage.setItem('gongjehoe.lang', l);
       localStorage.setItem('gongjehoe.portalLang', pl);
+      sessionStorage.setItem('__prepared', '1');
     },
     [lang, portalLang],
   );
@@ -117,7 +120,6 @@ for (const lang of LANGS) {
       test(`${lang} ${s.name}`, async ({ page }) => {
         await prepare(page, lang);
         await page.goto(`./#${s.route}`);
-        await page.reload();
         await page.locator('main').first().waitFor();
         if (s.step) await s.step(page);
         const r = await inspect(page, lang, s.name, lang !== 'ko');
@@ -136,7 +138,6 @@ test.describe('데스크톱 1280', () => {
       test(`desktop-${pl} ${s.name}`, async ({ page }) => {
         await prepare(page, 'ko', pl);
         await page.goto(`./#${s.route}`);
-        await page.reload();
         await page.waitForTimeout(300);
         const r = await inspect(page, `desktop-${pl}`, s.name, false);
         expect.soft(r.overflow, 'horizontal overflow').toBe(false);

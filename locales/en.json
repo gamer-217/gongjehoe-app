@@ -282,7 +282,8 @@
     "coverage": "My coverage map",
     "coverageDesc": "Social insurance, foreign worker insurance and the Fund at a glance",
     "language": "Language",
-    "help": "Help & phone support"
+    "help": "Help & phone support",
+    "logout": "Log out"
   },
   "country": {
     "NP": "Nepal",
@@ -685,5 +686,23 @@
     "notFundBody": "Workers from countries covered by the National Pension get the National Pension lump-sum refund instead of the Fund.",
     "simTitle": "National Pension when you go home",
     "simNote": "Example that assumes your pay stays the same."
+  },
+  "start": {
+    "progress": "{{n}}/{{total}}",
+    "skip": "Skip",
+    "begin": "Get started",
+    "intro1Title": "Your money grows as you work",
+    "intro1Body": "You put in {{worker}}% of your pay, and your company adds {{employer}} to your account.",
+    "intro2Title": "It stays with you",
+    "intro2Body": "Money your company adds is yours too. If you change workplaces, your account and your months in the Fund carry on.",
+    "intro3Title": "Get it in the app when you leave",
+    "intro3Body": "Apply in the app with no papers. After your departure is confirmed, we send it to your bank account at home."
+  },
+  "login": {
+    "title": "Log in",
+    "lead": "Choose a demo account to enter.",
+    "accounts": "Demo accounts",
+    "note": "In the real service, you log in with your alien registration number and identity check.",
+    "demoMenu": "Research and demo menu"
   }
 }

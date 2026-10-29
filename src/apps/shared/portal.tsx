@@ -65,7 +65,7 @@ export function PortalFrame(props: {
               </button>
             ))}
           </div>
-          <Link to="/" className="ui-small">
+          <Link to="/demo" className="ui-small">
             ← Demo
           </Link>
         </div>

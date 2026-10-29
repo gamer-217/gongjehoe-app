@@ -3,7 +3,7 @@
     "mobile": 390,
     "desktop": 1280
   },
-  "screensChecked": 153,
+  "screensChecked": 158,
   "overflowScreens": 0,
   "hangulCharsInNonKo": 0,
   "byLang": {
@@ -101,6 +101,10 @@
         "hangul": 0
       },
       "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "start-intro": {
         "overflow": false,
         "hangul": 0
       },
@@ -214,6 +218,10 @@
         "overflow": false,
         "hangul": 0
       },
+      "start-intro": {
+        "overflow": false,
+        "hangul": 0
+      },
       "w01-language": {
         "overflow": false,
         "hangul": 0
@@ -321,6 +329,10 @@
         "hangul": 0
       },
       "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "start-intro": {
         "overflow": false,
         "hangul": 0
       },
@@ -434,6 +446,10 @@
         "overflow": false,
         "hangul": 0
       },
+      "start-intro": {
+        "overflow": false,
+        "hangul": 0
+      },
       "w01-language": {
         "overflow": false,
         "hangul": 0
@@ -541,6 +557,10 @@
         "hangul": 0
       },
       "receive-hub": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "start-intro": {
         "overflow": false,
         "hangul": 0
       },

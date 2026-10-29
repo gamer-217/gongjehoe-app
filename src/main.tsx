@@ -7,6 +7,7 @@ import { RepoProvider } from './data/context';
 import { MockRepository } from './data/mock';
 // 근로자 앱은 첫 화면이라 바로 넣는다(왕복 한 번 줄임)
 import { WorkerApp } from './apps/worker/WorkerApp';
+import { AppStart } from './apps/worker/Start';
 
 // 화면 묶음별로 나눠 받는다(NFR-03). 시연 데이터와 지금 열 화면 묶음은 언어 준비와 동시에 받기 시작
 const repo = new MockRepository();
@@ -23,7 +24,8 @@ void i18nReady.finally(() =>
         <HashRouter>
           <Suspense fallback={null}>
             <Routes>
-              <Route path="/" element={<Launcher />} />
+              <Route path="/" element={<AppStart />} />
+              <Route path="/demo" element={<Launcher />} />
               <Route path="/w/:memberId/*" element={<WorkerApp />} />
               <Route path="/e/*" element={<EmployerApp />} />
               <Route path="/a/*" element={<AdminApp />} />

@@ -1,6 +1,6 @@
 {
   "standard": "WCAG 2.2 AA (axe-core 태그 wcag2a·2aa·21a·21aa·22aa)",
-  "screensChecked": 153,
+  "screensChecked": 158,
   "totalViolations": 0,
   "byLang": {
     "desktop-en": {
@@ -31,6 +31,7 @@
       "nps-receive": 0,
       "nps-simulate": 0,
       "receive-hub": 0,
+      "start-intro": 0,
       "w01-language": 0,
       "w10-home-kim": 0,
       "w10-home-siti": 0,
@@ -60,6 +61,7 @@
       "nps-receive": 0,
       "nps-simulate": 0,
       "receive-hub": 0,
+      "start-intro": 0,
       "w01-language": 0,
       "w10-home-kim": 0,
       "w10-home-siti": 0,
@@ -89,6 +91,7 @@
       "nps-receive": 0,
       "nps-simulate": 0,
       "receive-hub": 0,
+      "start-intro": 0,
       "w01-language": 0,
       "w10-home-kim": 0,
       "w10-home-siti": 0,
@@ -118,6 +121,7 @@
       "nps-receive": 0,
       "nps-simulate": 0,
       "receive-hub": 0,
+      "start-intro": 0,
       "w01-language": 0,
       "w10-home-kim": 0,
       "w10-home-siti": 0,
@@ -147,6 +151,7 @@
       "nps-receive": 0,
       "nps-simulate": 0,
       "receive-hub": 0,
+      "start-intro": 0,
       "w01-language": 0,
       "w10-home-kim": 0,
       "w10-home-siti": 0,

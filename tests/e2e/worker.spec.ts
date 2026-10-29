@@ -155,3 +155,23 @@ test('BR-23 국민연금 적용국 근로자(W005 베트남)는 공제회 대신
   await page.goto('./#/w/W005/me/coverage');
   await expect(page.getByText('해당 없음 · 국민연금을 그대로 받아요')).toBeVisible();
 });
+
+test('앱 시작: 스플래시 → 언어 → 소개 → 로그인 → 홈, 다시 열면 바로 홈', async ({ page }) => {
+  await page.goto('./#/demo');
+  await page.evaluate(() => localStorage.clear());
+  await page.goto('./#/');
+  await page.reload();
+  await page.getByRole('radio', { name: '한국어' }).click();
+  await page.getByRole('button', { name: '다음', exact: true }).click();
+  await expect(page.getByRole('heading', { name: '일한 만큼 내 계좌에 쌓여요' })).toBeVisible();
+  await page.getByRole('button', { name: '건너뛰기' }).click();
+  await expect(page.getByRole('heading', { name: '로그인' })).toBeVisible();
+  await page.getByRole('button', { name: /Ramesh Gurung/ }).click();
+  await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
+  await page.goto('./#/');
+  await page.reload();
+  await expect(page).toHaveURL(/#\/w\/W001$/);
+  await page.goto('./#/w/W001/me');
+  await page.getByRole('button', { name: '로그아웃' }).click();
+  await expect(page.getByRole('heading', { name: '로그인' })).toBeVisible();
+});

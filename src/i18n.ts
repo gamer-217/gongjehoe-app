@@ -51,7 +51,20 @@ i18n.on('languageChanged', (lng) => {
   if (typeof document !== 'undefined') document.documentElement.lang = lng;
 });
 
-const initial = storedLang() ?? 'ko';
+/** 처음 실행(저장된 언어 없음): 휴대폰 언어가 지원 언어면 그 언어, 아니면 영어 */
+function detectLang(): Lang {
+  try {
+    for (const l of navigator.languages ?? [navigator.language]) {
+      const code = l.toLowerCase().slice(0, 2);
+      if (LANGS.some((x) => x.code === code)) return code as Lang;
+    }
+  } catch {
+    // 무시
+  }
+  return 'en';
+}
+
+const initial = storedLang() ?? detectLang();
 void i18n.use(initReactI18next).init({
   resources: { ko: { translation: ko } },
   lng: 'ko',
@@ -60,6 +73,7 @@ void i18n.use(initReactI18next).init({
   returnNull: false,
 });
 /** 첫 화면 언어가 준비되면 끝나는 약속 — main.tsx가 기다린 뒤 그린다(한국어가 잠깐 보이는 것 방지) */
-export const i18nReady: Promise<void> = initial === 'ko' ? Promise.resolve() : setLang(initial);
+export const i18nReady: Promise<void> =
+  initial === 'ko' ? Promise.resolve() : ensureLang(initial).then(() => i18n.changeLanguage(initial)).then(() => undefined);
 
 export default i18n;

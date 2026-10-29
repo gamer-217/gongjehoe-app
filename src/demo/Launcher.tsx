@@ -5,6 +5,7 @@ import { useQuery, useRepo } from '../data/context';
 import { displayName, summarize } from '../data/selectors';
 import { Banner, Button, Card, StatusBadge, formatKrw } from '../ui';
 import { setLang } from '../i18n';
+import { session } from '../apps/worker/Start';
 
 export function Launcher() {
   const repo = useRepo();
@@ -26,7 +27,10 @@ export function Launcher() {
             q.data.map((v) => {
               const s = summarize(v);
               return (
-                <Link key={v.member.member_id} to={`/w/${v.member.member_id}/start`} className="ui-card" onClick={() => setLang(v.member.lang)}>
+                <Link key={v.member.member_id} to={`/w/${v.member.member_id}/start`} className="ui-card" onClick={() => {
+                    void setLang(v.member.lang);
+                    session.set(v.member.member_id);
+                  }}>
                   <p className="ui-strong">{displayName(v)}</p>
                   <p className="ui-small">
                     {v.person.nationality_iso2} · {v.visa.visa_type} · {v.member.lang} · 가입 {s.seq}개월
@@ -79,7 +83,7 @@ export function Launcher() {
       </Card>
       <Banner tone="info">
         <p>
-          사용성 테스트는 주소 끝에 <code>?study=1</code>을 붙여 여세요(예: <code>/gongjehoe-app/?study=1#/w/W001/start</code>). 데모 칩이 숨겨지고 화면 전환·클릭이 이 브라우저에만 기록됩니다.
+          사용성 테스트는 주소 끝에 <code>?study=1</code>을 붙여 여세요(예: <code>/gongjehoe-app/?study=1</code>, 일반 앱처럼 스플래시부터 시작). 데모 칩이 숨겨지고 화면 전환·클릭이 이 브라우저에만 기록됩니다.
         </p>
       </Banner>
     </div>

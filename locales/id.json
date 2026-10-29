@@ -282,7 +282,8 @@
     "coverage": "Peta perlindungan saya",
     "coverageDesc": "Asuransi wajib, asuransi khusus, dan Dana Bersama",
     "language": "Bahasa",
-    "help": "Bantuan · telepon konsultasi"
+    "help": "Bantuan · telepon konsultasi",
+    "logout": "Keluar"
   },
   "country": {
     "NP": "Nepal",
@@ -524,5 +525,23 @@
     "notFundBody": "Pekerja dari negara yang ikut Pensiun Nasional menerima pengembalian sekaligus Pensiun Nasional, bukan Dana Bersama.",
     "simTitle": "Pensiun Nasional saat pulang",
     "simNote": "Contoh jika gaji tetap sama."
+  },
+  "start": {
+    "progress": "{{n}}/{{total}}",
+    "skip": "Lewati",
+    "begin": "Mulai",
+    "intro1Title": "Uang Anda bertambah selama bekerja",
+    "intro1Body": "Anda menabung {{worker}}% dari gaji, dan perusahaan menambah {{employer}} ke rekening Anda.",
+    "intro2Title": "Tetap berlanjut saat pindah kerja",
+    "intro2Body": "Uang dari perusahaan juga milik Anda. Jika pindah tempat kerja, rekening dan masa ikut Anda tetap berlanjut.",
+    "intro3Title": "Saat pulang, ajukan lewat aplikasi",
+    "intro3Body": "Ajukan di aplikasi tanpa dokumen. Setelah keberangkatan dipastikan, uang dikirim ke rekening Anda di negara asal."
+  },
+  "login": {
+    "title": "Masuk",
+    "lead": "Pilih akun demo untuk masuk.",
+    "accounts": "Akun demo",
+    "note": "Di layanan sebenarnya, Anda masuk dengan nomor registrasi orang asing dan verifikasi identitas.",
+    "demoMenu": "Menu riset dan demo"
   }
 }
