@@ -1,16 +1,15 @@
-// 앱 시작 흐름 — 스플래시 → (처음) 언어 선택 → 소개 3장 → 로그인 → 홈 / (다음부터) 스플래시 → 홈
-// 실제 본인인증은 실서비스 단계(§13). 시연에서는 시연 계정을 골라 로그인한다
+// 앱 시작 흐름 — 스플래시 → (처음) 언어 선택 → 소개 3장 → 가입·로그인 고르기 → 본인 확인 → (가입) 계좌 확인·동의 → 간편 비밀번호 → 홈
+// 로그인한 채로 다시 열면 스플래시 → 홈, 로그아웃 뒤에는 스플래시 → 간편 비밀번호. 실제 본인인증은 실서비스 단계(§13)
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Check, ChevronRight, PiggyBank, Plane, Repeat } from 'lucide-react';
+import { Check, PiggyBank, Plane, Repeat } from 'lucide-react';
 import { policy, type Lang } from '../../domain';
-import { useQuery } from '../../data/context';
-import { displayName } from '../../data/selectors';
+import type { MemberView } from '../../data/repository';
 import { LANGS, setLang, storedLang } from '../../i18n';
-import { Button, List } from '../../ui';
+import { Button } from '../../ui';
 import { pct } from '../shared/Money';
-import { isStudy } from '../shared/study';
+import { device, Found, PinLogin, PinSet, Verify, Welcome, type AuthMode } from './Auth';
 
 const SESSION = 'gongjehoe.session';
 const INTRO_SEEN = 'gongjehoe.introSeen';
@@ -37,11 +36,19 @@ export const session = {
   clear: () => write(SESSION, null),
 };
 
-type Step = 'splash' | 'lang' | 'intro' | 'login';
+type Step = 'splash' | 'lang' | 'intro' | 'welcome' | 'verify' | 'found' | 'pin' | 'pinlogin';
 
 export function AppStart() {
   const nav = useNavigate();
   const [step, setStep] = useState<Step>('splash');
+  const [mode, setMode] = useState<AuthMode>('signup');
+  const [found, setFound] = useState<MemberView | null>(null);
+  // 소개 다음: 이 기기에 등록된 계정이 있으면 간편 비밀번호, 없으면 가입·로그인 고르기
+  const afterIntro = (): Step => (device.get() ? 'pinlogin' : 'welcome');
+  const enter = (memberId: string) => {
+    session.set(memberId);
+    nav(`/w/${memberId}`, { replace: true });
+  };
 
   useEffect(() => {
     if (step !== 'splash') return;
@@ -52,7 +59,7 @@ export function AppStart() {
         if (id) nav(`/w/${id}`, { replace: true });
         else if (!storedLang()) setStep('lang');
         else if (!read(INTRO_SEEN)) setStep('intro');
-        else setStep('login');
+        else setStep(afterIntro());
       },
       reduce ? 300 : 1100,
     );
@@ -63,16 +70,56 @@ export function AppStart() {
     <div className="ui-mobile ui-start">
       {step !== 'splash' && <StartHead />}
       {step === 'splash' && <Splash />}
-      {step === 'lang' && <LangStep onDone={() => setStep(read(INTRO_SEEN) ? 'login' : 'intro')} />}
+      {step === 'lang' && <LangStep onDone={() => setStep(read(INTRO_SEEN) ? afterIntro() : 'intro')} />}
       {step === 'intro' && (
         <Intro
           onDone={() => {
             write(INTRO_SEEN, '1');
-            setStep('login');
+            setStep(afterIntro());
           }}
         />
       )}
-      {step === 'login' && <Login onLogin={(id) => nav(`/w/${id}`, { replace: true })} />}
+      {step === 'welcome' && (
+        <Welcome
+          onPick={(m) => {
+            setMode(m);
+            setStep('verify');
+          }}
+        />
+      )}
+      {step === 'verify' && (
+        <Verify
+          mode={mode}
+          onBack={() => setStep(afterIntro())}
+          onVerified={(v) => {
+            setFound(v);
+            setStep(mode === 'signup' ? 'found' : 'pin');
+          }}
+        />
+      )}
+      {step === 'found' && found && <Found view={found} onNext={() => setStep('pin')} />}
+      {step === 'pin' && found && (
+        <PinSet
+          onDone={(pin) => {
+            device.set(found.member.member_id, pin);
+            enter(found.member.member_id);
+          }}
+        />
+      )}
+      {step === 'pinlogin' && (
+        <PinLogin
+          memberId={device.get()?.memberId ?? ''}
+          onOk={() => enter(device.get()!.memberId)}
+          onForgot={() => {
+            setMode('login');
+            setStep('verify');
+          }}
+          onOther={() => {
+            device.clear();
+            setStep('welcome');
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -171,53 +218,6 @@ function Intro(props: { onDone: () => void }) {
       <Button block onClick={() => (last ? props.onDone() : setI(i + 1))}>
         {last ? t('start.begin') : t('common.next')}
       </Button>
-    </main>
-  );
-}
-
-function Login(props: { onLogin: (memberId: string) => void }) {
-  const { t, i18n } = useTranslation();
-  const q = useQuery((r) => r.listMembers(), []);
-  return (
-    <main className="ui-page ui-page--plain">
-      <div className="ui-intro">
-        <h1 className="ui-title-lg">{t('login.title')}</h1>
-        <p className="ui-sub">{t('login.lead')}</p>
-      </div>
-      <h2 className="ui-section-title">{t('login.accounts')}</h2>
-      <List>
-        {q.status === 'ok' &&
-          q.data.map((v) => (
-            <button
-              key={v.member.member_id}
-              type="button"
-              className="ui-listrow"
-              onClick={() => {
-                session.set(v.member.member_id);
-                props.onLogin(v.member.member_id);
-              }}
-            >
-              <span className="ui-avatar" aria-hidden>
-                {v.person.name_latin.slice(0, 1)}
-              </span>
-              <span className="ui-listrow__body">
-                <span className="ui-listrow__title">{displayName(v, i18n.language)}</span>
-                <span className="ui-listrow__desc">
-                  {t(`country.${v.person.nationality_iso2}`)} · {v.visa.visa_type}
-                </span>
-              </span>
-              <span className="ui-listrow__end">
-                <ChevronRight size={20} aria-hidden />
-              </span>
-            </button>
-          ))}
-      </List>
-      <p className="ui-small">{t('login.note')}</p>
-      {!isStudy() && (
-        <p className="ui-small ui-center">
-          <Link to="/demo">{t('login.demoMenu')}</Link>
-        </p>
-      )}
     </main>
   );
 }
