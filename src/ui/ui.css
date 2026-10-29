@@ -1281,3 +1281,126 @@ a.ui-listrow:hover {
   justify-content: center;
   flex: none;
 }
+
+/* ── iBank 테마(근로자 앱) ─────────────────────────────
+   진보라 상단 바 + 진보라 히어로 카드(원 장식) + 색 아이콘 타일.
+   글자는 흰색 또는 진한 색만 쓰고, 파랑·민트·노랑은 바탕·장식에만 쓴다(대비 기준). */
+.ui-mobile .ui-appbar {
+  background: var(--color-primary);
+  color: #fff;
+}
+.ui-mobile .ui-appbar .ui-iconbtn {
+  color: #fff;
+}
+.ui-mobile .ui-appbar .ui-iconbtn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.ui-mobile .ui-appbar + .ui-page,
+.ui-mobile .ui-appbar ~ .ui-page {
+  border-radius: 28px 28px 0 0;
+  margin-top: -4px;
+  background: var(--color-bg);
+  position: relative;
+  padding-top: var(--space-5);
+}
+.ui-mobile {
+  background: linear-gradient(var(--color-primary) 0 120px, var(--color-bg) 120px);
+}
+
+.ui-card--hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary-strong);
+  color: #fff;
+  box-shadow: 0 16px 32px rgba(15, 8, 70, 0.28);
+  border-radius: 24px;
+}
+.ui-card--hero::before,
+.ui-card--hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ui-card--hero::before {
+  width: 170px;
+  height: 170px;
+  right: -60px;
+  top: -70px;
+  background: var(--brand-blue);
+  opacity: 0.85;
+}
+.ui-card--hero::after {
+  width: 120px;
+  height: 120px;
+  right: 60px;
+  bottom: -80px;
+  background: var(--brand-red);
+  opacity: 0.75;
+}
+.ui-card--hero > * {
+  position: relative;
+  z-index: 1;
+}
+.ui-card--hero .ui-small,
+.ui-card--hero .ui-sub,
+.ui-card--hero .ui-amount__cur {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-strong,
+.ui-card--hero .ui-amount {
+  color: #fff;
+}
+.ui-card--hero .ui-iconbtn {
+  color: #fff;
+}
+.ui-card--hero .ui-iconbtn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.ui-card--hero .ui-ring circle:first-child {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+.ui-card--hero .ui-ring circle:last-child {
+  stroke: var(--brand-amber);
+}
+.ui-card--hero .ui-ring__small {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-part {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+}
+.ui-card--hero .ui-part__label {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-dot--worker {
+  background: var(--brand-lilac);
+}
+
+/* 목록·바로가기 아이콘을 색 타일로(순서대로 보라·파랑·노랑·빨강·민트·주황) */
+.ui-listrow__icon,
+.ui-mobile .ui-card .ui-listrow__icon {
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: #fff;
+}
+.ui-list > :nth-child(6n + 2) .ui-listrow__icon,
+.ui-grid-2 > :nth-child(2) .ui-listrow__icon { background: var(--brand-blue); color: #fff; }
+.ui-list > :nth-child(6n + 3) .ui-listrow__icon { background: var(--brand-amber); color: #3d2700; }
+.ui-list > :nth-child(6n + 4) .ui-listrow__icon { background: var(--brand-red); color: #fff; }
+.ui-list > :nth-child(6n + 5) .ui-listrow__icon { background: var(--brand-mint); color: #0b4d3f; }
+.ui-list > :nth-child(6n + 6) .ui-listrow__icon { background: var(--brand-orange); color: #fff; }
+
+/* 선택된 칩은 채운 보라 */
+.ui-chip[aria-pressed='true'],
+.ui-chip[aria-checked='true'] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.ui-mobile .ui-tabbar {
+  box-shadow: 0 -6px 20px rgba(40, 28, 157, 0.08);
+}
+.ui-mobile .ui-tabbar a[aria-current='page'] {
+  color: var(--color-primary);
+}

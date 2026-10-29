@@ -1,14 +1,17 @@
-/* 디자인 토큰 — KRDS(대한민국 정부 디자인 시스템) 공식 토큰 값.
+/* 디자인 토큰 — 브랜드 색은 iBank 키트(Figma 커뮤니티 「iBank - Banking & E-Money Management App」, Seju, 무료) Style 페이지 색상 스타일 값.
+   Primary #281C9D·#5655B9·#A8A3D7·#F2F1F9, Semantic #FF4267·#0890FE·#FFAF2A·#52D5BA·#FB6B18. 2026-10-29 확인.
+   상태색(성공·주의·위험·정보)과 회색 글자는 대비 기준(WCAG AA) 때문에 KRDS 공식 값을 그대로 쓴다.
+   이하 KRDS 출처: 
    출처: npm krds-uiux@1.1.0(NIA, 2026-01-12) resources/css/token/krds_tokens.css · github.com/KRDS-uiux/krds-uiux, 2026-10-28 확인.
    대응: primary=primary-60, text=gray-90, text-sub=gray-70, bg=gray-5, 상태 글자=각 색 -60, 상태 바탕=각 색 -5 */
 :root {
-  --color-primary: #0b50d0; /* primary-60 */
-  --color-primary-strong: #083891; /* primary-70 */
-  --color-primary-weak: #ecf2fe; /* primary-5 */
+  --color-primary: #281c9d; /* iBank Primary 1 */
+  --color-primary-strong: #1d1473;
+  --color-primary-weak: #f2f1f9; /* iBank Primary 4 */
   --color-text: #1e2124; /* gray-90 */
   --color-text-sub: #464c53; /* gray-70 */
   --color-text-weak: #6d7882; /* gray-50 */
-  --color-bg: #f4f5f6; /* gray-5 */
+  --color-bg: #f5f4fb;
   --color-surface: #ffffff;
   --color-line: #e6e8ea; /* gray-10 */
   --color-success: #228738; /* success-50 */
@@ -23,11 +26,21 @@
   --color-info: #0b78cb; /* information-50 */
   --color-info-weak: #e7f4fe; /* information-5 */
   --color-neutral-weak: #e6e8ea; /* gray-10 */
-  --color-employer: #4f7fd8;
-  --color-dividend: #228738;
+  --color-employer: #0890fe; /* iBank 파랑 — 점·아이콘 바탕 전용(글자 금지) */
+  --color-dividend: #52d5ba; /* iBank 민트 — 점·아이콘 바탕 전용 */
 
-  --radius-card: 16px;
-  --radius-button: 12px;
+  /* iBank 포인트 색(아이콘 타일·장식 전용) */
+  --brand-violet: #5655b9;
+  --brand-lilac: #a8a3d7;
+  --brand-blue: #0890fe;
+  --brand-amber: #ffaf2a;
+  --brand-mint: #52d5ba;
+  --brand-red: #ff4267;
+  --brand-orange: #fb6b18;
+  --brand-on-dark-sub: #d9d6f5; /* 진보라 위 보조 글자(대비 확보) */
+
+  --radius-card: 20px;
+  --radius-button: 14px;
   --radius-chip: 999px;
 
   --space-1: 4px;
@@ -45,7 +58,7 @@
   --font-amount: 36px;
   --line: 1.5;
 
-  --shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+  --shadow: 0 6px 20px rgba(40, 28, 157, 0.07);
   --tabbar-h: 64px;
   --appbar-h: 56px;
   --touch: 48px;
