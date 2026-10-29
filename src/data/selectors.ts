@@ -1,7 +1,7 @@
 // 화면용 파생값 — 모두 도메인 함수로 원장에서 계산(§5.2-1)
 import {
-  balance, clock, hasOpenClaim, maturityProgress, npsApplicable, payStateOf, policy, rateStepFor,
-  type ContributionBill, type PayState,
+  balance, clock, hasOpenClaim, maturityProgress, npsApplicable, npsLumpSumEstimate, payStateOf, policy, rateStepFor, trackFor,
+  type ContributionBill, type NpsLumpSum, type PayState, type Track,
 } from '../domain';
 import type { MemberView } from './repository';
 
@@ -19,6 +19,12 @@ export interface AccountSummary {
   lastWage: number;
   currentEmployer: MemberView['employments'][number] | null;
   nps: boolean;
+  /** BR-23: 공제회(FUND) / 국민연금 안내(NPS) / 판단 보류(UNKNOWN) */
+  track: Track;
+  /** 국민연금 반환일시금 약식(원금) — 월 보수 신고 기준, 기준월까지 */
+  npsEstimate: NpsLumpSum;
+  /** 최근 월 보수(부과가 없는 트랙도 보수 신고로 알 수 있음) */
+  lastReportedWage: number;
   openClaim: MemberView['claims'][number] | null;
   activeAccount: MemberView['bankAccounts'][number] | null;
 }
@@ -45,6 +51,12 @@ export function summarize(v: MemberView): AccountSummary {
     lastWage: latest?.wage_krw ?? 0,
     currentEmployer: v.employments.find((e) => e.end_date === null) ?? v.employments.at(-1) ?? null,
     nps: npsApplicable(v.person.nationality_iso2, policy).applicable,
+    track: trackFor(v.person.nationality_iso2, policy),
+    npsEstimate: npsLumpSumEstimate(
+      { nationality_iso2: v.person.nationality_iso2, wages: v.wageReports.filter((w) => w.ym <= clock.latestPaidYm()).map((w) => ({ ym: w.ym, wage: w.wage_krw })) },
+      policy,
+    ),
+    lastReportedWage: [...v.wageReports].sort((a, c) => (a.ym < c.ym ? -1 : 1)).at(-1)?.wage_krw ?? 0,
     openClaim: hasOpenClaim(v.claims) ? open : null,
     activeAccount: v.bankAccounts.find((a) => a.active) ?? null,
   };

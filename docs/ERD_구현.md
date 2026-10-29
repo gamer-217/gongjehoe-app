@@ -32,10 +32,10 @@ erDiagram
 ## 시연 데이터 행 수(기준일 2026-10-15)
 | 엔티티 | 행 | 비고 |
 |---|---|---|
-| PERSON · MEMBER · VISA_STATUS | 4 · 4 · 4 | |
-| EMPLOYER · EMPLOYMENT | 2 · 5 | Nguyen은 고용 2건(사업장 이동, 공백 1개월) |
-| WAGE_REPORT · CONTRIBUTION_BILL | 176 · 176 | 최저임금 인상률 반영 월 보수 |
-| PAYMENT | 175 | Nguyen 2026-09분 1건 미납(BILL status OVERDUE) |
+| PERSON · MEMBER · VISA_STATUS | 5 · 5 · 5 | W005(베트남)는 국민연금 대상이라 공제회 부과·원장 없음(BR-23) |
+| EMPLOYER · EMPLOYMENT | 2 · 6 | Aung은 고용 2건(사업장 이동, 공백 1개월) |
+| WAGE_REPORT · CONTRIBUTION_BILL | 195 · 176 | 최저임금 인상률 반영 월 보수. 보수 신고 19건은 W005(부과 없음) |
+| PAYMENT | 175 | Aung 2026-09분 1건 미납(BILL status OVERDUE) |
 | LEDGER_ENTRY | 약 360 | 수납된 BILL마다 2건 + 연 배당 |
 | DIVIDEND_DECLARATION · POLICY_VERSION | 6 · 1 | 배당은 시연용 가정 3%. 버전은 현행 제안 요율 하나 |
 | BANK_ACCOUNT · NOMINEE · CONSENT · NOTIFICATION · USER_ACCOUNT | 4 · 2 · 8 · 9 · 6 | |

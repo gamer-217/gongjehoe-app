@@ -8,12 +8,13 @@ test('E-10 대시보드: 재직 4명, 국민연금 적용국만 차액 계산, �
   await fresh(page);
   await page.goto('./#/e');
   await expect(page.getByRole('heading', { name: '한빛정밀(주) 대시보드' })).toBeVisible();
-  await expect(page.getByText('4명', { exact: true })).toBeVisible();
-  await expect(page.getByText('국민연금 적용국 근로자 3명만 계산')).toBeVisible();
-  await expect(page.getByText(/새로 생기는 부담/)).toBeVisible();
+  await expect(page.getByText('5명', { exact: true })).toBeVisible();
+  await expect(page.getByText('2026년 공제회 회사 부담')).toBeVisible();
+  await expect(page.getByText(/국민연금 대상 1명은 지금처럼/)).toBeVisible();
+  await expect(page.getByText('국민연금 대비 올해 차액')).toHaveCount(0);
   await expect(page.getByText(/총무 추가 입력 0/)).toBeVisible();
-  await expect(page.getByText(/2026.09분 미납: Nguyen Van An/)).toBeVisible();
-  await page.getByRole('link', { name: 'Nguyen Van An' }).click();
+  await expect(page.getByText(/2026.09분 미납: Aung Ko Ko/)).toBeVisible();
+  await page.getByRole('link', { name: 'Aung Ko Ko' }).click();
   await expect(page.getByText('이 사업장 근속 6개월 · 공제회 가입 18개월')).toBeVisible();
   await expect(page.getByText('다른 사업장 기간 12개월은 표시하지 않아요.')).toBeVisible();
 });
@@ -26,6 +27,8 @@ test('E-30 납부·E-40 자동 가입', async ({ page }) => {
   await page.goto('./#/e/hire');
   await page.getByRole('radio', { name: '980803-5••••••' }).click();
   await expect(page.getByText(/가입 19개월째부터/)).toBeVisible();
+  await page.getByRole('radio', { name: '971120-5••••••' }).click();
+  await expect(page.getByText('국민연금 대상 근로자예요')).toBeVisible();
 });
 
 test('W-31 신청 → A-20 처리 → 근로자 W-32에 입금 완료', async ({ page }) => {
@@ -41,7 +44,7 @@ test('W-31 신청 → A-20 처리 → 근로자 W-32에 입금 완료', async ({
 
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('./#/a/claims');
-  await expect(page.getByRole('cell', { name: '김해란' })).toBeVisible();
+  await expect(page.getByRole('cell', { name: '김빅토르' })).toBeVisible();
   for (const a of ['출국 확인', '승인', '입금 처리']) await page.getByRole('button', { name: a, exact: true }).click();
   await expect(page.getByText('입금 완료').first()).toBeVisible();
 

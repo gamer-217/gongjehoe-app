@@ -11,27 +11,35 @@
   },
   {
    "person_id": "P002",
-   "name_latin": "Nguyen Van An",
-   "name_native": "Nguyễn Văn An",
-   "nationality_iso2": "VN",
+   "name_latin": "Aung Ko Ko",
+   "name_native": "အောင်ကိုကို",
+   "nationality_iso2": "MM",
    "birth_date": "1998-08-03",
    "rid_masked": "980803-5••••••"
   },
   {
    "person_id": "P003",
-   "name_latin": "Siti Rahma",
-   "name_native": "Siti Rahma",
-   "nationality_iso2": "ID",
+   "name_latin": "Fatema Akter",
+   "name_native": "ফাতেমা আক্তার",
+   "nationality_iso2": "BD",
    "birth_date": "1993-02-17",
    "rid_masked": "930217-6••••••"
   },
   {
    "person_id": "P004",
-   "name_latin": "Kim Hairan",
-   "name_native": "김해란",
-   "nationality_iso2": "CN",
+   "name_latin": "Kim Viktor",
+   "name_native": "김빅토르",
+   "nationality_iso2": "KZ",
    "birth_date": "1986-05-12",
-   "rid_masked": "860512-6••••••"
+   "rid_masked": "860512-5••••••"
+  },
+  {
+   "person_id": "P005",
+   "name_latin": "Nguyen Van An",
+   "name_native": "Nguyễn Văn An",
+   "nationality_iso2": "VN",
+   "birth_date": "1997-11-20",
+   "rid_masked": "971120-5••••••"
   }
  ],
  "visa_statuses": [
@@ -62,6 +70,13 @@
    "visa_type": "H-2",
    "valid_from": "2020-12-01",
    "valid_to": null
+  },
+  {
+   "id": "V-W005",
+   "person_id": "P005",
+   "visa_type": "E-9",
+   "valid_from": "2025-03-01",
+   "valid_to": null
   }
  ],
  "members": [
@@ -77,14 +92,14 @@
    "person_id": "P002",
    "status": "ACTIVE",
    "joined_ym": "2025-03",
-   "lang": "vi"
+   "lang": "en"
   },
   {
    "member_id": "W003",
    "person_id": "P003",
    "status": "ACTIVE",
    "joined_ym": "2022-06",
-   "lang": "id"
+   "lang": "en"
   },
   {
    "member_id": "W004",
@@ -92,6 +107,13 @@
    "status": "ACTIVE",
    "joined_ym": "2020-12",
    "lang": "ko"
+  },
+  {
+   "member_id": "W005",
+   "person_id": "P005",
+   "status": "ACTIVE",
+   "joined_ym": "2025-03",
+   "lang": "vi"
   }
  ],
  "employers": [
@@ -146,6 +168,14 @@
    "member_id": "W004",
    "employer_id": "EMP01",
    "start_date": "2020-12-01",
+   "end_date": null,
+   "end_reason": null
+  },
+  {
+   "employment_id": "W005-E1",
+   "member_id": "W005",
+   "employer_id": "EMP01",
+   "start_date": "2025-03-01",
    "end_date": null,
    "end_reason": null
   }
@@ -1206,6 +1236,120 @@
    "employment_id": "W004-E1",
    "ym": "2026-09",
    "wage_krw": 2800000
+  },
+  {
+   "id": "WR-W005-E1-2025-03",
+   "employment_id": "W005-E1",
+   "ym": "2025-03",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-04",
+   "employment_id": "W005-E1",
+   "ym": "2025-04",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-05",
+   "employment_id": "W005-E1",
+   "ym": "2025-05",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-06",
+   "employment_id": "W005-E1",
+   "ym": "2025-06",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-07",
+   "employment_id": "W005-E1",
+   "ym": "2025-07",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-08",
+   "employment_id": "W005-E1",
+   "ym": "2025-08",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-09",
+   "employment_id": "W005-E1",
+   "ym": "2025-09",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-10",
+   "employment_id": "W005-E1",
+   "ym": "2025-10",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-11",
+   "employment_id": "W005-E1",
+   "ym": "2025-11",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2025-12",
+   "employment_id": "W005-E1",
+   "ym": "2025-12",
+   "wage_krw": 2536660
+  },
+  {
+   "id": "WR-W005-E1-2026-01",
+   "employment_id": "W005-E1",
+   "ym": "2026-01",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-02",
+   "employment_id": "W005-E1",
+   "ym": "2026-02",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-03",
+   "employment_id": "W005-E1",
+   "ym": "2026-03",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-04",
+   "employment_id": "W005-E1",
+   "ym": "2026-04",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-05",
+   "employment_id": "W005-E1",
+   "ym": "2026-05",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-06",
+   "employment_id": "W005-E1",
+   "ym": "2026-06",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-07",
+   "employment_id": "W005-E1",
+   "ym": "2026-07",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-08",
+   "employment_id": "W005-E1",
+   "ym": "2026-08",
+   "wage_krw": 2610000
+  },
+  {
+   "id": "WR-W005-E1-2026-09",
+   "employment_id": "W005-E1",
+   "ym": "2026-09",
+   "wage_krw": 2610000
   }
  ],
  "bills": [
@@ -8613,33 +8757,33 @@
   {
    "id": "BA-W002-1",
    "member_id": "W002",
-   "country_iso2": "VN",
-   "bank_name": "Vietcombank",
+   "country_iso2": "MM",
+   "bank_name": "KBZ Bank",
    "account_masked": "••••••••7754",
-   "holder_name": "NGUYEN VAN AN",
-   "currency": "VND",
+   "holder_name": "AUNG KO KO",
+   "currency": "MMK",
    "verified": true,
    "active": true
   },
   {
    "id": "BA-W003-1",
    "member_id": "W003",
-   "country_iso2": "ID",
-   "bank_name": "Bank Mandiri",
+   "country_iso2": "BD",
+   "bank_name": "Sonali Bank",
    "account_masked": "••••••••5108",
-   "holder_name": "SITI RAHMA",
-   "currency": "IDR",
+   "holder_name": "FATEMA AKTER",
+   "currency": "BDT",
    "verified": true,
    "active": true
   },
   {
    "id": "BA-W004-1",
    "member_id": "W004",
-   "country_iso2": "CN",
-   "bank_name": "中国银行 Bank of China",
+   "country_iso2": "KZ",
+   "bank_name": "Halyk Bank",
    "account_masked": "••••••••8836",
-   "holder_name": "JIN HAILAN",
-   "currency": "CNY",
+   "holder_name": "KIM VIKTOR",
+   "currency": "KZT",
    "verified": true,
    "active": true
   }
@@ -8648,19 +8792,19 @@
   {
    "id": "N-W003-1",
    "member_id": "W003",
-   "name": "Ahmad Fauzi",
+   "name": "Rafiq Islam",
    "relation": "SPOUSE",
    "share_pct": 100,
-   "contact": "+62 ••• •••• 4410",
+   "contact": "+880 ••• •••• 4410",
    "kyc_status": "PENDING"
   },
   {
    "id": "N-W004-1",
    "member_id": "W004",
-   "name": "Jin Min",
+   "name": "Kim Anna",
    "relation": "CHILD",
    "share_pct": 100,
-   "contact": "+86 ••• •••• 2290",
+   "contact": "+7 ••• •••• 2290",
    "kyc_status": "VERIFIED"
   }
  ],
@@ -8719,6 +8863,20 @@
    "member_id": "W004",
    "kind": "PRIVACY",
    "agreed_at": "2020-12-01",
+   "version": "2026.10"
+  },
+  {
+   "id": "CS-W005-T",
+   "member_id": "W005",
+   "kind": "TERMS",
+   "agreed_at": "2025-03-01",
+   "version": "2026.10"
+  },
+  {
+   "id": "CS-W005-P",
+   "member_id": "W005",
+   "kind": "PRIVACY",
+   "agreed_at": "2025-03-01",
    "version": "2026.10"
   }
  ],
@@ -8855,6 +9013,12 @@
    "id": "U-W004",
    "role": "WORKER",
    "member_id": "W004",
+   "employer_id": null
+  },
+  {
+   "id": "U-W005",
+   "role": "WORKER",
+   "member_id": "W005",
    "employer_id": null
   }
  ]

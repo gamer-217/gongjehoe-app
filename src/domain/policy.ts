@@ -55,6 +55,7 @@ export interface Policy {
     foreign_helpline: Param<string>;
     eps_helpline: Param<string>;
     nps_min_years: Param<number>;
+    fund_scope: Param<'nps_excluded_only'>;
   };
   nps: { source: string; countries: Record<string, NpsCountry> };
   coverage: { source: string; items: CoverageRule[] };

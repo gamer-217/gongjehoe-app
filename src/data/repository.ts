@@ -1,7 +1,7 @@
 // 저장소 인터페이스(§7.1) — 백엔드 교체 지점은 여기 하나. MockRepository → 나중에 HttpRepository
 import type {
   Actor, BankAccount, Claim, ClaimAction, ClaimEvent, ContributionBill, Dataset, DividendDeclaration, Employer, Employment,
-  ISODate, LedgerEntry, Member, Nominee, Notification, Payment, Person, PolicyVersion, RejectReason, VisaStatus,
+  ISODate, LedgerEntry, Member, Nominee, Notification, Payment, Person, PolicyVersion, RejectReason, VisaStatus, WageReport,
 } from '../domain';
 
 export interface MemberView {
@@ -9,6 +9,7 @@ export interface MemberView {
   person: Person;
   visa: VisaStatus;
   employments: (Employment & { employer: Employer })[];
+  wageReports: WageReport[];
   bills: ContributionBill[];
   payments: Payment[];
   ledger: LedgerEntry[];

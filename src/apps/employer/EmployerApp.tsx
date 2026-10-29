@@ -4,7 +4,7 @@ import { Link, Route, Routes, useParams } from 'react-router-dom';
 import type { TFunction } from 'i18next';
 import { CheckCircle2 } from 'lucide-react';
 import {
-  balance, clock, employerRateFor, formatDate, formatYM, npsApplicable, npsEmployerRate, policy, payStateOf, rateStepFor, yearOf,
+  balance, clock, employerRateFor, formatDate, formatYM, npsEmployerRate, trackFor, policy, payStateOf, rateStepFor, yearOf,
   type ContributionBill,
 } from '../../domain';
 import { useQuery } from '../../data/context';
@@ -23,7 +23,8 @@ interface Row {
   current: boolean;
   seq: number;
   latest: ContributionBill | undefined;
-  nps: boolean;
+  /** BR-23: 공제회 트랙(국민연금 비적용국)인가 */
+  fund: boolean;
 }
 
 function rowsOf(ev: EmployerView): Row[] {
@@ -32,7 +33,7 @@ function rowsOf(ev: EmployerView): Row[] {
     const bills = v.bills.filter((b) => empIds.has(b.employment_id)).sort((a, b) => (a.ym < b.ym ? -1 : 1));
     const current = v.employments.some((e) => empIds.has(e.employment_id) && e.end_date === null) && v.member.status !== 'CLOSED';
     const all = [...v.bills].sort((a, b) => (a.ym < b.ym ? -1 : 1));
-    return { v, bills, current, seq: all.at(-1)?.member_month_seq ?? 0, latest: bills.at(-1), nps: npsApplicable(v.person.nationality_iso2, policy).applicable };
+    return { v, bills, current, seq: all.at(-1)?.member_month_seq ?? 0, latest: bills.at(-1), fund: trackFor(v.person.nationality_iso2, policy) === 'FUND' };
   });
 }
 
@@ -74,12 +75,11 @@ function Dashboard(props: { ev: EmployerView; t: TFunction }) {
   const year = yearOf(clock.today());
   const thisMonth = active.reduce((s, r) => s + (r.bills.find((b) => b.ym === latestYm)?.employer_amt ?? 0), 0);
 
-  // 올해 차액: 국민연금 적용국 근로자만(§8.3). 비적용국 몫은 '신규 부담'
+  // BR-23(B안): 국민연금 대비 '차액'은 없다. 적용국 근로자는 지금처럼 국민연금, 공제회는 비적용국 근로자의 '신규 부담'만
   const yearBills = (r: Row) => r.bills.filter((b) => yearOf(b.ym) === year);
-  const npsRows = active.filter((r) => r.nps);
-  const newRows = active.filter((r) => !r.nps);
-  const saving = npsRows.reduce((s, r) => s + yearBills(r).reduce((a, b) => a + Math.floor(b.wage_krw * npsEmployerRate(year, policy)) - b.employer_amt, 0), 0);
-  const newCost = newRows.reduce((s, r) => s + yearBills(r).reduce((a, b) => a + b.employer_amt, 0), 0);
+  const fundRows = active.filter((r) => r.fund);
+  const npsRows = active.filter((r) => !r.fund);
+  const newCost = fundRows.reduce((s, r) => s + yearBills(r).reduce((a, b) => a + b.employer_amt, 0), 0);
 
   const years = Array.from({ length: 8 }, (_, i) => 2026 + i);
   const npsLine = years.map((y) => npsEmployerRate(y, policy) * 100);
@@ -105,28 +105,13 @@ function Dashboard(props: { ev: EmployerView; t: TFunction }) {
     <>
       <div className="ui-row ui-row--wrap">
         <h1 className="ui-title-lg">{t('portal.e10.title', { name: ev.employer.name })}</h1>
-        <StatusBadge tone="warning">{t('portal.demoData')}</StatusBadge>
       </div>
       <Banner tone="success">
         <p className="ui-strong">{t('portal.e10.zeroInput')}</p>
       </Banner>
       <div className="ui-kpis">
         <KPI label={t('portal.e10.thisMonth', { ym: formatYM(latestYm) })} value={won(thisMonth)} note={t('portal.e10.thisMonthNote')} />
-        <KPI
-          label={t('portal.e10.saving')}
-          value={won(saving)}
-          note={
-            <>
-              {t('portal.e10.savingNote', { count: npsRows.length })}
-              {newRows.length > 0 && (
-                <>
-                  <br />
-                  {t('portal.e10.newCost', { amount: won(newCost) })} — {t('portal.e10.newCostNote', { count: newRows.length })}
-                </>
-              )}
-            </>
-          }
-        />
+        <KPI label={t('portal.e10.newCostLabel', { year })} value={won(newCost)} note={t('portal.e10.newCostNote', { count: fundRows.length, nps: npsRows.length })} />
         <KPI label={t('portal.e10.headcount')} value={t('portal.e10.headcountValue', { count: active.length })} />
       </div>
       <div className="ui-cols">
@@ -163,10 +148,11 @@ function Dashboard(props: { ev: EmployerView; t: TFunction }) {
         columns={[
           { key: 'name', header: t('portal.e10.colName'), render: (r) => <Link to={`/e/workers/${r.v.member.member_id}`}>{displayName(r.v)}</Link> },
           { key: 'visa', header: t('portal.e10.colVisa'), render: (r) => r.v.visa.visa_type },
-          { key: 'months', header: t('portal.e10.colMonths'), numeric: true, render: (r) => r.seq },
-          { key: 'step', header: t('portal.e10.colStep'), numeric: true, render: (r) => `${pct(employerRateFor(Math.max(r.seq, 1), policy))}% (${rateStepFor(Math.max(r.seq, 1), policy)})` },
-          { key: 'this', header: t('portal.e10.colThis'), numeric: true, render: (r) => won(r.bills.find((b) => b.ym === latestYm)?.employer_amt ?? 0) },
-          { key: 'total', header: t('portal.e10.colTotal'), numeric: true, render: (r) => won(balance(r.v.ledger).total) },
+          { key: 'track', header: t('portal.e10.colTrack'), render: (r) => <StatusBadge tone={r.fund ? 'info' : 'neutral'}>{t(r.fund ? 'portal.e10.trackFund' : 'portal.e10.trackNps')}</StatusBadge> },
+          { key: 'months', header: t('portal.e10.colMonths'), numeric: true, render: (r) => (r.fund ? r.seq : '—') },
+          { key: 'step', header: t('portal.e10.colStep'), numeric: true, render: (r) => (r.fund ? `${pct(employerRateFor(Math.max(r.seq, 1), policy))}% (${rateStepFor(Math.max(r.seq, 1), policy)})` : '—') },
+          { key: 'this', header: t('portal.e10.colThis'), numeric: true, render: (r) => (r.fund ? won(r.bills.find((b) => b.ym === latestYm)?.employer_amt ?? 0) : '—') },
+          { key: 'total', header: t('portal.e10.colTotal'), numeric: true, render: (r) => (r.fund ? won(balance(r.v.ledger).total) : '—') },
         ]}
       />
     </>
@@ -295,7 +281,12 @@ function Hire(props: { ev: EmployerView; t: TFunction }) {
                   <ChipGroup label={t('portal.e40.pick')} value={pick} onChange={setPick} options={members.map((m) => ({ value: m.member.member_id, label: <span className="num">{m.person.rid_masked}</span> }))} />
                 </div>
               </Card>
-              {v && (
+              {v && trackFor(v.person.nationality_iso2, policy) !== 'FUND' && (
+                <Banner tone="info" title={t('portal.e40.npsTitle')}>
+                  <p>{t('portal.e40.npsBody')}</p>
+                </Banner>
+              )}
+              {v && trackFor(v.person.nationality_iso2, policy) === 'FUND' && (
                 <Card>
                   <Timeline
                     label={t('portal.e40.title')}

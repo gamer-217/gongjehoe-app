@@ -158,6 +158,14 @@
       "verified": true,
       "rule": "W-43",
       "source": "국민연금법 제61조 — 노령연금은 가입기간 10년 이상"
+    },
+    "fund_scope": {
+      "value": "nps_excluded_only",
+      "label": "결정",
+      "verified": true,
+      "rule": "BR-23",
+      "source": "정책 결정 B안(2026-10-29): 공제회는 국민연금 적용 제외국 근로자의 적립 트랙. 적용국 근로자는 국민연금 반환일시금을 그대로 받고 앱은 안내·창구 역할. 근거 비교: docs/분석_국민연금비교.md",
+      "note": "국가표(policy/nps_countries.json)에 없는 나라는 판단 보류(UNKNOWN) — 공제회에 넣지 않는다"
     }
   }
 }

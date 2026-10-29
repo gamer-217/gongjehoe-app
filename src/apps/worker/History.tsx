@@ -9,6 +9,7 @@ import { Button, Card, ChipGroup, EmptyState, LineChart, List, ListRow } from '.
 import { Money, pct } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { WAppBar } from './parts';
+import { NpsNotice } from './NpsTrack';
 
 type Item =
   | { kind: 'contrib'; key: string; ym: string; worker: number; employer: number; cum: number; employmentId: string; rate: number; posted: string }
@@ -45,6 +46,13 @@ function buildItems(ledger: LedgerEntry[], billInfo: Map<string, { employmentId:
 }
 
 export function HistoryScreen() {
+  const { t } = useTranslation();
+  const { s } = useMember();
+  if (s.track !== 'FUND') return <NpsNotice title={t('history.title')} />;
+  return <FundHistory />;
+}
+
+function FundHistory() {
   const { t, i18n } = useTranslation();
   const { view, base, hidden } = useMember();
   const [filter, setFilter] = useState<'all' | 'paid' | 'dividend'>('all');

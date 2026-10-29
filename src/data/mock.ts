@@ -90,6 +90,7 @@ export class MockRepository implements Repository {
       person,
       visa,
       employments,
+      wageReports: ds.wage_reports.filter((w) => empIds.has(w.employment_id)),
       bills,
       payments: ds.payments.filter((p) => billIds.has(p.bill_id) && p.paid_at <= today),
       ledger: ds.ledger.filter((e) => e.member_id === memberId && e.posted_at <= today),

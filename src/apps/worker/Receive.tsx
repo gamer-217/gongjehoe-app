@@ -7,10 +7,12 @@ import { BarChart, Card, ChipGroup, Legend, List, ListRow, StatusBadge } from '.
 import { Money, pct, won } from '../shared/Money';
 import { useMember } from './WorkerApp';
 import { WAppBar } from './parts';
+import { NpsReceiveHub, NpsSimulator } from './NpsTrack';
 
 export function ReceiveHub() {
   const { t } = useTranslation();
   const { base, s } = useMember();
+  if (s.track !== 'FUND') return <NpsReceiveHub />;
   return (
     <>
       <WAppBar title={t('receive.title')} />
@@ -34,6 +36,12 @@ export function ReceiveHub() {
 }
 
 export function SimulatorScreen() {
+  const { s } = useMember();
+  if (s.track !== 'FUND') return <NpsSimulator />;
+  return <FundSimulator />;
+}
+
+function FundSimulator() {
   const { t } = useTranslation();
   const { view, s, base } = useMember();
   const chips = horizonChips(s.seq, policy);
