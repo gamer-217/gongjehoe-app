@@ -7,14 +7,7 @@ export default defineConfig({
   base: '/gongjehoe-app/',
   plugins: [
     react(),
-    // 글꼴이 늦게 도착해 글자를 다시 그리지 않도록 font-display: optional(다음 방문부터는 캐시된 글꼴 사용)
-    {
-      name: 'font-display-optional',
-      enforce: 'pre',
-      transform(code, id) {
-        if (/(pretendard|fontsource).*\.css/.test(id)) return code.replace(/font-display:\s*swap/g, 'font-display: optional');
-      },
-    },
+    // 글꼴은 font-display: swap(패키지 기본값). optional이면 첫 방문 때 글꼴이 늦으면 시스템 기본 글꼴로 남아 화면이 투박해 보였다(2026-10-30 수정)
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script-defer',
