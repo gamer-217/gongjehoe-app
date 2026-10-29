@@ -1281,3 +1281,277 @@ a.ui-listrow:hover {
   justify-content: center;
   flex: none;
 }
+
+/* ── iBank 테마(근로자 앱) ─────────────────────────────
+   진보라 상단 바 + 진보라 히어로 카드(원 장식) + 색 아이콘 타일.
+   글자는 흰색 또는 진한 색만 쓰고, 파랑·민트·노랑은 바탕·장식에만 쓴다(대비 기준). */
+.ui-mobile .ui-appbar {
+  background: var(--color-primary);
+  color: #fff;
+}
+.ui-mobile .ui-appbar .ui-iconbtn {
+  color: #fff;
+}
+.ui-mobile .ui-appbar .ui-iconbtn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.ui-mobile .ui-appbar + .ui-page,
+.ui-mobile .ui-appbar ~ .ui-page {
+  border-radius: 28px 28px 0 0;
+  margin-top: -4px;
+  background: var(--color-bg);
+  position: relative;
+  padding-top: var(--space-5);
+}
+.ui-mobile:has(.ui-appbar) {
+  background: linear-gradient(var(--color-primary) 0 120px, var(--color-bg) 120px);
+}
+
+.ui-card--hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-primary-strong);
+  color: #fff;
+  box-shadow: 0 16px 32px rgba(15, 8, 70, 0.28);
+  border-radius: 24px;
+}
+.ui-card--hero::before,
+.ui-card--hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ui-card--hero::before {
+  width: 170px;
+  height: 170px;
+  right: -60px;
+  top: -70px;
+  background: var(--brand-blue);
+  opacity: 0.85;
+}
+.ui-card--hero::after {
+  width: 120px;
+  height: 120px;
+  right: 60px;
+  bottom: -80px;
+  background: var(--brand-red);
+  opacity: 0.75;
+}
+.ui-card--hero > * {
+  position: relative;
+  z-index: 1;
+}
+.ui-card--hero .ui-small,
+.ui-card--hero .ui-sub,
+.ui-card--hero .ui-amount__cur {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-strong,
+.ui-card--hero .ui-amount {
+  color: #fff;
+}
+.ui-card--hero .ui-iconbtn {
+  color: #fff;
+}
+.ui-card--hero .ui-iconbtn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.ui-card--hero .ui-ring circle:first-child {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+.ui-card--hero .ui-ring circle:last-child {
+  stroke: var(--brand-amber);
+}
+.ui-card--hero .ui-ring__small {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-part {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+}
+.ui-card--hero .ui-part__label {
+  color: var(--brand-on-dark-sub);
+}
+.ui-card--hero .ui-dot--worker {
+  background: var(--brand-lilac);
+}
+
+/* 목록·바로가기 아이콘을 색 타일로(순서대로 보라·파랑·노랑·빨강·민트·주황) */
+.ui-listrow__icon,
+.ui-mobile .ui-card .ui-listrow__icon {
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: #fff;
+}
+.ui-list > :nth-child(6n + 2) .ui-listrow__icon,
+.ui-grid-2 > :nth-child(2) .ui-listrow__icon { background: var(--brand-blue); color: #fff; }
+.ui-list > :nth-child(6n + 3) .ui-listrow__icon { background: var(--brand-amber); color: #3d2700; }
+.ui-list > :nth-child(6n + 4) .ui-listrow__icon { background: var(--brand-red); color: #fff; }
+.ui-list > :nth-child(6n + 5) .ui-listrow__icon { background: var(--brand-mint); color: #0b4d3f; }
+.ui-list > :nth-child(6n + 6) .ui-listrow__icon { background: var(--brand-orange); color: #fff; }
+
+/* 선택된 칩은 채운 보라 */
+.ui-chip[aria-pressed='true'],
+.ui-chip[aria-checked='true'] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.ui-mobile .ui-tabbar {
+  box-shadow: 0 -6px 20px rgba(40, 28, 157, 0.08);
+}
+.ui-mobile .ui-tabbar a[aria-current='page'] {
+  color: var(--color-primary);
+}
+
+/* ── 대문(스플래시·언어·소개·로그인) iBank 스타일 ───────────
+   진보라 바탕에 원 장식, 그 위로 둥근 흰 시트가 올라오고 아이콘 배지가 시트 경계에 걸친다. */
+.ui-start {
+  position: relative;
+  overflow: hidden;
+  min-height: 100dvh;
+  background: var(--color-primary);
+}
+.ui-start::before,
+.ui-start::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.ui-start::before {
+  width: 260px;
+  height: 260px;
+  right: -90px;
+  top: -110px;
+  background: var(--brand-violet);
+  opacity: 0.7;
+}
+.ui-start::after {
+  width: 110px;
+  height: 110px;
+  left: -36px;
+  top: 40px;
+  background: var(--brand-blue);
+  opacity: 0.45;
+}
+.ui-start > main {
+  position: relative;
+  z-index: 1;
+}
+.ui-start .ui-splash {
+  background: transparent;
+}
+.ui-start .ui-splash::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: -60px;
+  bottom: -70px;
+  border-radius: 50%;
+  background: var(--brand-red);
+  opacity: 0.55;
+}
+.ui-start .ui-splash .ui-splash__mark {
+  width: 104px;
+  height: 104px;
+  border-radius: 32px;
+  box-shadow: 0 18px 36px rgba(10, 4, 60, 0.35);
+}
+.ui-start > main.ui-page {
+  margin-top: 132px;
+  min-height: calc(100dvh - 132px);
+  background: #fff;
+  border-radius: 32px 32px 0 0;
+  padding-top: var(--space-5);
+}
+.ui-start .ui-intro {
+  padding-top: 0;
+}
+.ui-start .ui-intro .ui-splash__mark {
+  width: 88px;
+  height: 88px;
+  border-radius: 28px;
+  margin-top: -76px;
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: 0 14px 30px rgba(15, 8, 70, 0.22);
+}
+
+/* 언어 버튼 */
+.ui-start .ui-langbtn {
+  border-radius: 16px;
+  border-color: #ecebf5;
+  box-shadow: 0 4px 14px rgba(40, 28, 157, 0.05);
+}
+.ui-start .ui-langbtn[aria-checked='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-weak);
+}
+
+/* 소개 슬라이드: 큰 색 타일 + 주변 점 장식, 장마다 색이 다르다 */
+.ui-start .ui-slide .ui-splash__mark {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  border-radius: 48px;
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 22px 44px rgba(40, 28, 157, 0.28);
+}
+.ui-start .ui-slide .ui-splash__mark svg {
+  width: 72px;
+  height: 72px;
+}
+.ui-start .ui-slide .ui-splash__mark::before,
+.ui-start .ui-slide .ui-splash__mark::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+.ui-start .ui-slide .ui-splash__mark::before {
+  width: 22px;
+  height: 22px;
+  left: -34px;
+  top: 18px;
+  background: var(--brand-amber);
+}
+.ui-start .ui-slide .ui-splash__mark::after {
+  width: 34px;
+  height: 34px;
+  right: -40px;
+  bottom: 10px;
+  background: var(--brand-red);
+}
+.ui-start .ui-slide:has(.lucide-repeat) .ui-splash__mark {
+  background: var(--brand-blue);
+  box-shadow: 0 22px 44px rgba(8, 144, 254, 0.3);
+}
+.ui-start .ui-slide:has(.lucide-repeat) .ui-splash__mark::before {
+  background: var(--brand-mint);
+}
+.ui-start .ui-slide:has(.lucide-plane) .ui-splash__mark {
+  background: var(--brand-amber);
+  color: #3d2700;
+  box-shadow: 0 22px 44px rgba(255, 175, 42, 0.35);
+}
+.ui-start .ui-slide:has(.lucide-plane) .ui-splash__mark::after {
+  background: var(--color-primary);
+}
+.ui-start .ui-dots span.ui-dots__on {
+  background: var(--color-primary);
+}
+
+/* 로그인 아바타: 사람마다 색 */
+.ui-start .ui-list > :nth-child(5n + 1) .ui-avatar { background: var(--color-primary); color: #fff; }
+.ui-start .ui-list > :nth-child(5n + 2) .ui-avatar { background: var(--brand-blue); color: #fff; }
+.ui-start .ui-list > :nth-child(5n + 3) .ui-avatar { background: var(--brand-amber); color: #3d2700; }
+.ui-start .ui-list > :nth-child(5n + 4) .ui-avatar { background: var(--brand-red); color: #fff; }
+.ui-start .ui-list > :nth-child(5n + 5) .ui-avatar { background: var(--brand-mint); color: #0b4d3f; }
+.ui-start .ui-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
