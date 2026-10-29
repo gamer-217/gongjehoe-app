@@ -32,7 +32,7 @@ export function StudyEnd() {
           >
             기록 지우기
           </Button>
-          <Link to="/">런처로</Link>
+          <Link to="/demo">런처로</Link>
         </div>
       </Card>
     </div>

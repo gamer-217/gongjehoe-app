@@ -17,6 +17,10 @@ body {
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
+html[lang='ko'] body {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
 html[lang='ne'] body {
   font-family: var(--font-family-deva);
   line-height: 1.7;

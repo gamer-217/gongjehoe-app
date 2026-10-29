@@ -36,7 +36,7 @@ export function DemoChip(props: { memberId: string; toast: (m: string) => void }
       </button>
       {open && (
         <div className="ui-demo-menu" role="menu">
-          <Link role="menuitem" to="/">
+          <Link role="menuitem" to="/demo">
             {t('demo.launcher')}
           </Link>
           <button role="menuitem" type="button" onClick={next}>

@@ -1184,3 +1184,100 @@ a.ui-listrow:hover {
   color: inherit;
   text-decoration: underline;
 }
+
+/* 앱 시작(스플래시·소개·로그인) */
+.ui-start {
+  display: flex;
+  flex-direction: column;
+}
+.ui-splash {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  background: var(--color-primary);
+  color: #fff;
+  animation: ui-fade 400ms ease-out;
+}
+.ui-splash__mark {
+  width: 88px;
+  height: 88px;
+  border-radius: 24px;
+  background: var(--color-primary-weak);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.ui-splash .ui-splash__mark {
+  background: #fff;
+}
+.ui-splash__mark--sm {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+}
+.ui-splash__name {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.ui-splash__tag {
+  font-size: var(--font-body);
+  opacity: 0.92;
+  max-width: 22em;
+  text-wrap: balance;
+}
+.ui-onboard {
+  min-height: 100dvh;
+}
+.ui-slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+}
+.ui-slide .ui-title-lg {
+  text-wrap: balance;
+}
+.ui-slide .ui-sub {
+  max-width: 22em;
+}
+.ui-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.ui-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--color-line);
+  transition: width var(--motion);
+}
+.ui-dots span.ui-dots__on {
+  width: 24px;
+  background: var(--color-primary);
+}
+.ui-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary-weak);
+  color: var(--color-primary-strong);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}

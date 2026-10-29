@@ -282,7 +282,8 @@
     "coverage": "Bản đồ bảo hiểm",
     "coverageDesc": "Xem nhanh 4 loại bảo hiểm, bảo hiểm riêng và Quỹ",
     "language": "Ngôn ngữ",
-    "help": "Trợ giúp · Gọi tư vấn"
+    "help": "Trợ giúp · Gọi tư vấn",
+    "logout": "Đăng xuất"
   },
   "country": {
     "NP": "Nepal",
@@ -524,5 +525,23 @@
     "notFundBody": "Lao động từ nước tham gia Hưu trí Quốc gia sẽ nhận lại tiền Hưu trí Quốc gia 1 lần, thay vì Quỹ.",
     "simTitle": "Hưu trí Quốc gia khi về nước",
     "simNote": "Ví dụ giả định lương không đổi."
+  },
+  "start": {
+    "progress": "{{n}}/{{total}}",
+    "skip": "Bỏ qua",
+    "begin": "Bắt đầu",
+    "intro1Title": "Làm bao nhiêu, tích lũy bấy nhiêu",
+    "intro1Body": "Bạn góp {{worker}}% lương, công ty góp thêm {{employer}} vào tài khoản của bạn.",
+    "intro2Title": "Đổi công ty vẫn tiếp tục",
+    "intro2Body": "Tiền công ty góp cũng là tiền của bạn. Đổi nơi làm việc, tài khoản và thời gian tham gia vẫn giữ nguyên.",
+    "intro3Title": "Về nước nhận tiền ngay trên ứng dụng",
+    "intro3Body": "Xin nhận tiền trên ứng dụng, không cần giấy tờ. Sau khi xác nhận xuất cảnh, tiền được chuyển về tài khoản ở quê nhà."
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "lead": "Chọn một tài khoản demo để vào.",
+    "accounts": "Tài khoản demo",
+    "note": "Khi dùng thật, bạn đăng nhập bằng số đăng ký người nước ngoài và xác minh danh tính.",
+    "demoMenu": "Menu nghiên cứu và demo"
   }
 }

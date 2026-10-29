@@ -1,6 +1,8 @@
 // W-40 내 정보
 import { useTranslation } from 'react-i18next';
-import { CircleHelp, Globe, Landmark, ShieldCheck, Users } from 'lucide-react';
+import { CircleHelp, Globe, Landmark, LogOut, ShieldCheck, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { session } from './Start';
 import { formatYM } from '../../domain';
 import { displayName, employerName } from '../../data/selectors';
 import { LANGS } from '../../i18n';
@@ -11,6 +13,7 @@ import { WAppBar } from './parts';
 export function MeScreen() {
   const { t, i18n } = useTranslation();
   const { view, s, base } = useMember();
+  const nav = useNavigate();
   const st = view.member.status;
   return (
     <>
@@ -51,6 +54,14 @@ export function MeScreen() {
           <ListRow to={`${base}/me/coverage`} icon={<ShieldCheck size={22} aria-hidden />} title={t('me.coverage')} desc={t('me.coverageDesc')} chevron />
           <ListRow to={`${base}/me/language`} icon={<Globe size={22} aria-hidden />} title={t('me.language')} desc={LANGS.find((l) => l.code === i18n.language)?.native} chevron />
           <ListRow to={`${base}/me/help`} icon={<CircleHelp size={22} aria-hidden />} title={t('me.help')} chevron />
+          <ListRow
+            icon={<LogOut size={22} aria-hidden />}
+            title={t('me.logout')}
+            onClick={() => {
+              session.clear();
+              nav('/', { replace: true });
+            }}
+          />
         </List>
       </div>
     </>

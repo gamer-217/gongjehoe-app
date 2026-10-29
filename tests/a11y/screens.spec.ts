@@ -28,6 +28,7 @@ const submitClaim: Step = async (p) => {
 };
 
 export const WORKER: { name: string; route: string; step?: Step }[] = [
+  { name: 'start-intro', route: '/', step: async (p) => { await p.waitForTimeout(1300); } },
   { name: 'w01-language', route: '/w/W001/start' },
   { name: 'w10-home', route: '/w/W001' },
   { name: 'w10-home-siti', route: '/w/W003' },
@@ -74,7 +75,7 @@ const details: { lang: string; screen: string; id: string; impact: string | null
 const screens: Record<string, Record<string, { overflow: boolean; hangul: number }>> = {};
 
 async function prepare(page: Page, lang: string, portalLang = 'ko') {
-  await page.goto('./');
+  await page.goto('./#/demo');
   await page.evaluate(
     ([l, pl]) => {
       localStorage.clear();
