@@ -3,20 +3,20 @@
   "runsPerUrl": 3,
   "urls": {
     "/gongjehoe-app/#/w/W001": {
-      "performance": 88,
+      "performance": 93,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 90,
-      "lcp_ms": 3327,
-      "fcp_ms": 1733
+      "lcp_ms": 2720,
+      "fcp_ms": 1700
     },
     "/gongjehoe-app/#/w/W001/receive/apply": {
-      "performance": 94,
+      "performance": 97,
       "accessibility": 100,
       "best-practices": 100,
       "seo": 90,
-      "lcp_ms": 2930,
-      "fcp_ms": 1718
+      "lcp_ms": 2422,
+      "fcp_ms": 1720
     }
   }
 }
