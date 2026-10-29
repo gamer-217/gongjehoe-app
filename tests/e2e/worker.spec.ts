@@ -157,10 +157,8 @@ test('BR-23 국민연금 적용국 근로자(W005 베트남)는 공제회 대신
 });
 
 test('앱 시작: 스플래시 → 언어 → 소개 → 로그인 → 홈, 다시 열면 바로 홈', async ({ page }) => {
-  await page.goto('./#/demo');
-  await page.evaluate(() => localStorage.clear());
-  await page.goto('./#/');
-  await page.reload();
+  // 테스트마다 새 브라우저 저장소 → 첫 실행 상태. 해시 이동 대신 실제 로드로 연다
+  await page.goto('./');
   await page.getByRole('radio', { name: '한국어' }).click();
   await page.getByRole('button', { name: '다음', exact: true }).click();
   await expect(page.getByRole('heading', { name: '일한 만큼 내 계좌에 쌓여요' })).toBeVisible();
@@ -168,8 +166,7 @@ test('앱 시작: 스플래시 → 언어 → 소개 → 로그인 → 홈, 다�
   await expect(page.getByRole('heading', { name: '로그인' })).toBeVisible();
   await page.getByRole('button', { name: /Ramesh Gurung/ }).click();
   await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
-  await page.goto('./#/');
-  await page.reload();
+  await page.goto('./?reopen=1');
   await expect(page).toHaveURL(/#\/w\/W001$/);
   await page.goto('./#/w/W001/me');
   await page.getByRole('button', { name: '로그아웃' }).click();
