@@ -27,9 +27,44 @@ const submitClaim: Step = async (p) => {
   await p.waitForTimeout(200);
 };
 
+// 앱 가입 흐름(소개를 본 상태에서 시작)
+const toWelcome: Step = async (p) => {
+  await p.evaluate(() => localStorage.setItem('gongjehoe.introSeen', '1'));
+  await p.reload();
+  await p.waitForTimeout(1300);
+};
+const signupTo = (n: 1 | 2 | 3 | 4): Step => async (p) => {
+  await toWelcome(p);
+  await primary(p).click();
+  if (n === 1) return;
+  await p.locator('#rid').fill('900101-5');
+  await p.locator('#phone').fill('010-1234-5678');
+  await primary(p).click();
+  if (n === 2) return;
+  await p.locator('#code').fill('246810');
+  await primary(p).click();
+  if (n === 3) return;
+  await p.getByRole('checkbox').first().check();
+  await primary(p).click();
+};
+const pinLogin: Step = async (p) => {
+  await p.evaluate(() => {
+    localStorage.setItem('gongjehoe.introSeen', '1');
+    localStorage.setItem('gongjehoe.device', JSON.stringify({ memberId: 'W001', pin: '135790' }));
+  });
+  await p.reload();
+  await p.waitForTimeout(1300);
+};
+
 export const WORKER: { name: string; route: string; step?: Step }[] = [
   { name: 'start-intro', route: '/', step: async (p) => { await p.waitForTimeout(1300); } },
   { name: 'w01-language', route: '/', step: async (p) => { await p.evaluate(() => localStorage.removeItem('gongjehoe.lang')); await p.reload(); await p.waitForTimeout(1300); } },
+  { name: 'w02-welcome', route: '/', step: toWelcome },
+  { name: 'w03-verify', route: '/', step: signupTo(1) },
+  { name: 'w03-verify-code', route: '/', step: signupTo(2) },
+  { name: 'w04-found', route: '/', step: signupTo(3) },
+  { name: 'w05-pin-set', route: '/', step: signupTo(4) },
+  { name: 'w06-pin-login', route: '/', step: pinLogin },
   { name: 'w10-home', route: '/w/W001' },
   { name: 'w10-home-siti', route: '/w/W003' },
   { name: 'w10-home-kim', route: '/w/W004' },

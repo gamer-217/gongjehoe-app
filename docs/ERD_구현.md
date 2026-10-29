@@ -56,4 +56,4 @@ erDiagram
 | BILL–PAYMENT 1:0..1 | 설계서는 1:N | 부분 납부는 범위 밖(§5.2-7) |
 | POLICY_VERSION.params | 근로자 요율·사업주 단계만 | 부과 계산에 쓰는 값만 버전 관리. 나머지 제도 수치는 policy/*.json |
 | DEATH·CONVERSION 신청 | 타입·전이표만 | 화면은 이번 범위 밖(§6.2) |
-| USER_ACCOUNT | 데이터만, 로그인 없음 | 실제 인증은 실서비스 단계(§13) |
+| USER_ACCOUNT | 앱 가입(모의): 외국인등록번호 앞 7자리로 PERSON.rid_masked와 맞춰 MEMBER를 찾고, 이 기기에 계정·간편 비밀번호를 둔다(브라우저 저장소 `gongjehoe.device`) | 실제 본인인증·기기 등록·비밀번호 서버 저장은 실서비스 단계(§13) |

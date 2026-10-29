@@ -3,7 +3,7 @@
     "mobile": 390,
     "desktop": 1280
   },
-  "screensChecked": 158,
+  "screensChecked": 188,
   "overflowScreens": 0,
   "hangulCharsInNonKo": 0,
   "byLang": {
@@ -109,6 +109,30 @@
         "hangul": 0
       },
       "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w02-welcome": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify-code": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w04-found": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w05-pin-set": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w06-pin-login": {
         "overflow": false,
         "hangul": 0
       },
@@ -226,6 +250,30 @@
         "overflow": false,
         "hangul": 0
       },
+      "w02-welcome": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify-code": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w04-found": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w05-pin-set": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w06-pin-login": {
+        "overflow": false,
+        "hangul": 0
+      },
       "w10-home-kim": {
         "overflow": false,
         "hangul": 0
@@ -337,6 +385,30 @@
         "hangul": 0
       },
       "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w02-welcome": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify-code": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w04-found": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w05-pin-set": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w06-pin-login": {
         "overflow": false,
         "hangul": 0
       },
@@ -454,6 +526,30 @@
         "overflow": false,
         "hangul": 0
       },
+      "w02-welcome": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify-code": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w04-found": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w05-pin-set": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w06-pin-login": {
+        "overflow": false,
+        "hangul": 0
+      },
       "w10-home-kim": {
         "overflow": false,
         "hangul": 0
@@ -565,6 +661,30 @@
         "hangul": 0
       },
       "w01-language": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w02-welcome": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify-code": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w03-verify": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w04-found": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w05-pin-set": {
+        "overflow": false,
+        "hangul": 0
+      },
+      "w06-pin-login": {
         "overflow": false,
         "hangul": 0
       },

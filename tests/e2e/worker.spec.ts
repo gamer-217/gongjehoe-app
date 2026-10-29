@@ -2,18 +2,28 @@
 import { expect, test } from '@playwright/test';
 import data from '../../fixtures/demo.json' with { type: 'json' };
 import { balance, policy, project, type Dataset } from '../../src/domain';
-import { fresh, won } from './helpers';
+import { fresh, pin, won } from './helpers';
 
 const ds = data as unknown as Dataset;
 const totalOf = (m: string) => balance(ds.ledger.filter((e) => e.member_id === m)).total;
 
 test('T1 내 언어(베트남어)로 바꾸고 총 적립액 확인', async ({ page }) => {
-  // 첫 실행: 언어 선택 → 소개 건너뛰기 → 로그인(Aung) → 홈
+  // 첫 실행: 언어 선택 → 소개 건너뛰기 → 앱 가입(Aung, 본인 확인·동의·간편 비밀번호) → 홈
   await page.goto('./');
   await page.getByRole('radio', { name: 'Tiếng Việt' }).click();
   await page.locator('main .ui-btn--primary').click();
   await page.getByRole('button', { name: 'Bỏ qua' }).click();
-  await page.getByRole('button', { name: /Aung Ko Ko/ }).click();
+  await page.getByRole('button', { name: /Đăng ký/ }).click();
+  await page.getByLabel('7 chữ số đầu của số đăng ký').fill('980803-5');
+  await page.getByLabel('Số điện thoại di động').fill('01012345678');
+  await page.getByRole('button', { name: 'Nhận mã' }).click();
+  await page.getByLabel('Mã 6 chữ số').fill('246810');
+  await page.getByRole('button', { name: 'Xác nhận' }).click();
+  await expect(page.getByText('Aung Ko Ko')).toBeVisible();
+  await page.getByText('Tôi đồng ý tất cả').click();
+  await page.locator('main .ui-btn--primary').click();
+  await pin(page, '135790');
+  await pin(page, '135790');
   await expect(page.locator('html')).toHaveAttribute('lang', 'vi');
   await expect(page.getByText(new RegExp(won(totalOf('W002')))).first()).toBeVisible();
 });
@@ -158,19 +168,55 @@ test('BR-23 국민연금 적용국 근로자(W005 베트남)는 공제회 대신
   await expect(page.getByText('해당 없음 · 국민연금을 그대로 받아요')).toBeVisible();
 });
 
-test('앱 시작: 스플래시 → 언어 → 소개 → 로그인 → 홈, 다시 열면 바로 홈', async ({ page }) => {
+test('앱 시작: 언어 → 소개 → 앱 가입(본인 확인·동의·간편 비밀번호) → 홈, 다시 열면 바로 홈, 로그아웃 뒤 간편 비밀번호', async ({ page }) => {
   // 테스트마다 새 브라우저 저장소 → 첫 실행 상태. 해시 이동 대신 실제 로드로 연다
   await page.goto('./');
   await page.getByRole('radio', { name: '한국어' }).click();
   await page.getByRole('button', { name: '다음', exact: true }).click();
   await expect(page.getByRole('heading', { name: '일한 만큼 내 계좌에 쌓여요' })).toBeVisible();
   await page.getByRole('button', { name: '건너뛰기' }).click();
-  await expect(page.getByRole('heading', { name: '로그인' })).toBeVisible();
-  await page.getByRole('button', { name: /Ramesh Gurung/ }).click();
+  await page.getByRole('button', { name: /앱 가입하기/ }).click();
+  // 형식 오류 → 없는 번호 → 맞는 번호(하이픈·띄어쓰기 허용)
+  await page.getByRole('button', { name: '인증번호 받기' }).click();
+  await expect(page.getByText('숫자 7자리를 넣어 주세요.')).toBeVisible();
+  await page.getByLabel('외국인등록번호 앞 7자리').fill('000000-0');
+  await page.getByLabel('휴대폰 번호').fill('010-1234-5678');
+  await page.getByRole('button', { name: '인증번호 받기' }).click();
+  await page.getByLabel('인증번호 6자리').fill('246810');
+  await page.getByRole('button', { name: '확인', exact: true }).click();
+  await expect(page.getByText(/가입된 계좌를 찾지 못했어요/)).toBeVisible();
+  await page.getByLabel('외국인등록번호 앞 7자리').fill('900101 5');
+  await page.getByRole('button', { name: '인증번호 받기' }).click();
+  await page.getByLabel('인증번호 6자리').fill('111111');
+  await page.getByRole('button', { name: '확인', exact: true }).click();
+  await expect(page.getByText('인증번호가 맞지 않아요.')).toBeVisible();
+  await page.getByLabel('인증번호 6자리').fill('246810');
+  await page.getByRole('button', { name: '확인', exact: true }).click();
+  await expect(page.getByRole('heading', { name: '내 계좌를 찾았어요' })).toBeVisible();
+  await expect(page.getByText('Ramesh Gurung')).toBeVisible();
+  const next = page.getByRole('button', { name: '다음', exact: true });
+  await expect(next).toBeDisabled();
+  await page.getByText('모두 동의해요').click();
+  await next.click();
+  // 쉬운 번호 거절 → 확인 불일치 → 정상
+  await pin(page, '111111');
+  await expect(page.getByText(/너무 쉬운 번호예요/)).toBeVisible();
+  await pin(page, '135790');
+  await expect(page.getByRole('heading', { name: '한 번 더 눌러 주세요' })).toBeVisible();
+  await pin(page, '135791');
+  await expect(page.getByText(/두 번호가 달라요/)).toBeVisible();
+  await pin(page, '135790');
+  await pin(page, '135790');
   await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
+  // 로그인한 채로 다시 열면 바로 홈
   await page.goto('./?reopen=1');
   await expect(page).toHaveURL(/#\/w\/W001$/);
+  // 로그아웃 → 간편 비밀번호(틀리면 다시)
   await page.goto('./#/w/W001/me');
   await page.getByRole('button', { name: '로그아웃' }).click();
-  await expect(page.getByRole('heading', { name: '로그인' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Ramesh Gurung 님, 반가워요' })).toBeVisible();
+  await pin(page, '000000');
+  await expect(page.getByText('비밀번호가 맞지 않아요. 다시 눌러 주세요.')).toBeVisible();
+  await pin(page, '135790');
+  await expect(page.getByRole('heading', { name: '2026.09분 납입' })).toBeVisible();
 });

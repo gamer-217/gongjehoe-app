@@ -12,3 +12,9 @@ export async function fresh(page: Page, lang = 'ko') {
 }
 
 export const won = (n: number) => n.toLocaleString('en-US');
+
+/** 간편 비밀번호 키패드로 6자리를 누른다 */
+export async function pin(page: Page, digits: string) {
+  for (const d of digits) await page.locator('.ui-pin__pad').getByRole('button', { name: d, exact: true }).click();
+  await page.waitForTimeout(300);
+}

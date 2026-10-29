@@ -1,6 +1,6 @@
 {
-  "total": 136,
-  "passed": 136,
+  "total": 140,
+  "passed": 140,
   "failed": 0,
   "rules": {
     "§5.2": {
@@ -124,8 +124,8 @@
       "failed": 0
     },
     "기타": {
-      "cases": 4,
-      "passed": 4,
+      "cases": 8,
+      "passed": 8,
       "failed": 0
     }
   }

@@ -40,3 +40,13 @@ void i18nReady.finally(() =>
 );
 
 void import('./fonts');
+
+// 새 버전이 배포돼 서비스 워커가 바뀌면 한 번 새로고침한다(옛 화면이 남아 '링크가 다르게 열리는' 문제)
+if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
+}

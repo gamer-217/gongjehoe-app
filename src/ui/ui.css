@@ -1625,3 +1625,76 @@ a.ui-listrow:hover {
   right: 150px;
   top: -64px;
 }
+
+/* ── 앱 가입·로그인(본인 확인·간편 비밀번호) ───────────── */
+.ui-auth-actions {
+  margin-top: auto;
+}
+.ui-auth-demo {
+  font-size: var(--font-sub);
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--space-3);
+}
+.ui-auth-demo summary {
+  cursor: pointer;
+  min-height: var(--touch);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+.ui-auth-demo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+.ui-auth-agree {
+  gap: 0;
+}
+.ui-auth-agree .ui-check:first-child {
+  border-bottom: 1px solid var(--color-line);
+}
+.ui-pin__dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: var(--space-4) 0 var(--space-2);
+}
+.ui-pin__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+}
+.ui-pin__dot--on {
+  background: var(--color-primary);
+}
+.ui-pin__error {
+  min-height: 1.5em;
+}
+.ui-pin__pad {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+.ui-pin__key {
+  min-height: 60px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 26px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ui-pin__key:active {
+  background: var(--color-primary-weak);
+}
+.ui-pin__links {
+  padding-top: var(--space-2);
+}
