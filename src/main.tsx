@@ -42,11 +42,16 @@ void i18nReady.finally(() =>
 void import('./fonts');
 
 // 새 버전이 배포돼 서비스 워커가 바뀌면 한 번 새로고침한다(옛 화면이 남아 '링크가 다르게 열리는' 문제)
-if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-  let reloaded = false;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (reloaded) return;
-    reloaded = true;
-    location.reload();
-  });
+// 미리보기 창(샌드박스)에서는 serviceWorker를 읽기만 해도 오류가 나서 감싼다
+try {
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloaded) return;
+      reloaded = true;
+      location.reload();
+    });
+  }
+} catch {
+  // 서비스 워커를 쓸 수 없는 환경
 }
