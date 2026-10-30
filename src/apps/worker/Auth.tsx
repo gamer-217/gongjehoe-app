@@ -115,10 +115,11 @@ export function Verify(props: { mode: AuthMode; onBack: () => void; onVerified: 
         <h1 className="ui-title-lg">{props.mode === 'signup' ? t('auth.verifyTitleSignup') : t('auth.verifyTitleLogin')}</h1>
         <p className="ui-sub">{t('auth.verifyLead')}</p>
       </div>
-      <form
+      {/* form 제출은 쓰지 않는다: 미리보기 창(샌드박스)에서는 제출이 막혀 버튼이 먹지 않았다. 버튼 클릭과 Enter 키로 직접 처리 */}
+      <div
         className="ui-stack"
-        noValidate
-        onSubmit={(e) => {
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter' || !(e.target instanceof HTMLInputElement)) return;
           e.preventDefault();
           if (sent) confirm();
           else send();
@@ -143,7 +144,7 @@ export function Verify(props: { mode: AuthMode; onBack: () => void; onVerified: 
           </p>
         )}
         {!sent && (
-          <Button block type="submit">
+          <Button block onClick={send}>
             {t('auth.sendCode')}
           </Button>
         )}
@@ -160,7 +161,7 @@ export function Verify(props: { mode: AuthMode; onBack: () => void; onVerified: 
               </span>
               {codeTried && code.replace(/\s/g, '') !== DEMO_CODE && <span className="ui-field__error">{t('auth.codeErr')}</span>}
             </div>
-            <Button block type="submit">
+            <Button block onClick={confirm}>
               {t('auth.verify')}
             </Button>
             <button
@@ -176,7 +177,7 @@ export function Verify(props: { mode: AuthMode; onBack: () => void; onVerified: 
             </button>
           </>
         )}
-      </form>
+      </div>
       <details className="ui-auth-demo">
         <summary>{t('auth.demoIds')}</summary>
         <ul>
